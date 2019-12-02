@@ -1,0 +1,495 @@
+openapi: '3.0.2'
+servers:
+  - url: http://localhost:8000
+info:
+  description: RESTful API of DOSA管理システム
+  version: v1
+  title: DOSA管理API
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: DosaAdmin
+    description: DOSA管理API
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+  responses:
+    UnauthorizedError:
+      description: API key is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+    BadRequestError:
+      description: invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        messages:
+          type: string
+      required:
+        - messages
+    Participant:
+      type: object
+      properties:
+        participant_id:
+          type: integer
+          format: int32
+          description: 測定者ID
+        name:
+          type: string
+          example: 測定 太郎
+          description: 氏名
+        name_kane:
+          type: string
+          example: ソクテイ タロウ
+          description: 氏名（カナ）
+        sex:
+          type: integer
+          enum:
+            - 1
+            - 2
+          description: 性別
+        birthday:
+          type: string
+          format: date
+          description: 生年月日
+        mail_address:
+          type: string
+          format: email
+          description: メールアドレス
+      required:
+        - participant_id
+        - name
+        - name_kana
+        - sex
+        - birthday
+        - mail_address
+      description: 測定者
+    ParticipantMeasurementMeet:
+      type: object
+      properties:
+        participant_id:
+          type: integer
+          format: int32
+          description: 測定者ID
+        meet_id:
+          type: integer
+          example: 868064
+          description: 測定会ID
+        measurement_id:
+          type: integer
+          example: 1
+          description: 測定結果ID
+        meet_name:
+          type: string
+          example: 東京テスト測定会
+          description: 測定会名
+        start_date:
+          type: string
+          format: date
+          description: 測定会実施日
+      required:
+        - participant_id
+        - meet_id
+        - measurement_id
+        - meet_name
+        - start_date
+      description: 参加測定会
+    Measurement:
+      type: object
+      properties:
+        participant_id:
+          type: integer
+          format: int32
+          description: 測定者ID
+        meet_id:
+          type: integer
+          example: 868064
+          description: 測定会ID
+        measurement_id:
+          type: integer
+          example: 1
+          description: 測定結果ID
+        meet_name:
+          type: string
+          example: 東京テスト測定会
+          description: 測定会名
+        start_date:
+          type: string
+          format: date
+          description: 測定会実施日
+        name:
+          type: string
+          example: 測定 太郎
+          description: 名前
+        sex:
+          type: string
+          example: 男性
+          description: 性別
+        grade:
+          type: string
+          example: 中2
+          description: 学年
+        age:
+          type: integer
+          format: int32
+          example: 12
+          description: 年齢
+        participate_time:
+          type: integer
+          format: int32
+          example: 1
+          description: 参加回数
+        height:
+          type: integer
+          format: double
+          example: 145.0
+          description: 身長(cm)
+        weight:
+          type: integer
+          format: double
+          example: 50.0
+          description: 体重(kg)
+        sports_type:
+          type: string
+          example: 野球
+          description: 習ったスポーツ
+        team_name:
+          type: string
+          example: 測定チーム
+          description: 所属チーム名
+        version:
+          type: number
+          format: float
+          example: 1.00
+          description: バージョン
+        results:
+          type: object
+          properties:
+            tenSprint:
+              $ref: '#/components/schemas/MeasurementData'
+              description: 10mスプリント
+            enduranceLong:
+              $ref: '#/components/schemas/MeasurementData'
+              description: 長持久力
+            enduranceShort:
+              $ref: '#/components/schemas/MeasurementData'
+              description: 短持久力
+            agility:
+              $ref: '#/components/schemas/MeasurementData'
+              description: 敏しょう性
+            stepVisualResponse:
+              $ref: '#/components/schemas/MeasurementData'
+              description: 視覚反応力
+            stepPower:
+              $ref: '#/components/schemas/MeasurementData'
+              description: ステップ力
+            swingSpeed:
+              $ref: '#/components/schemas/MeasurementData'
+              description: スイングスピード
+            jump:
+              $ref: '#/components/schemas/MeasurementData'
+              description: ジャンプ力
+            balanceLeft:
+              $ref: '#/components/schemas/MeasurementData'
+              description: バランス力（左足）
+            balanceRight:
+              $ref: '#/components/schemas/MeasurementData'
+              description: バランス力（右足）
+            balanceGap:
+              $ref: '#/components/schemas/MeasurementData'
+              description: バランス力（左右差）
+          required:
+            - tenSprint
+            - enduranceLong
+            - enduranceShort
+            - agility
+            - stepVisualResponse
+            - stepPower
+            - swingSpeed
+            - jump
+            - balanceLeft
+            - balanceRight
+            - balanceGap
+          description: 測定結果
+        advice:
+          type: object
+          properties:
+            summary:
+              type: string
+              example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
+              description: 概要
+            recommend_sports:
+              type: array
+              items:
+                type: string
+              minItems: 10
+              maxItems: 10
+              example:
+                - テニス
+                - ボクシング
+                - バトミントン
+                - 水泳（長距離）
+                - 卓球
+                - 柔道
+                - 水泳（短距離）
+                - ホッケー
+                - 剣道
+                - テコンドー
+              description: 向いているスポーツ
+            recommend_ability:
+              type: array
+              items:
+                type: object
+                properties:
+                  ability:
+                    type: string
+                    example: スイングスピード
+                    description: 能力
+                  sports:
+                    type: string
+                    example: 野球、サッカー（GK)、水泳、陸上（砲丸投げ・やり投げ）、柔道、テニス、体操、ラグビー、剣道、スケート（スピード・ショートトラック）、レスリング、ハンドボール、ボクシング、ゴルフ、アメリカンフットボール、ウエイトリフティング、アイスホッケー、ホッケー、アーチェリー、ノルディック複合、ボート、カヌー、セーリング
+                    description: スポーツ
+                required:
+                  - ability
+                  - sports
+                description: 活かせる能力
+              minItems: 3
+              maxItems: 3
+              description: 活かせる能力（上位3つ）
+          required:
+            - summary
+            - recommend_sports
+            - recommend_ability
+          description: アドバイス
+      required:
+        - participant_id
+        - meet_id
+        - measurement_id
+        - meet_name
+        - start_date
+        - name
+        - sex
+        - grade
+        - age
+        - participate_time
+        - height
+        - weight
+        - sports_type
+        - team_name
+        - version
+        - results
+        - advice
+      description: 測定結果詳細
+    MeasurementData:
+      type: object
+      properties:
+        grade:
+          type: integer
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          description: 5段階評価
+        score:
+          type: integer
+          format: float
+          example: 2.15
+          description: 測定値
+        rank:
+          type: integer
+          example: 7
+          description: 全国ランキング
+        rank_range:
+          type: integer
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+          description: '全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）'
+      required:
+        - grade
+        - score
+        - rank
+        - rank_range
+      description: 能力測定データ
+    MeasurementMeet:
+      type: object
+      properties:
+        meet_id:
+          type: string
+          example: '868064'
+          description: 測定会ID
+        meet_name:
+          type: string
+          example: '東京テスト測定会'
+          description: 測定会名
+        start_date:
+          type: string
+          format: date
+          description: 測定会実施日
+        status:
+          type: integer
+          enum:
+            - 1
+            - 2
+          description: '測定会ステータス(1: 募集受付中, 2: 募集終了)'
+      required:
+        - meet_id
+        - meet_name
+        - start_date
+        - status
+      description: 申込受付中測定会
+security:
+  - ApiKeyAuth: []
+paths:
+  /api/participants:
+    get:
+      tags:
+        - DosaAdmin
+      summary: 測定者情報一覧取得
+      operationId: getParticipants
+      parameters:
+        - name: mail_address
+          in: query
+          description: メールアドレス
+          required: false
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Participant'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Participant not found
+  /api/participants/{participant_id}/measurement_meets:
+    get:
+      tags:
+        - DosaAdmin
+      summary: 参加測定会一覧取得
+      operationId: getParticipatedMeasurementMeets
+      parameters:
+        - name: participant_id
+          description: 測定者ID
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ParticipantMeasurementMeet'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: ParticipantMeasurementMeet not found
+  /api/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}:
+    get:
+      tags:
+        - DosaAdmin
+      summary: 測定結果取得
+      operationId: getMeasurement
+      parameters:
+        - name: participant_id
+          description: 測定者ID
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meet_id
+          in: path
+          description: 測定会ID
+          required: true
+          schema:
+            type: integer
+            example: 693712
+        - name: measurement_id
+          in: path
+          description: 測定結果ID
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Measurement'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Measurement not found
+  /api/measurement_meets:
+    get:
+      tags:
+        - DosaAdmin
+      summary: 測定会一覧取得
+      operationId: getMeasurementMeets
+      parameters:
+        - name: status
+          in: query
+          description: '測定会ステータス(1: 募集受付中, 2: 募集終了)'
+          required: false
+          schema:
+            type: integer
+            enum:
+              - 1
+              - 2
+            example: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MeasurementMeet'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: MeasurementMeet not found
