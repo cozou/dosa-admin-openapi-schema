@@ -453,7 +453,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Measurement'
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Measurement'
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':

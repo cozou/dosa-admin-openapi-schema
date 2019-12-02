@@ -724,6 +724,14 @@
   "type" : "object",
   "properties" : {
     "data" : {
+      "$ref" : "#/components/schemas/Measurement"
+    }
+  }
+};
+            defs.inline_response_200_3 = {
+  "type" : "object",
+  "properties" : {
+    "data" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/MeasurementMeet"
@@ -1142,7 +1150,7 @@ public class DosaAdminApiExample {
         Integer meetId = 56; // Integer | 測定会ID
         Integer measurementId = 56; // Integer | 測定結果ID
         try {
-            Measurement result = apiInstance.getMeasurement(participantId, meetId, measurementId);
+            inline_response_200_2 result = apiInstance.getMeasurement(participantId, meetId, measurementId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurement");
@@ -1163,7 +1171,7 @@ public class DosaAdminApiExample {
         Integer meetId = 56; // Integer | 測定会ID
         Integer measurementId = 56; // Integer | 測定結果ID
         try {
-            Measurement result = apiInstance.getMeasurement(participantId, meetId, measurementId);
+            inline_response_200_2 result = apiInstance.getMeasurement(participantId, meetId, measurementId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurement");
@@ -1192,7 +1200,7 @@ DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
 [apiInstance getMeasurementWith:participantId
     meetId:meetId
     measurementId:measurementId
-              completionHandler: ^(Measurement output, NSError* error) {
+              completionHandler: ^(inline_response_200_2 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1259,7 +1267,7 @@ namespace Example
             try
             {
                 // 測定結果取得
-                Measurement result = apiInstance.getMeasurement(participantId, meetId, measurementId);
+                inline_response_200_2 result = apiInstance.getMeasurement(participantId, meetId, measurementId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1446,7 +1454,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Measurement"
+        "$ref" : "#/components/schemas/inline_response_200_2"
       }
     }
   }
@@ -1618,7 +1626,7 @@ public class DosaAdminApiExample {
         DosaAdminApi apiInstance = new DosaAdminApi();
         Integer status = 56; // Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了)
         try {
-            inline_response_200_2 result = apiInstance.getMeasurementMeets(status);
+            inline_response_200_3 result = apiInstance.getMeasurementMeets(status);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurementMeets");
@@ -1637,7 +1645,7 @@ public class DosaAdminApiExample {
         DosaAdminApi apiInstance = new DosaAdminApi();
         Integer status = 56; // Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了)
         try {
-            inline_response_200_2 result = apiInstance.getMeasurementMeets(status);
+            inline_response_200_3 result = apiInstance.getMeasurementMeets(status);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurementMeets");
@@ -1662,7 +1670,7 @@ DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
 
 // 測定会一覧取得
 [apiInstance getMeasurementMeetsWith:status
-              completionHandler: ^(inline_response_200_2 output, NSError* error) {
+              completionHandler: ^(inline_response_200_3 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1726,7 +1734,7 @@ namespace Example
             try
             {
                 // 測定会一覧取得
-                inline_response_200_2 result = apiInstance.getMeasurementMeets(status);
+                inline_response_200_3 result = apiInstance.getMeasurementMeets(status);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1860,7 +1868,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/inline_response_200_2"
+        "$ref" : "#/components/schemas/inline_response_200_3"
       }
     }
   }
