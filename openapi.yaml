@@ -152,13 +152,13 @@ components:
           example: 1
           description: 参加回数
         height:
-          type: integer
-          format: double
+          type: number
+          format: float
           example: 145.0
           description: 身長(cm)
         weight:
-          type: integer
-          format: double
+          type: number
+          format: float
           example: 50.0
           description: 体重(kg)
         sports_type:
@@ -305,7 +305,7 @@ components:
             - 5
           description: 5段階評価
         score:
-          type: integer
+          type: number
           format: float
           example: 2.15
           description: 測定値
