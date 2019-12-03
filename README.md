@@ -1,6 +1,15 @@
 # DOSA-ADMIN-OPENAPI-SCHEMA
 
-DOSA 連携 API 用のスキーマ定義ファイルです。
+DOSA 連携 API 用のスキーマ定義ファイルを管理するリポジトリです。
+
+- 仕様書
+  - [https://cozou.github.io/dosa-admin-openapi-schema/docs](https://cozou.github.io/dosa-admin-openapi-schema/docs)
+- OpenAPI 定義ファイル
+  - [https://cozou.github.io/dosa-admin-openapi-schema/openapi.yaml](https://cozou.github.io/dosa-admin-openapi-schema/openapi.yaml)
+- Github Pages
+  - [https://cozou.github.io/dosa-admin-openapi-schema](https://cozou.github.io/dosa-admin-openapi-schema)
+- リポジトリ
+  - [https://github.com/cozou/dosa-admin-openapi-schema](https://github.com/cozou/dosa-admin-openapi-schema)
 
 ## Directory Structures
 
@@ -17,6 +26,12 @@ DOSA 連携 API 用のスキーマ定義ファイルです。
 ```
 
 ## Editor
+
+### オンラインの Swagger Editor を利用する場合
+
+[http://editor.swagger.io/](（http://editor.swagger.io/) の 「File > Import URL」 に 「OpenAPI 定義ファイル」 の URL を指定する。
+
+### Swagger Editor をローカルで起動する場合
 
 1. Docker で起動
 
