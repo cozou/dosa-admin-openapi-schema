@@ -862,9 +862,9 @@
   "type" : "object",
   "properties" : {
     "meet_id" : {
-      "type" : "string",
+      "type" : "integer",
       "description" : "測定会ID",
-      "example" : "868064"
+      "example" : 868064
     },
     "meet_name" : {
       "type" : "string",
@@ -1103,7 +1103,7 @@
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1123,7 +1123,7 @@
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DosaAdmin-getMeasurement-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DosaAdmin-getMeasurement-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1581,7 +1581,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/measurement_meets</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/measurement_meets</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1601,7 +1601,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DosaAdmin-getMeasurementMeets-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/measurement_meets?status="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/measurement_meets?status="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeets-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1947,7 +1947,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/participants</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/participants</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1967,7 +1967,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DosaAdmin-getParticipants-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/participants?mail_address="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/participants?mail_address="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DosaAdmin-getParticipants-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2364,7 +2364,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/participants/{participant_id}/measurement_meets</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/participants/{participant_id}/measurement_meets</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -2384,7 +2384,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DosaAdmin-getParticipatedMeasurementMeets-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/participants/{participant_id}/measurement_meets"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/participants/{participant_id}/measurement_meets"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DosaAdmin-getParticipatedMeasurementMeets-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;

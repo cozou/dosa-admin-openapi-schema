@@ -40,7 +40,7 @@ Mock Server の起動方法
    [https://github.com/danielgtaylor/apisprout/releases](https://github.com/danielgtaylor/apisprout/releases)
 
 2. 起動
-   ダウンロードしたファイルを解凍先で実装
+   ダウンロードしたファイルを解凍先で実行
 
    ```
    $ ./apisprout openapi.yaml

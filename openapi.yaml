@@ -331,8 +331,8 @@ components:
       type: object
       properties:
         meet_id:
-          type: string
-          example: '868064'
+          type: integer
+          example: 868064
           description: 測定会ID
         meet_name:
           type: string
@@ -357,7 +357,7 @@ components:
 security:
   - ApiKeyAuth: []
 paths:
-  /api/participants:
+  /api/v1/participants:
     get:
       tags:
         - DosaAdmin
@@ -389,7 +389,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: Participant not found
-  /api/participants/{participant_id}/measurement_meets:
+  /api/v1/participants/{participant_id}/measurement_meets:
     get:
       tags:
         - DosaAdmin
@@ -420,7 +420,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: ParticipantMeasurementMeet not found
-  /api/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}:
+  /api/v1/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}:
     get:
       tags:
         - DosaAdmin
@@ -463,7 +463,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: Measurement not found
-  /api/measurement_meets:
+  /api/v1/measurement_meets:
     get:
       tags:
         - DosaAdmin
