@@ -12,7 +12,7 @@ DOSA 連携 API 用のスキーマ定義ファイルです。
 │   ├── index.html
 │   └── index.php
 ├── openapi.yaml - API定義ファイル
-└── out
+└── docs
     └── index.html - API仕様書
 ```
 
@@ -49,5 +49,5 @@ Mock Server の起動方法
 ## Generate API Spec HTML
 
 ```
-$ swagger-codegen generate -i openapi.yaml -l html2 -o out/
+$ swagger-codegen generate -i openapi.yaml -l html2 -o docs/
 ```
