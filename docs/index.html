@@ -689,6 +689,15 @@
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+            defs.body = {
+  "type" : "object",
+  "properties" : {
+    "mail_address" : {
+      "type" : "string",
+      "format" : "email"
+    }
+  }
+};
             defs.Error = {
   "required" : [ "messages" ],
   "type" : "object",
@@ -739,8 +748,17 @@
     }
   }
 };
+            defs.inline_response_201 = {
+  "type" : "object",
+  "properties" : {
+    "request_id" : {
+      "type" : "integer",
+      "description" : "リクエストID"
+    }
+  }
+};
             defs.Measurement = {
-  "required" : [ "advice", "age", "grade", "height", "measurement_id", "meet_id", "meet_name", "name", "participant_id", "participate_time", "results", "sex", "sports_type", "start_date", "team_name", "version", "weight" ],
+  "required" : [ "advice", "birthday", "grade", "height", "measurement_id", "meet_id", "meet_name", "name", "participant_id", "participate_time", "results", "sex", "sports_type", "start_date", "team_name", "version", "weight" ],
   "type" : "object",
   "properties" : {
     "participant_id" : {
@@ -774,20 +792,19 @@
       "example" : "測定 太郎"
     },
     "sex" : {
-      "type" : "string",
-      "description" : "性別",
-      "example" : "男性"
+      "type" : "integer",
+      "description" : "性別（1:男性, 2:女性）",
+      "enum" : [ 1, 2 ]
     },
     "grade" : {
       "type" : "string",
       "description" : "学年",
       "example" : "中2"
     },
-    "age" : {
-      "type" : "integer",
-      "description" : "年齢",
-      "format" : "int32",
-      "example" : 12
+    "birthday" : {
+      "type" : "string",
+      "description" : "生年月日",
+      "format" : "date"
     },
     "participate_time" : {
       "type" : "integer",
@@ -808,9 +825,12 @@
       "example" : 50.0
     },
     "sports_type" : {
-      "type" : "string",
+      "type" : "array",
       "description" : "習ったスポーツ",
-      "example" : "野球"
+      "items" : {
+        "type" : "string",
+        "example" : "サッカー"
+      }
     },
     "team_name" : {
       "type" : "string",
@@ -861,7 +881,7 @@
   "description" : "能力測定データ"
 };
             defs.MeasurementMeet = {
-  "required" : [ "meet_id", "meet_name", "start_date", "status" ],
+  "required" : [ "meet_id", "meet_name", "start_date", "start_time", "status" ],
   "type" : "object",
   "properties" : {
     "meet_id" : {
@@ -879,13 +899,177 @@
       "description" : "測定会実施日",
       "format" : "date"
     },
+    "start_time" : {
+      "type" : "array",
+      "description" : "開始時間",
+      "items" : {
+        "type" : "string",
+        "example" : "10:00"
+      }
+    },
     "status" : {
       "type" : "integer",
-      "description" : "測定会ステータス(1: 募集受付中, 2: 募集終了)",
+      "description" : "測定会ステータス（1: 募集受付中, 2: 募集終了）",
       "enum" : [ 1, 2 ]
     }
   },
   "description" : "申込受付中測定会"
+};
+            defs.MeasurementMeetRequest = {
+  "required" : [ "first_hope_time", "is_win", "meet_id", "participant_id", "request_id", "second_hope_time", "start_time", "status", "third_hope_time" ],
+  "type" : "object",
+  "properties" : {
+    "request_id" : {
+      "type" : "integer",
+      "description" : "リクエストID"
+    },
+    "meet_id" : {
+      "type" : "integer",
+      "description" : "測定会ID",
+      "example" : 868064
+    },
+    "participant_id" : {
+      "type" : "integer",
+      "description" : "測定者ID",
+      "format" : "int32"
+    },
+    "first_hope_time" : {
+      "type" : "string",
+      "description" : "第1希望時間",
+      "example" : "10:00"
+    },
+    "second_hope_time" : {
+      "type" : "string",
+      "description" : "第2希望時間",
+      "example" : "11:00"
+    },
+    "third_hope_time" : {
+      "type" : "string",
+      "description" : "第3希望時間",
+      "example" : "12:00"
+    },
+    "is_win" : {
+      "type" : "integer",
+      "description" : "当落選結果（1: 当選, 2: 落選）",
+      "enum" : [ 1, 2 ]
+    },
+    "start_time" : {
+      "type" : "string",
+      "description" : "開始時間",
+      "example" : "10:00"
+    },
+    "status" : {
+      "type" : "integer",
+      "description" : "ステータス（1: 未応募, 2: 応募済み）",
+      "enum" : [ 1, 2 ]
+    }
+  },
+  "description" : "申込受付中測定会"
+};
+            defs.MeasurementMeetRequestData = {
+  "required" : [ "address", "birthday", "endurance_long_self", "first_hope_time", "height", "mail_address", "name", "name_kana", "parent_name", "participate_time", "school_name", "second_hope_time", "sex", "sports_type", "team_name", "telephone", "third_hope_time", "weight", "zip_code1", "zip_code2" ],
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "名前",
+      "example" : "測定 太郎"
+    },
+    "name_kana" : {
+      "type" : "string",
+      "description" : "名前（カナ）",
+      "example" : "ソクテイ タロウ"
+    },
+    "sex" : {
+      "type" : "integer",
+      "description" : "性別（1:男性, 2:女性）",
+      "enum" : [ 1, 2 ]
+    },
+    "zip_code1" : {
+      "type" : "string",
+      "description" : "郵便番号1",
+      "example" : "102"
+    },
+    "zip_code2" : {
+      "type" : "string",
+      "description" : "郵便番号2",
+      "example" : "0072"
+    },
+    "address" : {
+      "type" : "string",
+      "description" : "住所"
+    },
+    "telephone" : {
+      "type" : "string",
+      "description" : "電話番号"
+    },
+    "mail_address" : {
+      "type" : "string",
+      "description" : "メールアドレス",
+      "format" : "email"
+    },
+    "parent_name" : {
+      "type" : "string",
+      "description" : "保護者氏名"
+    },
+    "birthday" : {
+      "type" : "string",
+      "description" : "生年月日",
+      "format" : "date"
+    },
+    "first_hope_time" : {
+      "type" : "string",
+      "description" : "希望測定開始時間1"
+    },
+    "second_hope_time" : {
+      "type" : "string",
+      "description" : "希望測定開始時間2"
+    },
+    "third_hope_time" : {
+      "type" : "string",
+      "description" : "希望測定開始時間3"
+    },
+    "sports_type" : {
+      "type" : "array",
+      "description" : "習ったスポーツ",
+      "items" : {
+        "type" : "string",
+        "example" : "サッカー"
+      }
+    },
+    "school_name" : {
+      "type" : "string",
+      "description" : "学校名"
+    },
+    "team_name" : {
+      "type" : "string",
+      "description" : "所属チーム"
+    },
+    "height" : {
+      "type" : "number",
+      "description" : "身長(cm)",
+      "format" : "float",
+      "example" : 145.0
+    },
+    "weight" : {
+      "type" : "number",
+      "description" : "体重(kg)",
+      "format" : "float",
+      "example" : 50.0
+    },
+    "participate_time" : {
+      "type" : "integer",
+      "description" : "参加回数",
+      "format" : "int32",
+      "example" : 1
+    },
+    "endurance_long_self" : {
+      "type" : "integer",
+      "description" : "長距離走について（1: 非常に苦手, 2: 少し苦手, 3: 普通, 4: 少し得意, 5: 非常に得意）",
+      "enum" : [ 1, 2, 3, 4, 5 ]
+    }
+  },
+  "description" : "測定会申込み"
 };
             defs.Measurement_advice = {
   "required" : [ "recommend_ability", "recommend_sports", "summary" ],
@@ -939,37 +1123,37 @@
   "required" : [ "agility", "balanceGap", "balanceLeft", "balanceRight", "enduranceLong", "enduranceShort", "jump", "stepPower", "stepVisualResponse", "swingSpeed", "tenSprint" ],
   "type" : "object",
   "properties" : {
-    "tenSprint" : {
+    "dash_10" : {
       "$ref" : "#/components/schemas/MeasurementData"
     },
-    "enduranceLong" : {
+    "endurance_long" : {
       "$ref" : "#/components/schemas/MeasurementData"
     },
-    "enduranceShort" : {
-      "$ref" : "#/components/schemas/MeasurementData"
-    },
-    "agility" : {
-      "$ref" : "#/components/schemas/MeasurementData"
-    },
-    "stepVisualResponse" : {
-      "$ref" : "#/components/schemas/MeasurementData"
-    },
-    "stepPower" : {
-      "$ref" : "#/components/schemas/MeasurementData"
-    },
-    "swingSpeed" : {
+    "endurance_short" : {
       "$ref" : "#/components/schemas/MeasurementData"
     },
     "jump" : {
       "$ref" : "#/components/schemas/MeasurementData"
     },
-    "balanceLeft" : {
+    "agility" : {
       "$ref" : "#/components/schemas/MeasurementData"
     },
-    "balanceRight" : {
+    "step_visual_response" : {
       "$ref" : "#/components/schemas/MeasurementData"
     },
-    "balanceGap" : {
+    "step_power" : {
+      "$ref" : "#/components/schemas/MeasurementData"
+    },
+    "swing_speed" : {
+      "$ref" : "#/components/schemas/MeasurementData"
+    },
+    "balance_l" : {
+      "$ref" : "#/components/schemas/MeasurementData"
+    },
+    "balance_r" : {
+      "$ref" : "#/components/schemas/MeasurementData"
+    },
+    "balance_lr_difference" : {
       "$ref" : "#/components/schemas/MeasurementData"
     }
   },
@@ -996,7 +1180,7 @@
     },
     "sex" : {
       "type" : "integer",
-      "description" : "性別",
+      "description" : "性別（1:男性, 2:女性）",
       "enum" : [ 1, 2 ]
     },
     "birthday" : {
@@ -1013,7 +1197,7 @@
   "description" : "測定者"
 };
             defs.ParticipantMeasurementMeet = {
-  "required" : [ "measurement_id", "meet_id", "meet_name", "participant_id", "start_date" ],
+  "required" : [ "measurement_id", "meet_id", "meet_name", "participant_id", "start_date", "start_time" ],
   "type" : "object",
   "properties" : {
     "participant_id" : {
@@ -1040,9 +1224,143 @@
       "type" : "string",
       "description" : "測定会実施日",
       "format" : "date"
+    },
+    "start_time" : {
+      "type" : "string",
+      "description" : "開始時間",
+      "example" : "10:00"
     }
   },
   "description" : "参加測定会"
+};
+            defs.Ranking = {
+  "required" : [ "agility", "balance_l", "balance_lr_difference", "balance_r", "dash_10", "endurance_long", "endurance_short", "jump", "step_power", "step_visual_response", "swing_speed" ],
+  "type" : "object",
+  "properties" : {
+    "dash_10" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "endurance_long" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "endurance_short" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "jump" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "agility" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "step_visual_response" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "step_power" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "swing_speed" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "balance_l" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "balance_r" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    },
+    "balance_lr_difference" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/RankingData"
+      }
+    }
+  }
+};
+            defs.RankingData = {
+  "required" : [ "birthday", "measurement_id", "meet_id", "meet_name", "name", "participant_id", "rank", "rank_range", "score", "sex" ],
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "測定者名",
+      "example" : "山田一郎"
+    },
+    "sex" : {
+      "type" : "integer",
+      "description" : "性別（1:男性, 2:女性）",
+      "enum" : [ 1, 2 ]
+    },
+    "birthday" : {
+      "type" : "string",
+      "description" : "生年月日",
+      "format" : "date"
+    },
+    "score" : {
+      "type" : "number",
+      "description" : "測定値",
+      "format" : "float",
+      "example" : 2.15
+    },
+    "rank" : {
+      "type" : "integer",
+      "description" : "全国ランキング",
+      "example" : 7
+    },
+    "rank_range" : {
+      "type" : "integer",
+      "description" : "全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）",
+      "enum" : [ 1, 2, 3, 4 ]
+    },
+    "meet_name" : {
+      "type" : "string",
+      "description" : "測定会名",
+      "example" : "東京テスト測定会"
+    },
+    "participant_id" : {
+      "type" : "integer",
+      "description" : "測定者ID",
+      "format" : "int32"
+    },
+    "meet_id" : {
+      "type" : "integer",
+      "description" : "測定会ID",
+      "example" : 868064
+    },
+    "measurement_id" : {
+      "type" : "integer",
+      "description" : "測定結果ID",
+      "example" : 1
+    }
+  }
 };
   </script>
 
@@ -1064,6 +1382,12 @@
                     <li data-group="DosaAdmin" data-name="getMeasurement" class="">
                       <a href="#api-DosaAdmin-getMeasurement">getMeasurement</a>
                     </li>
+                    <li data-group="DosaAdmin" data-name="getMeasurementMeet" class="">
+                      <a href="#api-DosaAdmin-getMeasurementMeet">getMeasurementMeet</a>
+                    </li>
+                    <li data-group="DosaAdmin" data-name="getMeasurementMeetRequest" class="">
+                      <a href="#api-DosaAdmin-getMeasurementMeetRequest">getMeasurementMeetRequest</a>
+                    </li>
                     <li data-group="DosaAdmin" data-name="getMeasurementMeets" class="">
                       <a href="#api-DosaAdmin-getMeasurementMeets">getMeasurementMeets</a>
                     </li>
@@ -1072,6 +1396,15 @@
                     </li>
                     <li data-group="DosaAdmin" data-name="getParticipatedMeasurementMeets" class="">
                       <a href="#api-DosaAdmin-getParticipatedMeasurementMeets">getParticipatedMeasurementMeets</a>
+                    </li>
+                    <li data-group="DosaAdmin" data-name="getRankings" class="">
+                      <a href="#api-DosaAdmin-getRankings">getRankings</a>
+                    </li>
+                    <li data-group="DosaAdmin" data-name="postMeasurementMeet" class="">
+                      <a href="#api-DosaAdmin-postMeasurementMeet">postMeasurementMeet</a>
+                    </li>
+                    <li data-group="DosaAdmin" data-name="postSendTestMail" class="">
+                      <a href="#api-DosaAdmin-postSendTestMail">postSendTestMail</a>
                     </li>
           </ul>
         </nav>
@@ -1572,6 +1905,877 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-DosaAdmin-getMeasurementMeet">
+                      <article id="api-DosaAdmin-getMeasurementMeet-0" data-group="User" data-name="getMeasurementMeet" data-version="0">
+                        <div class="pull-left">
+                          <h1>getMeasurementMeet</h1>
+                          <p>測定会取得</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/measurement_meets/{meet_id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DosaAdmin-getMeasurementMeet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DosaAdmin-getMeasurementMeet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/measurement_meets/{meet_id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DosaAdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer meetId = 56; // Integer | 測定会ID
+        try {
+            MeasurementMeet result = apiInstance.getMeasurementMeet(meetId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#getMeasurementMeet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DosaAdminApi;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer meetId = 56; // Integer | 測定会ID
+        try {
+            MeasurementMeet result = apiInstance.getMeasurementMeet(meetId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#getMeasurementMeet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"X-API-KEY"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"X-API-KEY"];
+Integer *meetId = 56; // 測定会ID
+
+DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
+
+// 測定会取得
+[apiInstance getMeasurementMeetWith:meetId
+              completionHandler: ^(MeasurementMeet output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Dosaapi = require('dosaapi');
+var defaultClient = Dosaapi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['X-API-KEY'] = "Token"
+
+var api = new Dosaapi.DosaAdminApi()
+var meetId = 56; // {{Integer}} 測定会ID
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getMeasurementMeet(meetId, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getMeasurementMeetExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("X-API-KEY", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("X-API-KEY", "Bearer");
+
+            var apiInstance = new DosaAdminApi();
+            var meetId = 56;  // Integer | 測定会ID
+
+            try
+            {
+                // 測定会取得
+                MeasurementMeet result = apiInstance.getMeasurementMeet(meetId);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DosaAdminApi.getMeasurementMeet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-API-KEY', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-KEY', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiDosaAdminApi();
+$meetId = 56; // Integer | 測定会ID
+
+try {
+    $result = $api_instance->getMeasurementMeet($meetId);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DosaAdminApi->getMeasurementMeet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DosaAdminApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::SwaggerClient::Configuration::api_key->{'X-API-KEY'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'X-API-KEY'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::DosaAdminApi->new();
+my $meetId = 56; # Integer | 測定会ID
+
+eval { 
+    my $result = $api_instance->getMeasurementMeet(meetId => $meetId);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DosaAdminApi->getMeasurementMeet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+swagger_client.configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['X-API-KEY'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.DosaAdminApi()
+meetId = 56 # Integer | 測定会ID
+
+try: 
+    # 測定会取得
+    api_response = api_instance.get_measurement_meet(meetId)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DosaAdminApi->getMeasurementMeet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">meet_id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_getMeasurementMeet_meetId">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      Integer
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          測定会ID
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getMeasurementMeet-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getMeasurementMeet-200-schema">
+                                  <div id='responses-getMeasurementMeet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "successful operation",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/MeasurementMeet"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getMeasurementMeet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getMeasurementMeet-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getMeasurementMeet-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - invalid request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getMeasurementMeet-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getMeasurementMeet-400-schema">
+                                  <div id='responses-getMeasurementMeet-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "invalid request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Error"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getMeasurementMeet-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getMeasurementMeet-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getMeasurementMeet-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 401 - API key is missing or invalid </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-getMeasurementMeet-401-headers">Headers</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-getMeasurementMeet-401-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td>WWW_Authenticate</td>
+                                            <td>String</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - MeasurementMeet not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-DosaAdmin-getMeasurementMeetRequest">
+                      <article id="api-DosaAdmin-getMeasurementMeetRequest-0" data-group="User" data-name="getMeasurementMeetRequest" data-version="0">
+                        <div class="pull-left">
+                          <h1>getMeasurementMeetRequest</h1>
+                          <p>申込み測定会一覧取得</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/participants/{participant_id}/measurement_meet_requests</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-java">Java</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getMeasurementMeetRequest-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DosaAdmin-getMeasurementMeetRequest-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/participants/{participant_id}/measurement_meet_requests?meet_id="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DosaAdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer participantId = 56; // Integer | 測定者ID
+        Integer meetId = 56; // Integer | 測定会ID
+        try {
+            MeasurementMeetRequest result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#getMeasurementMeetRequest");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DosaAdminApi;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer participantId = 56; // Integer | 測定者ID
+        Integer meetId = 56; // Integer | 測定会ID
+        try {
+            MeasurementMeetRequest result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#getMeasurementMeetRequest");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"X-API-KEY"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"X-API-KEY"];
+Integer *participantId = 56; // 測定者ID
+Integer *meetId = 56; // 測定会ID (optional)
+
+DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
+
+// 申込み測定会一覧取得
+[apiInstance getMeasurementMeetRequestWith:participantId
+    meetId:meetId
+              completionHandler: ^(MeasurementMeetRequest output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Dosaapi = require('dosaapi');
+var defaultClient = Dosaapi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['X-API-KEY'] = "Token"
+
+var api = new Dosaapi.DosaAdminApi()
+var participantId = 56; // {{Integer}} 測定者ID
+var opts = { 
+  'meetId': 56 // {{Integer}} 測定会ID
+};
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getMeasurementMeetRequest(participantId, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getMeasurementMeetRequestExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("X-API-KEY", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("X-API-KEY", "Bearer");
+
+            var apiInstance = new DosaAdminApi();
+            var participantId = 56;  // Integer | 測定者ID
+            var meetId = 56;  // Integer | 測定会ID (optional) 
+
+            try
+            {
+                // 申込み測定会一覧取得
+                MeasurementMeetRequest result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DosaAdminApi.getMeasurementMeetRequest: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-API-KEY', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-KEY', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiDosaAdminApi();
+$participantId = 56; // Integer | 測定者ID
+$meetId = 56; // Integer | 測定会ID
+
+try {
+    $result = $api_instance->getMeasurementMeetRequest($participantId, $meetId);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DosaAdminApi->getMeasurementMeetRequest: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DosaAdminApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::SwaggerClient::Configuration::api_key->{'X-API-KEY'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'X-API-KEY'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::DosaAdminApi->new();
+my $participantId = 56; # Integer | 測定者ID
+my $meetId = 56; # Integer | 測定会ID
+
+eval { 
+    my $result = $api_instance->getMeasurementMeetRequest(participantId => $participantId, meetId => $meetId);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DosaAdminApi->getMeasurementMeetRequest: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getMeasurementMeetRequest-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+swagger_client.configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['X-API-KEY'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.DosaAdminApi()
+participantId = 56 # Integer | 測定者ID
+meetId = 56 # Integer | 測定会ID (optional)
+
+try: 
+    # 申込み測定会一覧取得
+    api_response = api_instance.get_measurement_meet_request(participantId, meetId=meetId)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DosaAdminApi->getMeasurementMeetRequest: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">participant_id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_getMeasurementMeetRequest_participantId">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      Integer
+                                                  </span>
+                                                      <span class="format">
+                                                          (int32)
+                                                      </span>
+                                  
+                                                      <div class="inner description">
+                                                          測定者ID
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">meet_id</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_getMeasurementMeetRequest_meetId">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    Integer
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        測定会ID
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getMeasurementMeetRequest-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getMeasurementMeetRequest-200-schema">
+                                  <div id='responses-getMeasurementMeetRequest-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "successful operation",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/MeasurementMeetRequest"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getMeasurementMeetRequest-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getMeasurementMeetRequest-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getMeasurementMeetRequest-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - invalid request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getMeasurementMeetRequest-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getMeasurementMeetRequest-400-schema">
+                                  <div id='responses-getMeasurementMeetRequest-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "invalid request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Error"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getMeasurementMeetRequest-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getMeasurementMeetRequest-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getMeasurementMeetRequest-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 401 - API key is missing or invalid </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-getMeasurementMeetRequest-401-headers">Headers</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-getMeasurementMeetRequest-401-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td>WWW_Authenticate</td>
+                                            <td>String</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - MeasurementMeetRequest not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-DosaAdmin-getMeasurementMeets">
                       <article id="api-DosaAdmin-getMeasurementMeets-0" data-group="User" data-name="getMeasurementMeets" data-version="0">
                         <div class="pull-left">
@@ -1627,7 +2831,7 @@ public class DosaAdminApiExample {
         //ApiKeyAuth.setApiKeyPrefix("Token");
 
         DosaAdminApi apiInstance = new DosaAdminApi();
-        Integer status = 56; // Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了)
+        Integer status = 56; // Integer | 測定会ステータス（1: 募集受付中, 2: 募集終了）
         try {
             inline_response_200_3 result = apiInstance.getMeasurementMeets(status);
             System.out.println(result);
@@ -1646,7 +2850,7 @@ public class DosaAdminApiExample {
 
     public static void main(String[] args) {
         DosaAdminApi apiInstance = new DosaAdminApi();
-        Integer status = 56; // Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了)
+        Integer status = 56; // Integer | 測定会ステータス（1: 募集受付中, 2: 募集終了）
         try {
             inline_response_200_3 result = apiInstance.getMeasurementMeets(status);
             System.out.println(result);
@@ -1667,7 +2871,7 @@ public class DosaAdminApiExample {
 [apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"X-API-KEY"];
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"X-API-KEY"];
-Integer *status = 56; // 測定会ステータス(1: 募集受付中, 2: 募集終了) (optional)
+Integer *status = 56; // 測定会ステータス（1: 募集受付中, 2: 募集終了） (optional)
 
 DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
 
@@ -1696,7 +2900,7 @@ ApiKeyAuth.apiKey = "YOUR API KEY"
 
 var api = new Dosaapi.DosaAdminApi()
 var opts = { 
-  'status': 56 // {{Integer}} 測定会ステータス(1: 募集受付中, 2: 募集終了)
+  'status': 56 // {{Integer}} 測定会ステータス（1: 募集受付中, 2: 募集終了）
 };
 var callback = function(error, data, response) {
   if (error) {
@@ -1732,7 +2936,7 @@ namespace Example
             // Configuration.Default.ApiKeyPrefix.Add("X-API-KEY", "Bearer");
 
             var apiInstance = new DosaAdminApi();
-            var status = 56;  // Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了) (optional) 
+            var status = 56;  // Integer | 測定会ステータス（1: 募集受付中, 2: 募集終了） (optional) 
 
             try
             {
@@ -1760,7 +2964,7 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-API-KEY', 
 // Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-KEY', 'Bearer');
 
 $api_instance = new Swagger\Client\ApiDosaAdminApi();
-$status = 56; // Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了)
+$status = 56; // Integer | 測定会ステータス（1: 募集受付中, 2: 募集終了）
 
 try {
     $result = $api_instance->getMeasurementMeets($status);
@@ -1782,7 +2986,7 @@ $WWW::SwaggerClient::Configuration::api_key->{'X-API-KEY'} = 'YOUR_API_KEY';
 #$WWW::SwaggerClient::Configuration::api_key_prefix->{'X-API-KEY'} = "Bearer";
 
 my $api_instance = WWW::SwaggerClient::DosaAdminApi->new();
-my $status = 56; # Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了)
+my $status = 56; # Integer | 測定会ステータス（1: 募集受付中, 2: 募集終了）
 
 eval { 
     my $result = $api_instance->getMeasurementMeets(status => $status);
@@ -1807,7 +3011,7 @@ swagger_client.configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = swagger_client.DosaAdminApi()
-status = 56 # Integer | 測定会ステータス(1: 募集受付中, 2: 募集終了) (optional)
+status = 56 # Integer | 測定会ステータス（1: 募集受付中, 2: 募集終了） (optional)
 
 try: 
     # 測定会一覧取得
@@ -1842,7 +3046,7 @@ except ApiException as e:
                                                 </span>
                                 
                                                     <div class="inner description">
-                                                        測定会ステータス(1: 募集受付中, 2: 募集終了)
+                                                        測定会ステータス（1: 募集受付中, 2: 募集終了）
                                                     </div>
                                             </div>
                                         </div>
@@ -1897,6 +3101,54 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-getMeasurementMeets-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - invalid request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getMeasurementMeets-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getMeasurementMeets-400-schema">
+                                  <div id='responses-getMeasurementMeets-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "invalid request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Error"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getMeasurementMeets-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getMeasurementMeets-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getMeasurementMeets-400-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -2761,6 +4013,1293 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 404 - ParticipantMeasurementMeet not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-DosaAdmin-getRankings">
+                      <article id="api-DosaAdmin-getRankings-0" data-group="User" data-name="getRankings" data-version="0">
+                        <div class="pull-left">
+                          <h1>getRankings</h1>
+                          <p>ランキング一覧取得</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/rankings</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DosaAdmin-getRankings-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-java">Java</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-getRankings-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-getRankings-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-getRankings-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DosaAdmin-getRankings-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/rankings?rank_range=&sex="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DosaAdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer rankRange = 56; // Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
+        Integer sex = 56; // Integer | 性別（1:男性, 2:女性）
+        try {
+            Ranking result = apiInstance.getRankings(rankRange, sex);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#getRankings");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DosaAdminApi;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer rankRange = 56; // Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
+        Integer sex = 56; // Integer | 性別（1:男性, 2:女性）
+        try {
+            Ranking result = apiInstance.getRankings(rankRange, sex);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#getRankings");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"X-API-KEY"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"X-API-KEY"];
+Integer *rankRange = 56; // 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜） (optional)
+Integer *sex = 56; // 性別（1:男性, 2:女性） (optional)
+
+DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
+
+// ランキング一覧取得
+[apiInstance getRankingsWith:rankRange
+    sex:sex
+              completionHandler: ^(Ranking output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Dosaapi = require('dosaapi');
+var defaultClient = Dosaapi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['X-API-KEY'] = "Token"
+
+var api = new Dosaapi.DosaAdminApi()
+var opts = { 
+  'rankRange': 56, // {{Integer}} 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
+  'sex': 56 // {{Integer}} 性別（1:男性, 2:女性）
+};
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getRankings(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DosaAdmin-getRankings-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getRankingsExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("X-API-KEY", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("X-API-KEY", "Bearer");
+
+            var apiInstance = new DosaAdminApi();
+            var rankRange = 56;  // Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜） (optional) 
+            var sex = 56;  // Integer | 性別（1:男性, 2:女性） (optional) 
+
+            try
+            {
+                // ランキング一覧取得
+                Ranking result = apiInstance.getRankings(rankRange, sex);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DosaAdminApi.getRankings: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-API-KEY', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-KEY', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiDosaAdminApi();
+$rankRange = 56; // Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
+$sex = 56; // Integer | 性別（1:男性, 2:女性）
+
+try {
+    $result = $api_instance->getRankings($rankRange, $sex);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DosaAdminApi->getRankings: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DosaAdminApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::SwaggerClient::Configuration::api_key->{'X-API-KEY'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'X-API-KEY'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::DosaAdminApi->new();
+my $rankRange = 56; # Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
+my $sex = 56; # Integer | 性別（1:男性, 2:女性）
+
+eval { 
+    my $result = $api_instance->getRankings(rankRange => $rankRange, sex => $sex);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DosaAdminApi->getRankings: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-getRankings-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+swagger_client.configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['X-API-KEY'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.DosaAdminApi()
+rankRange = 56 # Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜） (optional)
+sex = 56 # Integer | 性別（1:男性, 2:女性） (optional)
+
+try: 
+    # ランキング一覧取得
+    api_response = api_instance.get_rankings(rankRange=rankRange, sex=sex)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DosaAdminApi->getRankings: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">rank_range</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_getRankings_rankRange">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    Integer
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr><td style="width:150px;">sex</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_getRankings_sex">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    Integer
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        性別（1:男性, 2:女性）
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - ok </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getRankings-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getRankings-200-schema">
+                                  <div id='responses-getRankings-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "ok",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Ranking"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getRankings-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getRankings-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getRankings-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - invalid request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getRankings-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getRankings-400-schema">
+                                  <div id='responses-getRankings-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "invalid request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Error"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getRankings-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getRankings-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getRankings-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 401 - API key is missing or invalid </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-getRankings-401-headers">Headers</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-getRankings-401-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td>WWW_Authenticate</td>
+                                            <td>String</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - Ranking not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-DosaAdmin-postMeasurementMeet">
+                      <article id="api-DosaAdmin-postMeasurementMeet-0" data-group="User" data-name="postMeasurementMeet" data-version="0">
+                        <div class="pull-left">
+                          <h1>postMeasurementMeet</h1>
+                          <p>測定会申込み</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/meaasuremnt_meets/{meet_id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DosaAdmin-postMeasurementMeet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postMeasurementMeet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DosaAdmin-postMeasurementMeet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/meaasuremnt_meets/{meet_id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DosaAdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer meetId = 56; // Integer | 測定会ID
+        MeasurementMeetRequestData body = ; // MeasurementMeetRequestData | 
+        try {
+            inline_response_201 result = apiInstance.postMeasurementMeet(meetId, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#postMeasurementMeet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DosaAdminApi;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Integer meetId = 56; // Integer | 測定会ID
+        MeasurementMeetRequestData body = ; // MeasurementMeetRequestData | 
+        try {
+            inline_response_201 result = apiInstance.postMeasurementMeet(meetId, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#postMeasurementMeet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"X-API-KEY"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"X-API-KEY"];
+Integer *meetId = 56; // 測定会ID
+MeasurementMeetRequestData *body = ; //  (optional)
+
+DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
+
+// 測定会申込み
+[apiInstance postMeasurementMeetWith:meetId
+    body:body
+              completionHandler: ^(inline_response_201 output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Dosaapi = require('dosaapi');
+var defaultClient = Dosaapi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['X-API-KEY'] = "Token"
+
+var api = new Dosaapi.DosaAdminApi()
+var meetId = 56; // {{Integer}} 測定会ID
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.postMeasurementMeet(meetId, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class postMeasurementMeetExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("X-API-KEY", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("X-API-KEY", "Bearer");
+
+            var apiInstance = new DosaAdminApi();
+            var meetId = 56;  // Integer | 測定会ID
+            var body = new MeasurementMeetRequestData(); // MeasurementMeetRequestData |  (optional) 
+
+            try
+            {
+                // 測定会申込み
+                inline_response_201 result = apiInstance.postMeasurementMeet(meetId, body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DosaAdminApi.postMeasurementMeet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-API-KEY', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-KEY', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiDosaAdminApi();
+$meetId = 56; // Integer | 測定会ID
+$body = ; // MeasurementMeetRequestData | 
+
+try {
+    $result = $api_instance->postMeasurementMeet($meetId, $body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DosaAdminApi->postMeasurementMeet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DosaAdminApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::SwaggerClient::Configuration::api_key->{'X-API-KEY'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'X-API-KEY'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::DosaAdminApi->new();
+my $meetId = 56; # Integer | 測定会ID
+my $body = WWW::SwaggerClient::Object::MeasurementMeetRequestData->new(); # MeasurementMeetRequestData | 
+
+eval { 
+    my $result = $api_instance->postMeasurementMeet(meetId => $meetId, body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DosaAdminApi->postMeasurementMeet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postMeasurementMeet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+swagger_client.configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['X-API-KEY'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.DosaAdminApi()
+meetId = 56 # Integer | 測定会ID
+body =  # MeasurementMeetRequestData |  (optional)
+
+try: 
+    # 測定会申込み
+    api_response = api_instance.post_measurement_meet(meetId, body=body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DosaAdminApi->postMeasurementMeet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">meet_id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_postMeasurementMeet_meetId">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      Integer
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          測定会ID
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body </td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/MeasurementMeetRequestData"
+      }
+    }
+  }
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_postMeasurementMeet_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_postMeasurementMeet_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 201 - created </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-postMeasurementMeet-201-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-postMeasurementMeet-201-schema">
+                                  <div id='responses-postMeasurementMeet-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "created",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_201"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-postMeasurementMeet-201-schema-data').val(stringify(schema));
+                                        var result = $('#responses-postMeasurementMeet-201-schema-201');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-postMeasurementMeet-201-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - invalid request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-postMeasurementMeet-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-postMeasurementMeet-400-schema">
+                                  <div id='responses-postMeasurementMeet-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "invalid request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Error"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-postMeasurementMeet-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-postMeasurementMeet-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-postMeasurementMeet-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 401 - API key is missing or invalid </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-postMeasurementMeet-401-headers">Headers</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-postMeasurementMeet-401-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td>WWW_Authenticate</td>
+                                            <td>String</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - MeasurementMeet not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-DosaAdmin-postSendTestMail">
+                      <article id="api-DosaAdmin-postSendTestMail-0" data-group="User" data-name="postSendTestMail" data-version="0">
+                        <div class="pull-left">
+                          <h1>postSendTestMail</h1>
+                          <p>テストメール送信</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/send_test_mail</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DosaAdmin-postSendTestMail-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-java">Java</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-DosaAdmin-postSendTestMail-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DosaAdmin-postSendTestMail-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST -H "X-API-KEY: [[apiKey]]" "http://localhost:8000/api/v1/send_test_mail"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DosaAdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Body body = ; // Body | 
+        try {
+            apiInstance.postSendTestMail(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#postSendTestMail");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DosaAdminApi;
+
+public class DosaAdminApiExample {
+
+    public static void main(String[] args) {
+        DosaAdminApi apiInstance = new DosaAdminApi();
+        Body body = ; // Body | 
+        try {
+            apiInstance.postSendTestMail(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DosaAdminApi#postSendTestMail");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"X-API-KEY"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"X-API-KEY"];
+Body *body = ; //  (optional)
+
+DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
+
+// テストメール送信
+[apiInstance postSendTestMailWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Dosaapi = require('dosaapi');
+var defaultClient = Dosaapi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['X-API-KEY'] = "Token"
+
+var api = new Dosaapi.DosaAdminApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.postSendTestMail(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class postSendTestMailExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("X-API-KEY", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("X-API-KEY", "Bearer");
+
+            var apiInstance = new DosaAdminApi();
+            var body = new Body(); // Body |  (optional) 
+
+            try
+            {
+                // テストメール送信
+                apiInstance.postSendTestMail(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DosaAdminApi.postSendTestMail: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-API-KEY', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-KEY', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiDosaAdminApi();
+$body = ; // Body | 
+
+try {
+    $api_instance->postSendTestMail($body);
+} catch (Exception $e) {
+    echo 'Exception when calling DosaAdminApi->postSendTestMail: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DosaAdminApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::SwaggerClient::Configuration::api_key->{'X-API-KEY'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'X-API-KEY'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::DosaAdminApi->new();
+my $body = WWW::SwaggerClient::Object::Body->new(); # Body | 
+
+eval { 
+    $api_instance->postSendTestMail(body => $body);
+};
+if ($@) {
+    warn "Exception when calling DosaAdminApi->postSendTestMail: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DosaAdmin-postSendTestMail-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+swagger_client.configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['X-API-KEY'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.DosaAdminApi()
+body =  # Body |  (optional)
+
+try: 
+    # テストメール送信
+    api_instance.post_send_test_mail(body=body)
+except ApiException as e:
+    print("Exception when calling DosaAdminApi->postSendTestMail: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body </td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body"
+      }
+    }
+  }
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_postSendTestMail_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_postSendTestMail_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - ok </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - invalid request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-postSendTestMail-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-postSendTestMail-400-schema">
+                                  <div id='responses-postSendTestMail-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "invalid request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Error"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-postSendTestMail-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-postSendTestMail-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-postSendTestMail-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 401 - API key is missing or invalid </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-postSendTestMail-401-headers">Headers</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-postSendTestMail-401-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td>WWW_Authenticate</td>
+                                            <td>String</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - MeasurementMeet not found </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>

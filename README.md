@@ -16,10 +16,6 @@ DOSA 連携 API 用のスキーマ定義ファイルを管理するリポジト�
 ```
 .
 ├── README.md
-├── form_post_sample - フォーム連携サンプルコード
-│   ├── README.md
-│   ├── index.html
-│   └── index.php
 ├── openapi.yaml - API定義ファイル
 └── docs
     └── index.html - API仕様書
