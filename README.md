@@ -62,3 +62,9 @@ Mock Server の起動方法
 ```
 $ swagger-codegen generate -i openapi.yaml -l html2 -o docs/
 ```
+
+## Generate Node.js Client
+
+```
+$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin -i /local/openapi.yaml -o /local/dosa-admin-client
+```
