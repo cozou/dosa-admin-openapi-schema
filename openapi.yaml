@@ -50,7 +50,7 @@ components:
           type: string
           example: 測定 太郎
           description: 氏名
-        name_kane:
+        name_kana:
           type: string
           example: ソクテイ タロウ
           description: 氏名（カナ）
