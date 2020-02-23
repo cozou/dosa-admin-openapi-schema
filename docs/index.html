@@ -694,7 +694,8 @@
   "properties" : {
     "mail_address" : {
       "type" : "string",
-      "format" : "email"
+      "format" : "email",
+      "example" : "user1@example.com"
     }
   }
 };
@@ -758,7 +759,7 @@
   }
 };
             defs.Measurement = {
-  "required" : [ "advice", "birthday", "grade", "height", "measurement_id", "meet_id", "meet_name", "name", "participant_id", "participate_time", "results", "sex", "sports_type", "start_date", "team_name", "version", "weight" ],
+  "required" : [ "advice", "birthday", "grade", "height", "measurement_id", "meet_id", "meet_name", "name", "participant_id", "participate_time", "results", "sex", "sports_type", "sports_type_other", "start_date", "team_name", "version", "weight" ],
   "type" : "object",
   "properties" : {
     "participant_id" : {
@@ -831,6 +832,11 @@
         "type" : "string",
         "example" : "サッカー"
       }
+    },
+    "sports_type_other" : {
+      "type" : "string",
+      "description" : "その他の習ったスポーツ",
+      "example" : "フットサル"
     },
     "team_name" : {
       "type" : "string",
@@ -967,7 +973,7 @@
   "description" : "申込受付中測定会"
 };
             defs.MeasurementMeetRequestData = {
-  "required" : [ "address", "birthday", "endurance_long_self", "first_hope_time", "height", "mail_address", "name", "name_kana", "parent_name", "participate_time", "school_name", "second_hope_time", "sex", "sports_type", "team_name", "telephone", "third_hope_time", "weight", "zip_code1", "zip_code2" ],
+  "required" : [ "address", "birthday", "endurance_long_self", "first_hope_time", "height", "mail_address", "name", "name_kana", "parent_name", "participate_time", "school_name", "second_hope_time", "sex", "sports_type", "sports_type_other", "team_name", "telephone", "third_hope_time", "weight", "zip_code1", "zip_code2" ],
   "type" : "object",
   "properties" : {
     "name" : {
@@ -1006,7 +1012,8 @@
     "mail_address" : {
       "type" : "string",
       "description" : "メールアドレス",
-      "format" : "email"
+      "format" : "email",
+      "example" : "user1@example.com"
     },
     "parent_name" : {
       "type" : "string",
@@ -1036,6 +1043,11 @@
         "type" : "string",
         "example" : "サッカー"
       }
+    },
+    "sports_type_other" : {
+      "type" : "string",
+      "description" : "その他の習ったスポーツ",
+      "example" : "フットサル"
     },
     "school_name" : {
       "type" : "string",
@@ -1191,7 +1203,8 @@
     "mail_address" : {
       "type" : "string",
       "description" : "メールアドレス",
-      "format" : "email"
+      "format" : "email",
+      "example" : "user1@example.com"
     }
   },
   "description" : "測定者"
