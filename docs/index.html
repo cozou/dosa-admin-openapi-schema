@@ -749,6 +749,33 @@
     }
   }
 };
+            defs.inline_response_200_4 = {
+  "type" : "object",
+  "properties" : {
+    "data" : {
+      "$ref" : "#/components/schemas/MeasurementMeet"
+    }
+  }
+};
+            defs.inline_response_200_5 = {
+  "type" : "object",
+  "properties" : {
+    "data" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/MeasurementMeetRequest"
+      }
+    }
+  }
+};
+            defs.inline_response_200_6 = {
+  "type" : "object",
+  "properties" : {
+    "data" : {
+      "$ref" : "#/components/schemas/Ranking"
+    }
+  }
+};
             defs.inline_response_201 = {
   "type" : "object",
   "properties" : {
@@ -1975,7 +2002,7 @@ public class DosaAdminApiExample {
         DosaAdminApi apiInstance = new DosaAdminApi();
         Integer meetId = 56; // Integer | 測定会ID
         try {
-            MeasurementMeet result = apiInstance.getMeasurementMeet(meetId);
+            inline_response_200_4 result = apiInstance.getMeasurementMeet(meetId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurementMeet");
@@ -1994,7 +2021,7 @@ public class DosaAdminApiExample {
         DosaAdminApi apiInstance = new DosaAdminApi();
         Integer meetId = 56; // Integer | 測定会ID
         try {
-            MeasurementMeet result = apiInstance.getMeasurementMeet(meetId);
+            inline_response_200_4 result = apiInstance.getMeasurementMeet(meetId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurementMeet");
@@ -2019,7 +2046,7 @@ DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
 
 // 測定会取得
 [apiInstance getMeasurementMeetWith:meetId
-              completionHandler: ^(MeasurementMeet output, NSError* error) {
+              completionHandler: ^(inline_response_200_4 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2082,7 +2109,7 @@ namespace Example
             try
             {
                 // 測定会取得
-                MeasurementMeet result = apiInstance.getMeasurementMeet(meetId);
+                inline_response_200_4 result = apiInstance.getMeasurementMeet(meetId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2219,7 +2246,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/MeasurementMeet"
+        "$ref" : "#/components/schemas/inline_response_200_4"
       }
     }
   }
@@ -2392,7 +2419,7 @@ public class DosaAdminApiExample {
         Integer participantId = 56; // Integer | 測定者ID
         Integer meetId = 56; // Integer | 測定会ID
         try {
-            MeasurementMeetRequest result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
+            inline_response_200_5 result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurementMeetRequest");
@@ -2412,7 +2439,7 @@ public class DosaAdminApiExample {
         Integer participantId = 56; // Integer | 測定者ID
         Integer meetId = 56; // Integer | 測定会ID
         try {
-            MeasurementMeetRequest result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
+            inline_response_200_5 result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getMeasurementMeetRequest");
@@ -2439,7 +2466,7 @@ DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
 // 申込み測定会一覧取得
 [apiInstance getMeasurementMeetRequestWith:participantId
     meetId:meetId
-              completionHandler: ^(MeasurementMeetRequest output, NSError* error) {
+              completionHandler: ^(inline_response_200_5 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2505,7 +2532,7 @@ namespace Example
             try
             {
                 // 申込み測定会一覧取得
-                MeasurementMeetRequest result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
+                inline_response_200_5 result = apiInstance.getMeasurementMeetRequest(participantId, meetId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2674,7 +2701,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/MeasurementMeetRequest"
+        "$ref" : "#/components/schemas/inline_response_200_5"
       }
     }
   }
@@ -4094,7 +4121,7 @@ public class DosaAdminApiExample {
         Integer rankRange = 56; // Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
         Integer sex = 56; // Integer | 性別（1:男性, 2:女性）
         try {
-            Ranking result = apiInstance.getRankings(rankRange, sex);
+            inline_response_200_6 result = apiInstance.getRankings(rankRange, sex);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getRankings");
@@ -4114,7 +4141,7 @@ public class DosaAdminApiExample {
         Integer rankRange = 56; // Integer | 全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）
         Integer sex = 56; // Integer | 性別（1:男性, 2:女性）
         try {
-            Ranking result = apiInstance.getRankings(rankRange, sex);
+            inline_response_200_6 result = apiInstance.getRankings(rankRange, sex);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DosaAdminApi#getRankings");
@@ -4141,7 +4168,7 @@ DosaAdminApi *apiInstance = [[DosaAdminApi alloc] init];
 // ランキング一覧取得
 [apiInstance getRankingsWith:rankRange
     sex:sex
-              completionHandler: ^(Ranking output, NSError* error) {
+              completionHandler: ^(inline_response_200_6 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -4207,7 +4234,7 @@ namespace Example
             try
             {
                 // ランキング一覧取得
-                Ranking result = apiInstance.getRankings(rankRange, sex);
+                inline_response_200_6 result = apiInstance.getRankings(rankRange, sex);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -4363,7 +4390,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Ranking"
+        "$ref" : "#/components/schemas/inline_response_200_6"
       }
     }
   }

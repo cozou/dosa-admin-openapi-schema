@@ -402,7 +402,7 @@ $ docker run -d -p 8080:8080 swaggerapi/swagger-editor</code></pre></div></li>
 
 <h2 id="toc_7">Generate Node.js Client</h2>
 
-<div><pre><code class="language-none">$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin -i /local/openapi.yaml -o /local/dosa-admin-client</code></pre></div>
+<div><pre><code class="language-none">$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original -i /local/openapi.yaml -o /local/dosa-admin-client</code></pre></div>
 
 
 

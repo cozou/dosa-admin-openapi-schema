@@ -66,5 +66,5 @@ $ swagger-codegen generate -i openapi.yaml -l html2 -o docs/
 ## Generate Node.js Client
 
 ```
-$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin -i /local/openapi.yaml -o /local/dosa-admin-client
+$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original -i /local/openapi.yaml -o /local/dosa-admin-client
 ```
