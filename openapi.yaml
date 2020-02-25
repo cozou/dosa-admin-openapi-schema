@@ -1,4 +1,4 @@
-openapi: '3.0.2'
+openapi: "3.0.2"
 servers:
   - url: http://localhost:8000
 info:
@@ -30,7 +30,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
   schemas:
     Error:
       type: object
@@ -59,7 +59,7 @@ components:
           enum:
             - 1
             - 2
-          description: '性別（1:男性, 2:女性）'
+          description: "性別（1:男性, 2:女性）"
         birthday:
           type: string
           format: date
@@ -102,7 +102,7 @@ components:
           description: 測定会実施日
         start_time:
           type: string
-          example: '10:00'
+          example: "10:00"
           description: 開始時間
       required:
         - participant_id
@@ -144,7 +144,7 @@ components:
           enum:
             - 1
             - 2
-          description: '性別（1:男性, 2:女性）'
+          description: "性別（1:男性, 2:女性）"
         grade:
           type: string
           example: 中2
@@ -191,37 +191,37 @@ components:
           type: object
           properties:
             dash_10:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: 10mスプリント
             endurance_long:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: 長持久力
             endurance_short:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: 短持久力
             jump:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: ジャンプ力
             agility:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: 敏しょう性
             step_visual_response:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: 視覚反応力
             step_power:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: ステップ力
             swing_speed:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: スイングスピード
             balance_l:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: バランス力（左足）
             balance_r:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: バランス力（右足）
             balance_lr_difference:
-              $ref: '#/components/schemas/MeasurementData'
+              $ref: "#/components/schemas/MeasurementData"
               description: バランス力（左右差）
           required:
             - tenSprint
@@ -334,7 +334,7 @@ components:
             - 2
             - 3
             - 4
-          description: '全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）'
+          description: "全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）"
       required:
         - grade
         - score
@@ -350,7 +350,7 @@ components:
           description: 測定会ID
         meet_name:
           type: string
-          example: '東京テスト測定会'
+          example: "東京テスト測定会"
           description: 測定会名
         start_date:
           type: string
@@ -360,14 +360,14 @@ components:
           type: array
           items:
             type: string
-            example: '10:00'
+            example: "10:00"
           description: 開始時間
         status:
           type: integer
           enum:
             - 1
             - 2
-          description: '測定会ステータス（1: 募集受付中, 2: 募集終了）'
+          description: "測定会ステータス（1: 募集受付中, 2: 募集終了）"
       required:
         - meet_id
         - meet_name
@@ -381,47 +381,47 @@ components:
         dash_10:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         endurance_long:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         endurance_short:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         jump:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         agility:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         step_visual_response:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         step_power:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         swing_speed:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         balance_l:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         balance_r:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
         balance_lr_difference:
           type: array
           items:
-            $ref: '#/components/schemas/RankingData'
+            $ref: "#/components/schemas/RankingData"
       required:
         - dash_10
         - endurance_long
@@ -439,14 +439,14 @@ components:
       properties:
         name:
           type: string
-          example: '山田一郎'
+          example: "山田一郎"
           description: 測定者名
         sex:
           type: integer
           enum:
             - 1
             - 2
-          description: '性別（1:男性, 2:女性）'
+          description: "性別（1:男性, 2:女性）"
         birthday:
           type: string
           format: date
@@ -467,7 +467,7 @@ components:
             - 2
             - 3
             - 4
-          description: '全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）'
+          description: "全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）"
         meet_name:
           type: string
           example: 東京テスト測定会
@@ -511,32 +511,32 @@ components:
           description: 測定者ID
         first_hope_time:
           type: string
-          example: '10:00'
+          example: "10:00"
           description: 第1希望時間
         second_hope_time:
           type: string
-          example: '11:00'
+          example: "11:00"
           description: 第2希望時間
         third_hope_time:
           type: string
-          example: '12:00'
+          example: "12:00"
           description: 第3希望時間
         is_win:
           type: integer
           enum:
             - 1
             - 2
-          description: '当落選結果（1: 当選, 2: 落選）'
+          description: "当落選結果（1: 当選, 2: 落選）"
         start_time:
           type: string
-          example: '10:00'
+          example: "10:00"
           description: 開始時間
         status:
           type: integer
           enum:
             - 1
             - 2
-          description: 'ステータス（1: 未応募, 2: 応募済み）'
+          description: "ステータス（1: 未応募, 2: 応募済み）"
       required:
         - request_id
         - meet_id
@@ -564,14 +564,14 @@ components:
           enum:
             - 1
             - 2
-          description: '性別（1:男性, 2:女性）'
+          description: "性別（1:男性, 2:女性）"
         zip_code1:
           type: string
-          example: '102'
+          example: "102"
           description: 郵便番号1
         zip_code2:
           type: string
-          example: '0072'
+          example: "0072"
           description: 郵便番号2
         address:
           type: string
@@ -639,7 +639,7 @@ components:
             - 3
             - 4
             - 5
-          description: '長距離走について（1: 非常に苦手, 2: 少し苦手, 3: 普通, 4: 少し得意, 5: 非常に得意）'
+          description: "長距離走について（1: 非常に苦手, 2: 少し苦手, 3: 普通, 4: 少し得意, 5: 非常に得意）"
       required:
         - name
         - name_kana
@@ -682,7 +682,7 @@ paths:
             format: email
           example: user1@example.com
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -692,12 +692,12 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Participant'
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+                      $ref: "#/components/schemas/Participant"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: Participant not found
   /api/v1/participants/{participant_id}/measurement_meets:
     get:
@@ -713,7 +713,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -723,15 +723,15 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/ParticipantMeasurementMeet'
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+                      $ref: "#/components/schemas/ParticipantMeasurementMeet"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: ParticipantMeasurementMeet not found
-  /api/v1/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}:
-    get:
+  ? /api/v1/participants/{participant_id}/measurement_meets/{meet_id}/measurements/{measurement_id}
+  : get:
       tags:
         - DosaAdmin
       summary: 測定結果取得
@@ -758,7 +758,7 @@ paths:
             type: integer
             example: 1
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -766,12 +766,12 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Measurement'
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+                    $ref: "#/components/schemas/Measurement"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: Measurement not found
   /api/v1/measurement_meets:
     get:
@@ -782,7 +782,7 @@ paths:
       parameters:
         - name: status
           in: query
-          description: '測定会ステータス（1: 募集受付中, 2: 募集終了）'
+          description: "測定会ステータス（1: 募集受付中, 2: 募集終了）"
           required: false
           schema:
             type: integer
@@ -791,7 +791,7 @@ paths:
               - 2
             example: 1
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -801,12 +801,12 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/MeasurementMeet'
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+                      $ref: "#/components/schemas/MeasurementMeet"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: MeasurementMeet not found
   /api/v1/measurement_meets/{meet_id}:
     get:
@@ -823,17 +823,20 @@ paths:
             type: integer
             example: 868064
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeasurementMeet'
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/MeasurementMeet"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: MeasurementMeet not found
   /api/v1/participants/{participant_id}/measurement_meet_requests:
     get:
@@ -857,17 +860,22 @@ paths:
             type: integer
             example: 868064
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeasurementMeetRequest'
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MeasurementMeetRequest"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: MeasurementMeetRequest not found
   /api/v1/rankings:
     get:
@@ -885,7 +893,7 @@ paths:
               - 2
               - 3
               - 4
-          description: '全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）'
+          description: "全国ランキングの範囲（1: 6〜8才、2: 9〜11才、3: 12〜14才, 4: 15〜）"
         - name: sex
           in: query
           schema:
@@ -893,19 +901,22 @@ paths:
             enum:
               - 1
               - 2
-          description: '性別（1:男性, 2:女性）'
+          description: "性別（1:男性, 2:女性）"
       responses:
-        '200':
+        "200":
           description: ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Ranking'
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Ranking"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: Ranking not found
   /api/v1/meaasuremnt_meets/{meet_id}:
     post:
@@ -925,9 +936,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MeasurementMeetRequestData'
+              $ref: "#/components/schemas/MeasurementMeetRequestData"
       responses:
-        '201':
+        "201":
           description: created
           content:
             application/json:
@@ -937,11 +948,11 @@ paths:
                   request_id:
                     type: integer
                     description: リクエストID
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: MeasurementMeet not found
   /api/v1/send_test_mail:
     post:
@@ -960,11 +971,11 @@ paths:
                   format: email
                   example: user1@example.com
       responses:
-        '200':
+        "200":
           description: ok
-        '400':
-          $ref: '#/components/responses/BadRequestError'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
           description: MeasurementMeet not found
