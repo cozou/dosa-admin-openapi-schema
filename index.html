@@ -359,10 +359,6 @@ kbd {
 
 <div><pre><code class="language-none">.
 ├── README.md
-├── form_post_sample - フォーム連携サンプルコード
-│   ├── README.md
-│   ├── index.html
-│   └── index.php
 ├── openapi.yaml - API定義ファイル
 └── docs
     └── index.html - API仕様書</code></pre></div>
@@ -403,6 +399,10 @@ $ docker run -d -p 8080:8080 swaggerapi/swagger-editor</code></pre></div></li>
 <h2 id="toc_6">Generate API Spec HTML</h2>
 
 <div><pre><code class="language-none">$ swagger-codegen generate -i openapi.yaml -l html2 -o docs/</code></pre></div>
+
+<h2 id="toc_7">Generate Node.js Client</h2>
+
+<div><pre><code class="language-none">$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin -i /local/openapi.yaml -o /local/dosa-admin-client</code></pre></div>
 
 
 
