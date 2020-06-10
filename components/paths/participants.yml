@@ -1,0 +1,48 @@
+Participants:
+  post:
+    tags:
+      - DosaAdmin
+    summary: 測定者情報一覧取得
+    operationId: getParticipants
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              mail_address:
+                description: メールアドレス
+                type: string
+                format: email
+                example: user1@example.com
+            required:
+              - mail_address
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: ステータスコード
+                  example: "200"
+                  enum:
+                    - 200
+                    - 404
+                message:
+                  type: string
+                  description: メッセージ
+                  example: successful operation
+                data:
+                  type: array
+                  description: データ
+                  items:
+                    $ref: "../schemas/participant.yml#/Schema"
+              required:
+                - status
+                - message
+                - data

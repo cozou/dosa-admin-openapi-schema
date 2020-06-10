@@ -1,0 +1,36 @@
+Schema:
+  type: object
+  properties:
+    PARTICIPANT_ID:
+      type: string
+      example: "33320"
+      description: 測定者ID
+    MEET_ID:
+      type: string
+      example: 755043
+      description: 測定会ID
+    MEET_NAME:
+      type: string
+      example: "東京テスト測定会"
+      description: 測定会名
+    MEASUREMENT_ID:
+      type: string
+      example: "1"
+      description: 測定結果ID
+    STARTDATE:
+      type: string
+      format: date
+      example: "2020-01-01"
+      description: 測定会実施日
+    STARTTIME:
+      type: string
+      example: "10:00"
+      description: 開始時間
+  required:
+    - PARTICIPANT_ID
+    - MEET_ID
+    - MEET_NAME
+    - MEASUREMENT_ID
+    - STARTDATE
+    - STARTTIME
+  description: 測定会情報取得

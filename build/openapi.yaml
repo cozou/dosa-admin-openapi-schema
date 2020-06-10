@@ -1,0 +1,2219 @@
+openapi: 3.0.3
+servers:
+  - url: 'http://www.dosa.or.jp'
+info:
+  description: RESTful API of DOSA管理システム
+  version: v1
+  title: DOSA管理API
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: DosaAdmin
+    description: DOSA管理API
+components:
+  schemas:
+    Participant:
+      type: object
+      properties:
+        PARTICIPANT_ID:
+          type: string
+          description: '774'
+        NAME:
+          type: string
+          example: 測定 太郎
+          description: 氏名
+        NAME_KANA:
+          type: string
+          example: ソクテイ タロウ
+          description: 氏名（カナ）
+        SEX:
+          type: string
+          enum:
+            - 男性
+            - 女性
+          description: '性別（1:男性, 2:女性）'
+        BIRTHDAY:
+          type: string
+          example: '1994-03-03'
+          description: 生年月日
+        MAIL_ADDRESS:
+          type: string
+          format: email
+          description: メールアドレス
+          example: user1@example.com
+      required:
+        - PARTICIPANT_ID
+        - NAME
+        - NAME_KANA
+        - SEX
+        - BIRTHDAY
+        - MAIL_ADDRESS
+      description: 測定者
+    Measurement:
+      type: object
+      properties:
+        PARTICIPANT_ID:
+          type: string
+          example: '33320'
+          description: 測定者ID
+        MEET_ID:
+          type: string
+          example: 755043
+          description: 測定会ID
+        MEET_NAME:
+          type: string
+          example: 東京テスト測定会
+          description: 測定会名
+        MEASUREMENT_ID:
+          type: string
+          example: '1'
+          description: 測定結果ID
+        STARTDATE:
+          type: string
+          format: date
+          example: '2020-01-01'
+          description: 測定会実施日
+        STARTTIME:
+          type: string
+          example: '10:00'
+          description: 開始時間
+      required:
+        - PARTICIPANT_ID
+        - MEET_ID
+        - MEET_NAME
+        - MEASUREMENT_ID
+        - STARTDATE
+        - STARTTIME
+      description: 測定会情報取得
+    Report:
+      type: object
+      properties:
+        MEET_ID:
+          type: string
+          description: 測定会ID
+          example: '755043'
+        NAME:
+          type: string
+          example: 測定 太郎
+          description: 測定者名
+        MEASUREMENT_ID:
+          type: string
+          example: '1'
+          description: 測定結果ID
+        SEX:
+          type: string
+          description: 性別
+          example: 男性
+          enum:
+            - 男性
+            - 女性
+        BIRTHDAY:
+          type: string
+          format: date
+          description: 生年月日
+          example: '2020-01-01'
+        PARTICIPANT_GAKUNEN:
+          type: string
+          description: 学年
+          example: 小６
+        PARTICIPANT_AGE:
+          type: integer
+          description: 年齢
+          example: 11
+        PARTICIPATE_TIME:
+          type: string
+          description: 参加回数
+          example: 1
+        HEIGHT:
+          type: string
+          description: 身長（cm）
+          example: '132.4'
+        WEIGHT:
+          type: string
+          description: 体重（kg）
+          example: '28.8'
+        SPORTS_TYPE:
+          type: string
+          description: 習ったスポーツ（カンマ区切り）
+          example: '野球,サッカー,バスケ'
+        TEAM_NAME:
+          type: string
+          description: チーム名
+          example: テストチーム
+        AGILITY_EVA:
+          type: integer
+          description: 敏しょう性（評価）
+          example: 3
+        AGILITY_NAME:
+          type: string
+          description: 敏しょう性
+          example: 敏しょう性
+        AGILITY_SCORE:
+          type: string
+          description: 敏しょう性（スコア）
+          example: 3.68
+        BALANCE_LR_DIFFERENCE_EVA:
+          type: integer
+          description: バランス力（左右差）（評価）
+          example: 3
+        BALANCE_LR_DIFFERENCE_NAME:
+          type: string
+          description: バランス力（左右差）
+          example: バランス力（左右差）
+        BALANCE_LR_DIFFERENCE_SCORE:
+          type: string
+          description: バランス力（左右差）（スコア）
+          example: 11.71
+        BALANCE_L_EVA:
+          type: integer
+          description: バランス力（左足）（評価）
+          example: 3
+        BALANCE_L_NAME:
+          type: string
+          description: バランス力（左足）
+          example: バランス力（左足）
+        BALANCE_L_SCORE:
+          type: string
+          description: バランス力（左足）（スコア）
+          example: 32.88
+        BALANCE_R_EVA:
+          type: integer
+          description: バランス力（右足）（評価）
+          example: 3
+        BALANCE_R_NAME:
+          type: string
+          description: バランス力（右足）
+          example: バランス力（右足）
+        BALANCE_R_SCORE:
+          type: string
+          description: バランス力（右足）（スコア）
+          example: 44.59
+        DASH_10_EVA:
+          type: integer
+          description: 10mスプリント（評価）
+          example: 4
+        DASH_10_NAME:
+          type: string
+          description: 10mスプリント
+          example: 10mスプリント
+        DASH_10_SCORE:
+          type: string
+          description: 10mスプリント（スコア）
+          example: 2.05
+        ENDURANCE_LONG_EVA:
+          type: integer
+          description: 長持久力（評価）
+          example: 4
+        ENDURANCE_LONG_NAME:
+          type: string
+          description: 長持久力
+          example: 長持久力
+        ENDURANCE_LONG_SCORE:
+          type: string
+          description: 長持久力（スコア）
+          example: 4
+        ENDURANCE_SHORT_EVA:
+          type: integer
+          description: 短持久力（評価）
+          example: 4
+        ENDURANCE_SHORT_NAME:
+          type: string
+          description: 短持久力
+          example: 短持久力
+        ENDURANCE_SHORT_SCORE:
+          type: string
+          description: 短持久力（スコア）
+          example: 10
+        JUMP_EVA:
+          type: integer
+          description: ジャンプ力（評価）
+          example: 3
+        JUMP_NAME:
+          type: string
+          description: ジャンプ力
+          example: ジャンプ力
+        JUMP_SCORE:
+          type: string
+          description: ジャンプ力（スコア）
+          example: 32.5
+        STEP_POWER_EVA:
+          type: integer
+          description: ステップ力（評価）
+          example: 2
+        STEP_POWER_NAME:
+          type: string
+          description: ステップ力
+        STEP_POWER_SCORE:
+          type: string
+          description: ステップ力（スコア）
+          example: 80
+        STEP_VISUAL_RESPONSE_EVA:
+          type: integer
+          description: 視覚反応力（評価）
+          example: 3
+        STEP_VISUAL_RESPONSE_NAME:
+          type: string
+          description: 視覚反応力
+        STEP_VISUAL_RESPONSE_SCORE:
+          type: string
+          description: 視覚反応力（スコア）
+          example: 0.48
+        SWING_SPEED_EVA:
+          type: integer
+          description: スイングスピード（評価）
+          example: 3
+        SWING_SPEED_NAME:
+          type: string
+          description: スイングスピード
+        SWING_SPEED_SCORE:
+          type: string
+          description: スイングスピード（スコア）
+          example: 73.48
+        BODY_JUDGING1_NAME:
+          type: string
+          description: 活かせる能力No.1
+          example: 長持久力
+        BODY_JUDGING1_EVA:
+          type: string
+          description: 活かせる能力No.1
+          example: 野球（ピッチャー・キャッチャー・内野手）、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・砲丸投げ）、柔道、卓球、体操、新体操、ラグビー（バックス）、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ホッケー、テコンドー、ノルディック複合、ボート、カヌー、セーリング、馬術、射撃
+        BODY_JUDGING2_NAME:
+          type: string
+          description: 活かせる能力No.2
+          example: 短持久力
+        BODY_JUDGING2_EVA:
+          type: string
+          description: 活かせる能力No.2
+          example: 野球、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・やり投げ）、柔道、卓球、テニス、バレーボール、体操、新体操、バトミントン、ラグビー、剣道、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、ゴルフ、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ビーチバレー、ホッケー、テコンドー、ボート
+        BODY_JUDGING3_NAME:
+          type: string
+          description: 活かせる能力No.3
+          example: 10mスプリント
+        BODY_JUDGING3_EVA:
+          type: string
+          description: 活かせる能力No.2
+          example: 野球、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・やり投げ）、柔道、卓球、テニス、バレーボール、体操、新体操、バトミントン、ラグビー、剣道、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、ゴルフ、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ビーチバレー、ホッケー、テコンドー、ボート
+        SPORTS_SCORE_TOP1:
+          type: string
+          description: 向いているスポーツNo.1
+          example: サッカー（フィールド）
+        SPORTS_SCORE_TOP2:
+          type: string
+          description: 向いているスポーツNo.2
+          example: バスケットボール
+        SPORTS_SCORE_TOP3:
+          type: string
+          description: 向いているスポーツNo.3
+          example: テニス
+        SPORTS_SCORE_TOP4:
+          type: string
+          description: 向いているスポーツNo.4
+          example: ラグビー（バックス）
+        SPORTS_SCORE_TOP5:
+          type: string
+          description: 向いているスポーツNo.5
+          example: ホッケー
+        SPORTS_SCORE_TOP6:
+          type: string
+          description: 向いているスポーツNo.6
+          example: ボクシング
+        SPORTS_SCORE_TOP7:
+          type: string
+          description: 向いているスポーツNo.7
+          example: アメリカンフットボール
+        SPORTS_SCORE_TOP8:
+          type: string
+          description: 向いているスポーツNo.8
+          example: 野球（内野手）
+        SPORTS_SCORE_TOP9:
+          type: string
+          description: 向いているスポーツNo.9
+          example: 剣道
+        SPORTS_SCORE_TOP10:
+          type: string
+          description: 向いているスポーツNo.10
+          example: スケート（ショートトラック）
+        AGILITYRANK:
+          type: string
+          description: ランキング（敏しょう性）
+          example: 869
+        BALANCE_LR_DIFFERENCERANK:
+          type: string
+          description: ランキング（バランス力）
+          example: 6424
+        DASH_10RANK:
+          type: string
+          description: ランキング（10mスプリント）
+          example: 28
+        JUMPRANK:
+          type: string
+          description: ランキング（ジャンプ力）
+          example: 933
+        STEP_POWERRANK:
+          type: string
+          description: ランキング（ステップ力）
+          example: 4470
+        STEP_VISUAL_RESPONSERANK:
+          type: string
+          description: ランキング（視覚反応力）
+          example: 4110
+        SWING_SPEEDRANK:
+          type: string
+          description: ランキング（スイングスピード）
+          example: 661
+        RANGE:
+          type: string
+          description: ランキング範囲
+          example: 6歳から8歳
+        ADVICE_TEXT:
+          type: string
+          example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
+          description: アドバイス
+      required:
+        - AGILITYRANK
+        - AGILITY_EVA
+        - AGILITY_NAME
+        - AGILITY_SCORE
+        - BALANCE_LR_DIFFERENCERANK
+        - BALANCE_LR_DIFFERENCE_EVA
+        - BALANCE_LR_DIFFERENCE_NAME
+        - BALANCE_LR_DIFFERENCE_SCORE
+        - BALANCE_L_EVA
+        - BALANCE_L_NAME
+        - BALANCE_L_SCORE
+        - BALANCE_R_EVA
+        - BALANCE_R_NAME
+        - BALANCE_R_SCORE
+        - BIRTHDAY
+        - BODY_JUDGING1_EVA
+        - BODY_JUDGING1_NAME
+        - BODY_JUDGING2_EVA
+        - BODY_JUDGING2_NAME
+        - BODY_JUDGING3_EVA
+        - BODY_JUDGING3_NAME
+        - DASH_10RANK
+        - DASH_10_EVA
+        - DASH_10_NAME
+        - DASH_10_SCORE
+        - ENDURANCE_LONG_EVA
+        - ENDURANCE_LONG_NAME
+        - ENDURANCE_LONG_SCORE
+        - ENDURANCE_SHORT_EVA
+        - ENDURANCE_SHORT_NAME
+        - ENDURANCE_SHORT_SCORE
+        - HEIGHT
+        - JUMPRANK
+        - JUMP_EVA
+        - JUMP_NAME
+        - JUMP_SCORE
+        - MEASUREMENT_ID
+        - MEET_ID
+        - NAME
+        - PARTICIPANT_AGE
+        - PARTICIPANT_GAKUNEN
+        - PARTICIPATE_TIME
+        - RANGE
+        - SEX
+        - SPORTS_SCORE_TOP1
+        - SPORTS_SCORE_TOP10
+        - SPORTS_SCORE_TOP2
+        - SPORTS_SCORE_TOP3
+        - SPORTS_SCORE_TOP4
+        - SPORTS_SCORE_TOP5
+        - SPORTS_SCORE_TOP6
+        - SPORTS_SCORE_TOP7
+        - SPORTS_SCORE_TOP8
+        - SPORTS_SCORE_TOP9
+        - SPORTS_TYPE
+        - STEP_POWERRANK
+        - STEP_POWER_EVA
+        - STEP_POWER_NAME
+        - STEP_POWER_SCORE
+        - STEP_VISUAL_RESPONSERANK
+        - STEP_VISUAL_RESPONSE_EVA
+        - STEP_VISUAL_RESPONSE_NAME
+        - STEP_VISUAL_RESPONSE_SCORE
+        - SWING_SPEEDRANK
+        - SWING_SPEED_EVA
+        - SWING_SPEED_NAME
+        - SWING_SPEED_SCORE
+        - TEAM_NAME
+        - WEIGHT
+        - ADVICE_TEXT
+      description: 測定結果
+    MeasurementList:
+      type: object
+      properties:
+        MEET_ID:
+          type: string
+          example: '599665'
+          description: 測定会ID
+        MEET_NAME:
+          type: string
+          example: 東京テスト測定会
+          description: 測定会名
+        STARTDATE:
+          type: string
+          format: date
+          example: '2020-01-01'
+          description: 測定会実施日
+        STARTTIME01:
+          type: string
+          example: '10:00'
+          description: 開始時間1
+        STARTTIME02:
+          type: string
+          example: '11:00'
+          description: 開始時間2
+        STARTTIME03:
+          type: string
+          example: '12:00'
+          description: 開始時間3
+        STARTTIME04:
+          type: string
+          example: '13:00'
+          description: 開始時間4
+        STARTTIME05:
+          type: string
+          example: '14:00'
+          description: 開始時間5
+        STARTTIME06:
+          type: string
+          example: '15:00'
+          description: 開始時間6
+        STARTTIME07:
+          type: string
+          example: '16:00'
+          description: 開始時間7
+        STARTTIME08:
+          type: string
+          example: '17:00'
+          description: 開始時間8
+        STARTTIME09:
+          type: string
+          example: '18:00'
+          description: 開始時間9
+        STARTTIME10:
+          type: string
+          example: '19:00'
+          description: 開始時間10
+        STARTTIME11:
+          type: string
+          example: ''
+          description: 開始時間11
+        STARTTIME12:
+          type: string
+          example: ''
+          description: 開始時間12
+        STARTTIME13:
+          type: string
+          example: ''
+          description: 開始時間13
+        STARTTIME14:
+          type: string
+          example: ''
+          description: 開始時間14
+        STARTTIME15:
+          type: string
+          example: ''
+          description: 開始時間15
+        STATUS:
+          type: string
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+          example: '1'
+          description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+      required:
+        - MEET_ID
+        - MEET_NAME
+        - STARTDATE
+        - STARTTIME01
+        - STARTTIME02
+        - STARTTIME03
+        - STARTTIME04
+        - STARTTIME05
+        - STARTTIME06
+        - STARTTIME07
+        - STARTTIME08
+        - STARTTIME09
+        - STARTTIME10
+        - STARTTIME11
+        - STARTTIME12
+        - STARTTIME13
+        - STARTTIME14
+        - STARTTIME15
+        - STATUS
+      description: 申込受付中測定会
+    MeasurementSingle:
+      type: object
+      properties:
+        MEET_ID:
+          type: string
+          example: '599665'
+          description: 測定会ID
+        MEET_NAME:
+          type: string
+          example: 東京テスト測定会
+          description: 測定会名
+        STARTDATE:
+          type: string
+          format: date
+          example: '2020-01-01'
+          description: 測定会実施日
+        STARTTIME01:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME02:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME03:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME04:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME05:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME06:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME07:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME08:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME09:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME10:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME11:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME12:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME13:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME14:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STARTTIME15:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STATUS:
+          type: integer
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+          example: 1
+          description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+      required:
+        - MEET_ID
+        - MEET_NAME
+        - STARTDATE
+        - STARTTIME01
+        - STARTTIME02
+        - STARTTIME03
+        - STARTTIME04
+        - STARTTIME05
+        - STARTTIME06
+        - STARTTIME07
+        - STARTTIME08
+        - STARTTIME09
+        - STARTTIME10
+        - STARTTIME11
+        - STARTTIME12
+        - STARTTIME13
+        - STARTTIME14
+        - STARTTIME15
+        - STATUS
+      description: 測定会単発情報取得
+    MeasurementMeetRequest:
+      type: object
+      properties:
+        REQUEST_ID:
+          type: integer
+          description: リクエストID
+          example: '33559'
+        MEET_ID:
+          type: string
+          example: '564567'
+          description: 測定会ID
+        PARTICIPANT_ID:
+          type: string
+          example: '33506'
+          description: 測定者ID
+        STARTDATE:
+          type: string
+          format: date
+          example: '2020-01-01'
+          description: 開始日
+        FIRST_HOPE_TIME:
+          type: string
+          example: '10:00'
+          description: 第1希望時間
+        SECOND_HOPE_TIME:
+          type: string
+          example: '11:00'
+          description: 第2希望時間
+        THIRD_HOPE_TIME:
+          type: string
+          example: '12:00'
+          description: 第3希望時間
+        IS_WIN:
+          type: integer
+          enum:
+            - 1
+            - 2
+          description: '当落選結果（1: 当選, 2: 落選）'
+        STARTTIME:
+          type: string
+          example: '10:00'
+          description: 開始時間
+        STATUS:
+          type: string
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+          example: '1'
+          description: 'ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）'
+      required:
+        - REQUEST_ID
+        - MEET_ID
+        - PARTICIPANT_ID
+        - STARTDATE
+        - FIRST_HOPE_TIME
+        - SECOND_HOPE_TIME
+        - THIRD_HOPE_TIME
+        - IS_WIN
+        - STARTTIME
+        - STATUS
+      description: 申込受付中測定会
+    MeasurementMeet:
+      type: object
+      description: 会員登録（測定会申し込み）
+      properties:
+        PARTICIPANT_ID:
+          type: string
+          description: 測定者ID
+          example: '1'
+      required:
+        - PARTICIPANT_ID
+    Ranking:
+      description: ランキングデータ
+      type: array
+      items:
+        type: object
+        properties:
+          PARTICIPANT_ID:
+            type: string
+            description: 測定者ID
+            example: '33320'
+          NAME:
+            type: string
+            description: 測定者名
+            example: 測定 太郎
+          SEX:
+            type: string
+            description: 性別
+            example: 男性
+            enum:
+              - 男性
+              - 女性
+          MEET_NAME:
+            type: string
+            description: 測定会名
+            example: JAL presents スポーツ能力測定会 in 熊本
+          BIRTHDAY:
+            type: string
+            description: 誕生日
+            example: '2008-07-19'
+          MEET_ID:
+            type: string
+            description: 測定会ID
+            example: '477557'
+          MEASUREMENT_ID:
+            type: string
+            description: 測定結果ID
+            example: '186'
+          DASH_10:
+            type: string
+            description: 10mスプリント
+            example: '2.05'
+          JUMP:
+            type: string
+            description: ジャンプ力
+            example: '32.5'
+          AGILITY:
+            type: string
+            description: 敏しょう性
+            example: '3.68'
+          STEP_VISUAL_RESPONSE:
+            type: string
+            description: 資格反応力
+            example: '0.48'
+          STEP_POWER:
+            type: string
+            description: ステップ力
+            example: '80'
+          SWING_SPEED:
+            type: string
+            description: スイングスピード
+            example: '73.48'
+          BALANCE_L:
+            type: string
+            description: バランス力（左）
+            example: '32.88'
+          BALANCE_R:
+            type: string
+            description: バランス力（右）
+            example: '44.59'
+          BALANCE_LR_DIFFERENCE:
+            type: string
+            description: バランス力（左右差）
+            example: '11.71'
+          ENDURANCE_LONG:
+            type: string
+            description: 長持久力
+            example: '4'
+          ENDURANCE_SHORT:
+            type: string
+            description: 短持久力
+            example: '10'
+        required:
+          - PARTICIPANT_ID
+          - NAME
+          - SEX
+          - DASH_10
+          - JUMP
+          - AGILITY
+          - STEP_VISUAL_RESPONSE
+          - STEP_POWER
+          - SWING_SPEED
+          - BALANCE_L
+          - BALANCE_R
+          - BALANCE_LR_DIFFERENCE
+          - ENDURANCE_LONG
+          - ENDURANCE_SHORT
+          - MEET_NAME
+          - BIRTHDAY
+          - MEET_ID
+          - MEASUREMENT_ID
+paths:
+  /sp/if/send_test_mail.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: テストメール送信
+      operationId: postSendTestMail
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                mail_address:
+                  type: string
+                  format: email
+                  example: user1@example.com
+              required:
+                - mail_address
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 402
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: ok
+                required:
+                  - status
+                  - message
+  /sp/if/participants.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: 測定者情報一覧取得
+      operationId: getParticipants
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                mail_address:
+                  description: メールアドレス
+                  type: string
+                  format: email
+                  example: user1@example.com
+              required:
+                - mail_address
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    type: array
+                    description: データ
+                    items:
+                      type: object
+                      properties:
+                        PARTICIPANT_ID:
+                          type: string
+                          description: '774'
+                        NAME:
+                          type: string
+                          example: 測定 太郎
+                          description: 氏名
+                        NAME_KANA:
+                          type: string
+                          example: ソクテイ タロウ
+                          description: 氏名（カナ）
+                        SEX:
+                          type: string
+                          enum:
+                            - 男性
+                            - 女性
+                          description: '性別（1:男性, 2:女性）'
+                        BIRTHDAY:
+                          type: string
+                          example: '1994-03-03'
+                          description: 生年月日
+                        MAIL_ADDRESS:
+                          type: string
+                          format: email
+                          description: メールアドレス
+                          example: user1@example.com
+                      required:
+                        - PARTICIPANT_ID
+                        - NAME
+                        - NAME_KANA
+                        - SEX
+                        - BIRTHDAY
+                        - MAIL_ADDRESS
+                      description: 測定者
+                required:
+                  - status
+                  - message
+                  - data
+  /sp/if/measurement.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: 参加測定会一覧情報取得
+      operationId: getMeasurement
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                participant_id:
+                  description: 測定者ID
+                  type: string
+                  example: 33320
+              required:
+                - participant_id
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    type: array
+                    description: データ
+                    items:
+                      type: object
+                      properties:
+                        PARTICIPANT_ID:
+                          type: string
+                          example: '33320'
+                          description: 測定者ID
+                        MEET_ID:
+                          type: string
+                          example: 755043
+                          description: 測定会ID
+                        MEET_NAME:
+                          type: string
+                          example: 東京テスト測定会
+                          description: 測定会名
+                        MEASUREMENT_ID:
+                          type: string
+                          example: '1'
+                          description: 測定結果ID
+                        STARTDATE:
+                          type: string
+                          format: date
+                          example: '2020-01-01'
+                          description: 測定会実施日
+                        STARTTIME:
+                          type: string
+                          example: '10:00'
+                          description: 開始時間
+                      required:
+                        - PARTICIPANT_ID
+                        - MEET_ID
+                        - MEET_NAME
+                        - MEASUREMENT_ID
+                        - STARTDATE
+                        - STARTTIME
+                      description: 測定会情報取得
+                required:
+                  - status
+                  - message
+                  - data
+  /sp/if/report.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: レポート情報取得
+      operationId: getReport
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                participant_id:
+                  description: 測定者ID
+                  type: string
+                  example: 3554
+                meet_id:
+                  description: 測定会ID
+                  type: string
+                  example: 477557
+                measurement_id:
+                  description: 測定結果ID
+                  type: string
+                  example: 186
+              required:
+                - participant_id
+                - meet_id
+                - measurement_id
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    type: object
+                    properties:
+                      MEET_ID:
+                        type: string
+                        description: 測定会ID
+                        example: '755043'
+                      NAME:
+                        type: string
+                        example: 測定 太郎
+                        description: 測定者名
+                      MEASUREMENT_ID:
+                        type: string
+                        example: '1'
+                        description: 測定結果ID
+                      SEX:
+                        type: string
+                        description: 性別
+                        example: 男性
+                        enum:
+                          - 男性
+                          - 女性
+                      BIRTHDAY:
+                        type: string
+                        format: date
+                        description: 生年月日
+                        example: '2020-01-01'
+                      PARTICIPANT_GAKUNEN:
+                        type: string
+                        description: 学年
+                        example: 小６
+                      PARTICIPANT_AGE:
+                        type: integer
+                        description: 年齢
+                        example: 11
+                      PARTICIPATE_TIME:
+                        type: string
+                        description: 参加回数
+                        example: 1
+                      HEIGHT:
+                        type: string
+                        description: 身長（cm）
+                        example: '132.4'
+                      WEIGHT:
+                        type: string
+                        description: 体重（kg）
+                        example: '28.8'
+                      SPORTS_TYPE:
+                        type: string
+                        description: 習ったスポーツ（カンマ区切り）
+                        example: '野球,サッカー,バスケ'
+                      TEAM_NAME:
+                        type: string
+                        description: チーム名
+                        example: テストチーム
+                      AGILITY_EVA:
+                        type: integer
+                        description: 敏しょう性（評価）
+                        example: 3
+                      AGILITY_NAME:
+                        type: string
+                        description: 敏しょう性
+                        example: 敏しょう性
+                      AGILITY_SCORE:
+                        type: string
+                        description: 敏しょう性（スコア）
+                        example: 3.68
+                      BALANCE_LR_DIFFERENCE_EVA:
+                        type: integer
+                        description: バランス力（左右差）（評価）
+                        example: 3
+                      BALANCE_LR_DIFFERENCE_NAME:
+                        type: string
+                        description: バランス力（左右差）
+                        example: バランス力（左右差）
+                      BALANCE_LR_DIFFERENCE_SCORE:
+                        type: string
+                        description: バランス力（左右差）（スコア）
+                        example: 11.71
+                      BALANCE_L_EVA:
+                        type: integer
+                        description: バランス力（左足）（評価）
+                        example: 3
+                      BALANCE_L_NAME:
+                        type: string
+                        description: バランス力（左足）
+                        example: バランス力（左足）
+                      BALANCE_L_SCORE:
+                        type: string
+                        description: バランス力（左足）（スコア）
+                        example: 32.88
+                      BALANCE_R_EVA:
+                        type: integer
+                        description: バランス力（右足）（評価）
+                        example: 3
+                      BALANCE_R_NAME:
+                        type: string
+                        description: バランス力（右足）
+                        example: バランス力（右足）
+                      BALANCE_R_SCORE:
+                        type: string
+                        description: バランス力（右足）（スコア）
+                        example: 44.59
+                      DASH_10_EVA:
+                        type: integer
+                        description: 10mスプリント（評価）
+                        example: 4
+                      DASH_10_NAME:
+                        type: string
+                        description: 10mスプリント
+                        example: 10mスプリント
+                      DASH_10_SCORE:
+                        type: string
+                        description: 10mスプリント（スコア）
+                        example: 2.05
+                      ENDURANCE_LONG_EVA:
+                        type: integer
+                        description: 長持久力（評価）
+                        example: 4
+                      ENDURANCE_LONG_NAME:
+                        type: string
+                        description: 長持久力
+                        example: 長持久力
+                      ENDURANCE_LONG_SCORE:
+                        type: string
+                        description: 長持久力（スコア）
+                        example: 4
+                      ENDURANCE_SHORT_EVA:
+                        type: integer
+                        description: 短持久力（評価）
+                        example: 4
+                      ENDURANCE_SHORT_NAME:
+                        type: string
+                        description: 短持久力
+                        example: 短持久力
+                      ENDURANCE_SHORT_SCORE:
+                        type: string
+                        description: 短持久力（スコア）
+                        example: 10
+                      JUMP_EVA:
+                        type: integer
+                        description: ジャンプ力（評価）
+                        example: 3
+                      JUMP_NAME:
+                        type: string
+                        description: ジャンプ力
+                        example: ジャンプ力
+                      JUMP_SCORE:
+                        type: string
+                        description: ジャンプ力（スコア）
+                        example: 32.5
+                      STEP_POWER_EVA:
+                        type: integer
+                        description: ステップ力（評価）
+                        example: 2
+                      STEP_POWER_NAME:
+                        type: string
+                        description: ステップ力
+                      STEP_POWER_SCORE:
+                        type: string
+                        description: ステップ力（スコア）
+                        example: 80
+                      STEP_VISUAL_RESPONSE_EVA:
+                        type: integer
+                        description: 視覚反応力（評価）
+                        example: 3
+                      STEP_VISUAL_RESPONSE_NAME:
+                        type: string
+                        description: 視覚反応力
+                      STEP_VISUAL_RESPONSE_SCORE:
+                        type: string
+                        description: 視覚反応力（スコア）
+                        example: 0.48
+                      SWING_SPEED_EVA:
+                        type: integer
+                        description: スイングスピード（評価）
+                        example: 3
+                      SWING_SPEED_NAME:
+                        type: string
+                        description: スイングスピード
+                      SWING_SPEED_SCORE:
+                        type: string
+                        description: スイングスピード（スコア）
+                        example: 73.48
+                      BODY_JUDGING1_NAME:
+                        type: string
+                        description: 活かせる能力No.1
+                        example: 長持久力
+                      BODY_JUDGING1_EVA:
+                        type: string
+                        description: 活かせる能力No.1
+                        example: 野球（ピッチャー・キャッチャー・内野手）、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・砲丸投げ）、柔道、卓球、体操、新体操、ラグビー（バックス）、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ホッケー、テコンドー、ノルディック複合、ボート、カヌー、セーリング、馬術、射撃
+                      BODY_JUDGING2_NAME:
+                        type: string
+                        description: 活かせる能力No.2
+                        example: 短持久力
+                      BODY_JUDGING2_EVA:
+                        type: string
+                        description: 活かせる能力No.2
+                        example: 野球、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・やり投げ）、柔道、卓球、テニス、バレーボール、体操、新体操、バトミントン、ラグビー、剣道、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、ゴルフ、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ビーチバレー、ホッケー、テコンドー、ボート
+                      BODY_JUDGING3_NAME:
+                        type: string
+                        description: 活かせる能力No.3
+                        example: 10mスプリント
+                      BODY_JUDGING3_EVA:
+                        type: string
+                        description: 活かせる能力No.2
+                        example: 野球、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・やり投げ）、柔道、卓球、テニス、バレーボール、体操、新体操、バトミントン、ラグビー、剣道、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、ゴルフ、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ビーチバレー、ホッケー、テコンドー、ボート
+                      SPORTS_SCORE_TOP1:
+                        type: string
+                        description: 向いているスポーツNo.1
+                        example: サッカー（フィールド）
+                      SPORTS_SCORE_TOP2:
+                        type: string
+                        description: 向いているスポーツNo.2
+                        example: バスケットボール
+                      SPORTS_SCORE_TOP3:
+                        type: string
+                        description: 向いているスポーツNo.3
+                        example: テニス
+                      SPORTS_SCORE_TOP4:
+                        type: string
+                        description: 向いているスポーツNo.4
+                        example: ラグビー（バックス）
+                      SPORTS_SCORE_TOP5:
+                        type: string
+                        description: 向いているスポーツNo.5
+                        example: ホッケー
+                      SPORTS_SCORE_TOP6:
+                        type: string
+                        description: 向いているスポーツNo.6
+                        example: ボクシング
+                      SPORTS_SCORE_TOP7:
+                        type: string
+                        description: 向いているスポーツNo.7
+                        example: アメリカンフットボール
+                      SPORTS_SCORE_TOP8:
+                        type: string
+                        description: 向いているスポーツNo.8
+                        example: 野球（内野手）
+                      SPORTS_SCORE_TOP9:
+                        type: string
+                        description: 向いているスポーツNo.9
+                        example: 剣道
+                      SPORTS_SCORE_TOP10:
+                        type: string
+                        description: 向いているスポーツNo.10
+                        example: スケート（ショートトラック）
+                      AGILITYRANK:
+                        type: string
+                        description: ランキング（敏しょう性）
+                        example: 869
+                      BALANCE_LR_DIFFERENCERANK:
+                        type: string
+                        description: ランキング（バランス力）
+                        example: 6424
+                      DASH_10RANK:
+                        type: string
+                        description: ランキング（10mスプリント）
+                        example: 28
+                      JUMPRANK:
+                        type: string
+                        description: ランキング（ジャンプ力）
+                        example: 933
+                      STEP_POWERRANK:
+                        type: string
+                        description: ランキング（ステップ力）
+                        example: 4470
+                      STEP_VISUAL_RESPONSERANK:
+                        type: string
+                        description: ランキング（視覚反応力）
+                        example: 4110
+                      SWING_SPEEDRANK:
+                        type: string
+                        description: ランキング（スイングスピード）
+                        example: 661
+                      RANGE:
+                        type: string
+                        description: ランキング範囲
+                        example: 6歳から8歳
+                      ADVICE_TEXT:
+                        type: string
+                        example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
+                        description: アドバイス
+                    required:
+                      - AGILITYRANK
+                      - AGILITY_EVA
+                      - AGILITY_NAME
+                      - AGILITY_SCORE
+                      - BALANCE_LR_DIFFERENCERANK
+                      - BALANCE_LR_DIFFERENCE_EVA
+                      - BALANCE_LR_DIFFERENCE_NAME
+                      - BALANCE_LR_DIFFERENCE_SCORE
+                      - BALANCE_L_EVA
+                      - BALANCE_L_NAME
+                      - BALANCE_L_SCORE
+                      - BALANCE_R_EVA
+                      - BALANCE_R_NAME
+                      - BALANCE_R_SCORE
+                      - BIRTHDAY
+                      - BODY_JUDGING1_EVA
+                      - BODY_JUDGING1_NAME
+                      - BODY_JUDGING2_EVA
+                      - BODY_JUDGING2_NAME
+                      - BODY_JUDGING3_EVA
+                      - BODY_JUDGING3_NAME
+                      - DASH_10RANK
+                      - DASH_10_EVA
+                      - DASH_10_NAME
+                      - DASH_10_SCORE
+                      - ENDURANCE_LONG_EVA
+                      - ENDURANCE_LONG_NAME
+                      - ENDURANCE_LONG_SCORE
+                      - ENDURANCE_SHORT_EVA
+                      - ENDURANCE_SHORT_NAME
+                      - ENDURANCE_SHORT_SCORE
+                      - HEIGHT
+                      - JUMPRANK
+                      - JUMP_EVA
+                      - JUMP_NAME
+                      - JUMP_SCORE
+                      - MEASUREMENT_ID
+                      - MEET_ID
+                      - NAME
+                      - PARTICIPANT_AGE
+                      - PARTICIPANT_GAKUNEN
+                      - PARTICIPATE_TIME
+                      - RANGE
+                      - SEX
+                      - SPORTS_SCORE_TOP1
+                      - SPORTS_SCORE_TOP10
+                      - SPORTS_SCORE_TOP2
+                      - SPORTS_SCORE_TOP3
+                      - SPORTS_SCORE_TOP4
+                      - SPORTS_SCORE_TOP5
+                      - SPORTS_SCORE_TOP6
+                      - SPORTS_SCORE_TOP7
+                      - SPORTS_SCORE_TOP8
+                      - SPORTS_SCORE_TOP9
+                      - SPORTS_TYPE
+                      - STEP_POWERRANK
+                      - STEP_POWER_EVA
+                      - STEP_POWER_NAME
+                      - STEP_POWER_SCORE
+                      - STEP_VISUAL_RESPONSERANK
+                      - STEP_VISUAL_RESPONSE_EVA
+                      - STEP_VISUAL_RESPONSE_NAME
+                      - STEP_VISUAL_RESPONSE_SCORE
+                      - SWING_SPEEDRANK
+                      - SWING_SPEED_EVA
+                      - SWING_SPEED_NAME
+                      - SWING_SPEED_SCORE
+                      - TEAM_NAME
+                      - WEIGHT
+                      - ADVICE_TEXT
+                    description: 測定結果
+                required:
+                  - status
+                  - message
+                  - data
+  /sp/if/measurement_list.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: 測定会一覧取得
+      operationId: getMeasurementList
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                status:
+                  description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+                  type: string
+                  enum:
+                    - 0
+                    - 1
+                    - 2
+                    - 3
+                  example: 1
+              required:
+                - status
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        MEET_ID:
+                          type: string
+                          example: '599665'
+                          description: 測定会ID
+                        MEET_NAME:
+                          type: string
+                          example: 東京テスト測定会
+                          description: 測定会名
+                        STARTDATE:
+                          type: string
+                          format: date
+                          example: '2020-01-01'
+                          description: 測定会実施日
+                        STARTTIME01:
+                          type: string
+                          example: '10:00'
+                          description: 開始時間1
+                        STARTTIME02:
+                          type: string
+                          example: '11:00'
+                          description: 開始時間2
+                        STARTTIME03:
+                          type: string
+                          example: '12:00'
+                          description: 開始時間3
+                        STARTTIME04:
+                          type: string
+                          example: '13:00'
+                          description: 開始時間4
+                        STARTTIME05:
+                          type: string
+                          example: '14:00'
+                          description: 開始時間5
+                        STARTTIME06:
+                          type: string
+                          example: '15:00'
+                          description: 開始時間6
+                        STARTTIME07:
+                          type: string
+                          example: '16:00'
+                          description: 開始時間7
+                        STARTTIME08:
+                          type: string
+                          example: '17:00'
+                          description: 開始時間8
+                        STARTTIME09:
+                          type: string
+                          example: '18:00'
+                          description: 開始時間9
+                        STARTTIME10:
+                          type: string
+                          example: '19:00'
+                          description: 開始時間10
+                        STARTTIME11:
+                          type: string
+                          example: ''
+                          description: 開始時間11
+                        STARTTIME12:
+                          type: string
+                          example: ''
+                          description: 開始時間12
+                        STARTTIME13:
+                          type: string
+                          example: ''
+                          description: 開始時間13
+                        STARTTIME14:
+                          type: string
+                          example: ''
+                          description: 開始時間14
+                        STARTTIME15:
+                          type: string
+                          example: ''
+                          description: 開始時間15
+                        STATUS:
+                          type: string
+                          enum:
+                            - 0
+                            - 1
+                            - 2
+                            - 3
+                          example: '1'
+                          description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+                      required:
+                        - MEET_ID
+                        - MEET_NAME
+                        - STARTDATE
+                        - STARTTIME01
+                        - STARTTIME02
+                        - STARTTIME03
+                        - STARTTIME04
+                        - STARTTIME05
+                        - STARTTIME06
+                        - STARTTIME07
+                        - STARTTIME08
+                        - STARTTIME09
+                        - STARTTIME10
+                        - STARTTIME11
+                        - STARTTIME12
+                        - STARTTIME13
+                        - STARTTIME14
+                        - STARTTIME15
+                        - STATUS
+                      description: 申込受付中測定会
+                required:
+                  - status
+                  - message
+                  - data
+  /sp/if/measurement_single.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: 測定会単発情報取得
+      operationId: getMeasurementSingle
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                meet_id:
+                  description: 測定会ID
+                  type: string
+                  example: 842321
+              required:
+                - meet_id
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    type: object
+                    properties:
+                      MEET_ID:
+                        type: string
+                        example: '599665'
+                        description: 測定会ID
+                      MEET_NAME:
+                        type: string
+                        example: 東京テスト測定会
+                        description: 測定会名
+                      STARTDATE:
+                        type: string
+                        format: date
+                        example: '2020-01-01'
+                        description: 測定会実施日
+                      STARTTIME01:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME02:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME03:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME04:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME05:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME06:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME07:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME08:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME09:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME10:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME11:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME12:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME13:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME14:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STARTTIME15:
+                        type: string
+                        example: '10:00'
+                        description: 開始時間
+                      STATUS:
+                        type: integer
+                        enum:
+                          - 0
+                          - 1
+                          - 2
+                          - 3
+                        example: 1
+                        description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+                    required:
+                      - MEET_ID
+                      - MEET_NAME
+                      - STARTDATE
+                      - STARTTIME01
+                      - STARTTIME02
+                      - STARTTIME03
+                      - STARTTIME04
+                      - STARTTIME05
+                      - STARTTIME06
+                      - STARTTIME07
+                      - STARTTIME08
+                      - STARTTIME09
+                      - STARTTIME10
+                      - STARTTIME11
+                      - STARTTIME12
+                      - STARTTIME13
+                      - STARTTIME14
+                      - STARTTIME15
+                      - STATUS
+                    description: 測定会単発情報取得
+                required:
+                  - status
+                  - message
+                  - data
+  /sp/if/measurement_meet_request.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: 申し込み測定会一覧取得
+      operationId: getMeasurementMeetRequest
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                participant_id:
+                  description: 測定者ID
+                  type: string
+                  example: 33506
+                meet_id:
+                  description: 測定会ID
+                  type: string
+                  example: 564567
+              required:
+                - participant_id
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        REQUEST_ID:
+                          type: integer
+                          description: リクエストID
+                          example: '33559'
+                        MEET_ID:
+                          type: string
+                          example: '564567'
+                          description: 測定会ID
+                        PARTICIPANT_ID:
+                          type: string
+                          example: '33506'
+                          description: 測定者ID
+                        STARTDATE:
+                          type: string
+                          format: date
+                          example: '2020-01-01'
+                          description: 開始日
+                        FIRST_HOPE_TIME:
+                          type: string
+                          example: '10:00'
+                          description: 第1希望時間
+                        SECOND_HOPE_TIME:
+                          type: string
+                          example: '11:00'
+                          description: 第2希望時間
+                        THIRD_HOPE_TIME:
+                          type: string
+                          example: '12:00'
+                          description: 第3希望時間
+                        IS_WIN:
+                          type: integer
+                          enum:
+                            - 1
+                            - 2
+                          description: '当落選結果（1: 当選, 2: 落選）'
+                        STARTTIME:
+                          type: string
+                          example: '10:00'
+                          description: 開始時間
+                        STATUS:
+                          type: string
+                          enum:
+                            - 1
+                            - 2
+                            - 3
+                            - 4
+                          example: '1'
+                          description: 'ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）'
+                      required:
+                        - REQUEST_ID
+                        - MEET_ID
+                        - PARTICIPANT_ID
+                        - STARTDATE
+                        - FIRST_HOPE_TIME
+                        - SECOND_HOPE_TIME
+                        - THIRD_HOPE_TIME
+                        - IS_WIN
+                        - STARTTIME
+                        - STATUS
+                      description: 申込受付中測定会
+                required:
+                  - status
+                  - message
+                  - data
+  /sp/if/measurement_meet.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: 会員登録（測定会申し込み）
+      operationId: postMeasurementMeet
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                meet_id:
+                  description: 測定会ID
+                  type: string
+                  example: 898064
+                participant_name:
+                  description: 名前
+                  type: string
+                  example: 測定 太郎
+                participant_name_kana:
+                  description: 名前（カナ）
+                  type: string
+                  example: ソクテイ タロウ
+                parent_name1:
+                  description: 保護者氏名（保護者のメールアドレスの場合）
+                  type: string
+                  example: 測定 花子
+                parent_name2:
+                  description: 保護者氏名（プライバシーポリシーに同意）
+                  type: string
+                  example: 測定 花子
+                mail_address:
+                  description: メールアドレス
+                  type: string
+                  example: user1@example.com
+                zipcode1:
+                  description: 郵便番号（3桁）
+                  type: string
+                  example: 102
+                zipcode2:
+                  description: 郵便番号（4桁）
+                  type: string
+                  example: 58
+                address:
+                  description: 住所
+                  type: string
+                  example: 東京都千代田区飯田橋3-2-10
+                telephone:
+                  description: 電話番号
+                  type: string
+                  example: 0123456789
+                sex:
+                  description: 性別
+                  type: string
+                  example: 男性
+                  enum:
+                    - 男性
+                    - 女性
+                birthday1:
+                  description: 生年月日（年）
+                  type: string
+                  example: 2020
+                birthday2:
+                  description: 生年月日（月：頭のゼロは不要）
+                  type: string
+                  example: 1
+                birthday3:
+                  description: 生年月日（日：頭のゼロは不要）
+                  type: string
+                  example: 1
+                first_hope_time:
+                  description: 希望測定開始時間1
+                  type: string
+                  example: '10:00'
+                second_hope_time:
+                  description: 希望測定開始時間2
+                  type: string
+                  example: '12:00'
+                third_hope_time:
+                  description: 希望測定開始時間3
+                  type: string
+                  example: '12:00'
+                sports_type:
+                  description: 習ったスポーツ（カンマ区切り）
+                  type: string
+                  example: '野球,サッカー,バスケ'
+                school_name:
+                  description: 学校名
+                  type: string
+                  example: テスト学校
+                team_name:
+                  description: チーム名
+                  type: string
+                  example: テストチーム
+                height:
+                  description: 身長（cm）
+                  type: string
+                  example: '173.4'
+                weight:
+                  description: 体重（kg）
+                  type: string
+                  example: '80.8'
+                endurance_long_self:
+                  description: '長距離走について（1: 非常に苦手, 2: 少し苦手, 3: 普通, 4: 少し得意, 5: 非常に得意）'
+                  type: string
+                  example: 3
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                participate_time:
+                  description: 参加回数
+                  type: string
+                  example: 1
+              required:
+                - meet_id
+                - participant_name
+                - participant_name_kana
+                - parent_name1
+                - parent_name2
+                - mail_address
+                - zipcode1
+                - zipcode2
+                - address
+                - telephone
+                - sex
+                - birthday1
+                - birthday2
+                - birthday3
+                - first_hope_time
+                - second_hope_time
+                - third_hope_time
+                - sports_type
+                - school_name
+                - team_name
+                - height
+                - weight
+                - endurance_long_self
+                - participate_time
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    type: object
+                    description: 会員登録（測定会申し込み）
+                    properties:
+                      PARTICIPANT_ID:
+                        type: string
+                        description: 測定者ID
+                        example: '1'
+                    required:
+                      - PARTICIPANT_ID
+                required:
+                  - status
+                  - message
+                  - data
+  /sp/if/ranking.php:
+    post:
+      tags:
+        - DosaAdmin
+      summary: ランキング取得
+      operationId: getRanking
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                type:
+                  description: ランキング対象
+                  type: string
+                  example: DASH_10
+                  enum:
+                    - DASH_10
+                    - JUMP
+                    - AGILITY
+                    - STEP_VISUAL_RESPONSE
+                    - STEP_POWER
+                    - SWING_SPEED
+                    - BALANCE_L
+                    - BALANCE_R
+                    - BALANCE_LR_DIFFERENCE
+                    - ENDURANCE_LONG
+                    - ENDURANCE_SHORT
+                age_start:
+                  description: 何歳から
+                  type: string
+                  example: 6
+                age_end:
+                  description: 何歳まで
+                  type: string
+                  example: 8
+                sex:
+                  description: '性別(1:男性, 2:女性)'
+                  type: string
+                  example: 1
+                  enum:
+                    - 1
+                    - 2
+                order:
+                  description: '並び替え(asc:早い順, dsec:遅い順)'
+                  type: string
+                  example: asc
+                  enum:
+                    - asc
+                    - desc
+                topnum:
+                  description: 欲しい件数
+                  type: string
+                  example: 25
+              required:
+                - type
+                - age_start
+                - age_end
+                - sex
+                - order
+                - topnum
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータスコード
+                    example: '200'
+                    enum:
+                      - 200
+                      - 404
+                  message:
+                    type: string
+                    description: メッセージ
+                    example: successful operation
+                  data:
+                    description: ランキングデータ
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        PARTICIPANT_ID:
+                          type: string
+                          description: 測定者ID
+                          example: '33320'
+                        NAME:
+                          type: string
+                          description: 測定者名
+                          example: 測定 太郎
+                        SEX:
+                          type: string
+                          description: 性別
+                          example: 男性
+                          enum:
+                            - 男性
+                            - 女性
+                        MEET_NAME:
+                          type: string
+                          description: 測定会名
+                          example: JAL presents スポーツ能力測定会 in 熊本
+                        BIRTHDAY:
+                          type: string
+                          description: 誕生日
+                          example: '2008-07-19'
+                        MEET_ID:
+                          type: string
+                          description: 測定会ID
+                          example: '477557'
+                        MEASUREMENT_ID:
+                          type: string
+                          description: 測定結果ID
+                          example: '186'
+                        DASH_10:
+                          type: string
+                          description: 10mスプリント
+                          example: '2.05'
+                        JUMP:
+                          type: string
+                          description: ジャンプ力
+                          example: '32.5'
+                        AGILITY:
+                          type: string
+                          description: 敏しょう性
+                          example: '3.68'
+                        STEP_VISUAL_RESPONSE:
+                          type: string
+                          description: 資格反応力
+                          example: '0.48'
+                        STEP_POWER:
+                          type: string
+                          description: ステップ力
+                          example: '80'
+                        SWING_SPEED:
+                          type: string
+                          description: スイングスピード
+                          example: '73.48'
+                        BALANCE_L:
+                          type: string
+                          description: バランス力（左）
+                          example: '32.88'
+                        BALANCE_R:
+                          type: string
+                          description: バランス力（右）
+                          example: '44.59'
+                        BALANCE_LR_DIFFERENCE:
+                          type: string
+                          description: バランス力（左右差）
+                          example: '11.71'
+                        ENDURANCE_LONG:
+                          type: string
+                          description: 長持久力
+                          example: '4'
+                        ENDURANCE_SHORT:
+                          type: string
+                          description: 短持久力
+                          example: '10'
+                      required:
+                        - PARTICIPANT_ID
+                        - NAME
+                        - SEX
+                        - DASH_10
+                        - JUMP
+                        - AGILITY
+                        - STEP_VISUAL_RESPONSE
+                        - STEP_POWER
+                        - SWING_SPEED
+                        - BALANCE_L
+                        - BALANCE_R
+                        - BALANCE_LR_DIFFERENCE
+                        - ENDURANCE_LONG
+                        - ENDURANCE_SHORT
+                        - MEET_NAME
+                        - BIRTHDAY
+                        - MEET_ID
+                        - MEASUREMENT_ID
+                required:
+                  - status
+                  - message
+                  - data

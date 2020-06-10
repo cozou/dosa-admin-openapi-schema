@@ -1,0 +1,37 @@
+Schema:
+  type: object
+  properties:
+    PARTICIPANT_ID:
+      type: string
+      description: "774"
+    NAME:
+      type: string
+      example: 測定 太郎
+      description: 氏名
+    NAME_KANA:
+      type: string
+      example: ソクテイ タロウ
+      description: 氏名（カナ）
+    SEX:
+      type: string
+      enum:
+        - "男性"
+        - "女性"
+      description: "性別（1:男性, 2:女性）"
+    BIRTHDAY:
+      type: string
+      example: "1994-03-03"
+      description: 生年月日
+    MAIL_ADDRESS:
+      type: string
+      format: email
+      description: "メールアドレス"
+      example: user1@example.com
+  required:
+    - PARTICIPANT_ID
+    - NAME
+    - NAME_KANA
+    - SEX
+    - BIRTHDAY
+    - MAIL_ADDRESS
+  description: 測定者

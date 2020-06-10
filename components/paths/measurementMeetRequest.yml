@@ -1,0 +1,50 @@
+MeasurementMeetRequest:
+  post:
+    tags:
+      - DosaAdmin
+    summary: 申し込み測定会一覧取得
+    operationId: getMeasurementMeetRequest
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              participant_id:
+                description: 測定者ID
+                type: string
+                example: 33506
+              meet_id:
+                description: 測定会ID
+                type: string
+                example: 564567
+            required:
+              - participant_id
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: ステータスコード
+                  example: "200"
+                  enum:
+                    - 200
+                    - 404
+                message:
+                  type: string
+                  description: メッセージ
+                  example: successful operation
+                data:
+                  type: array
+                  items:
+                    $ref: "../schemas/measurementMeetRequest.yml#/Schema"
+              required:
+                - status
+                - message
+                - data
