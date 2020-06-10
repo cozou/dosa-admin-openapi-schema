@@ -2,7 +2,7 @@ openapi: 3.0.3
 servers:
   - url: 'http://www.dosa.or.jp'
 info:
-  description: RESTful API of DOSA管理システム
+  description: DOSA管理API
   version: v1
   title: DOSA管理API
   contact: {}
