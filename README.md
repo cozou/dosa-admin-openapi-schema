@@ -53,7 +53,8 @@ $ redoc-cli bundle build/openapi.yaml --options.menuToggle --options.pathInMiddl
 ## Generate Node.js Client
 
 ```
-$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original -i /local/build/openapi.yaml -o /local/dosa-admin-client
+$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original,allowUnicodeIdentifiers=true -i /local/build/openapi.yaml -o /local/dosa-admin-client
+$ cd dosa-admin-client && git checkout .gitignore && yarn build
 ```
 
 ## Editor
