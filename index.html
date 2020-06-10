@@ -341,7 +341,7 @@ kbd {
 <li>OpenAPI 定義ファイル
 
 <ul>
-<li><a href="https://cozou.github.io/dosa-admin-openapi-schema/openapi.yaml">https://cozou.github.io/dosa-admin-openapi-schema/openapi.yaml</a></li>
+<li><a href="https://cozou.github.io/dosa-admin-openapi-schema/build/openapi.yaml">https://cozou.github.io/dosa-admin-openapi-schema/build/openapi.yaml</a></li>
 </ul></li>
 <li>Github Pages
 
@@ -359,17 +359,44 @@ kbd {
 
 <div><pre><code class="language-none">.
 ├── README.md
-├── openapi.yaml - API定義ファイル
-└── docs
-    └── index.html - API仕様書</code></pre></div>
+├── build
+│   └── openapi.yaml         API定義ファイル（ビルド）
+├── components
+│   ├── paths
+│   └── schemas
+├── docs
+│   └── index.html           API仕様書
+├── dosa-admin-client         クライアントライブラリ
+├── index.html
+└── openapi.yaml              API定義ファイル（元データ）</code></pre></div>
 
-<h2 id="toc_2">Editor</h2>
+<h2 id="toc_2">Build</h2>
 
-<h3 id="toc_3">オンラインの Swagger Editor を利用する場合</h3>
+<div><pre><code class="language-none">$ swagger-cli bundle -r openapi.yaml -t yaml -o build/openapi.yaml</code></pre></div>
+
+<h2 id="toc_3">Mock Server</h2>
+
+<p>Mock Server の起動方法</p>
+
+<div><pre><code class="language-none">$ npm install -g @stoplight/prism-cli
+$ prism mock openapi.yaml</code></pre></div>
+
+<h2 id="toc_4">Generate API Spec HTML</h2>
+
+<div><pre><code class="language-none">$ npm install -g redoc-cli
+$ redoc-cli bundle build/openapi.yaml --options.menuToggle --options.pathInMiddlePanel -o docs/index.html</code></pre></div>
+
+<h2 id="toc_5">Generate Node.js Client</h2>
+
+<div><pre><code class="language-none">$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original -i /local/build/openapi.yaml -o /local/dosa-admin-client</code></pre></div>
+
+<h2 id="toc_6">Editor</h2>
+
+<h3 id="toc_7">オンラインの Swagger Editor を利用する場合</h3>
 
 <p><a href="%EF%BC%88http://editor.swagger.io/">http://editor.swagger.io/</a> の 「File &gt; Import URL」 に 「OpenAPI 定義ファイル」 の URL を指定する。</p>
 
-<h3 id="toc_4">Swagger Editor をローカルで起動する場合</h3>
+<h3 id="toc_8">Swagger Editor をローカルで起動する場合</h3>
 
 <ol>
 <li><p>Docker で起動</p>
@@ -379,30 +406,8 @@ $ docker run -d -p 8080:8080 swaggerapi/swagger-editor</code></pre></div></li>
 <li><p>ブラウザでアクセス</p>
 
 <p><a href="http://localhost:8080">http://localhost:8080</a></p></li>
-<li><p><code>File &gt; Import file</code> より <code>openapi.yaml</code> を読み込む</p></li>
+<li><p><code>File &gt; Import file</code> より <code>build/openapi.yaml</code> を読み込む</p></li>
 </ol>
-
-<h2 id="toc_5">Mock Server</h2>
-
-<p>Mock Server の起動方法</p>
-
-<ol>
-<li><p>apisprout をダウンロード</p>
-
-<p><a href="https://github.com/danielgtaylor/apisprout/releases">https://github.com/danielgtaylor/apisprout/releases</a></p></li>
-<li><p>起動
-ダウンロードしたファイルを解凍先で実行</p>
-
-<div><pre><code class="language-none">$ ./apisprout openapi.yaml</code></pre></div></li>
-</ol>
-
-<h2 id="toc_6">Generate API Spec HTML</h2>
-
-<div><pre><code class="language-none">$ swagger-codegen generate -i openapi.yaml -l html2 -o docs/</code></pre></div>
-
-<h2 id="toc_7">Generate Node.js Client</h2>
-
-<div><pre><code class="language-none">$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original -i /local/openapi.yaml -o /local/dosa-admin-client</code></pre></div>
 
 
 
