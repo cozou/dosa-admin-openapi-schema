@@ -1,0 +1,356 @@
+Schema:
+  type: object
+  properties:
+    MEET_ID:
+      type: string
+      description: 測定会ID
+      example: "755043"
+    NAME:
+      type: string
+      example: 測定 太郎
+      description: 測定者名
+    MEASUREMENT_ID:
+      type: string
+      example: "1"
+      description: 測定結果ID
+    SEX:
+      type: string
+      description: 性別
+      example: 男性
+      enum:
+        - "男性"
+        - "女性"
+    BIRTHDAY:
+      type: string
+      format: date
+      description: 生年月日
+      example: "2020-01-01"
+    PARTICIPANT_GAKUNEN:
+      type: string
+      description: 学年
+      example: 小６
+    PARTICIPANT_AGE:
+      type: integer
+      description: 年齢
+      example: 11
+    PARTICIPATE_TIME:
+      type: string
+      description: 参加回数
+      example: 1
+    HEIGHT:
+      type: string
+      description: 身長（cm）
+      example: "132.4"
+    WEIGHT:
+      type: string
+      description: 体重（kg）
+      example: "28.8"
+    SPORTS_TYPE:
+      type: string
+      description: 習ったスポーツ（カンマ区切り）
+      example: "野球,サッカー,バスケ"
+    TEAM_NAME:
+      type: string
+      description: チーム名
+      example: テストチーム
+    AGILITY_EVA:
+      type: integer
+      description: 敏しょう性（評価）
+      example: 3
+    AGILITY_NAME:
+      type: string
+      description: 敏しょう性
+      example: 敏しょう性
+    AGILITY_SCORE:
+      type: string
+      description: 敏しょう性（スコア）
+      example: 3.68
+    BALANCE_LR_DIFFERENCE_EVA:
+      type: integer
+      description: バランス力（左右差）（評価）
+      example: 3
+    BALANCE_LR_DIFFERENCE_NAME:
+      type: string
+      description: バランス力（左右差）
+      example: バランス力（左右差）
+    BALANCE_LR_DIFFERENCE_SCORE:
+      type: string
+      description: バランス力（左右差）（スコア）
+      example: 11.71
+    BALANCE_L_EVA:
+      type: integer
+      description: バランス力（左足）（評価）
+      example: 3
+    BALANCE_L_NAME:
+      type: string
+      description: バランス力（左足）
+      example: バランス力（左足）
+    BALANCE_L_SCORE:
+      type: string
+      description: バランス力（左足）（スコア）
+      example: 32.88
+    BALANCE_R_EVA:
+      type: integer
+      description: バランス力（右足）（評価）
+      example: 3
+    BALANCE_R_NAME:
+      type: string
+      description: バランス力（右足）
+      example: バランス力（右足）
+    BALANCE_R_SCORE:
+      type: string
+      description: バランス力（右足）（スコア）
+      example: 44.59
+    DASH_10_EVA:
+      type: integer
+      description: 10mスプリント（評価）
+      example: 4
+    DASH_10_NAME:
+      type: string
+      description: 10mスプリント
+      example: 10mスプリント
+    DASH_10_SCORE:
+      type: string
+      description: 10mスプリント（スコア）
+      example: 2.05
+    ENDURANCE_LONG_EVA:
+      type: integer
+      description: 長持久力（評価）
+      example: 4
+    ENDURANCE_LONG_NAME:
+      type: string
+      description: 長持久力
+      example: 長持久力
+    ENDURANCE_LONG_SCORE:
+      type: string
+      description: 長持久力（スコア）
+      example: 4
+    ENDURANCE_SHORT_EVA:
+      type: integer
+      description: 短持久力（評価）
+      example: 4
+    ENDURANCE_SHORT_NAME:
+      type: string
+      description: 短持久力
+      example: 短持久力
+    ENDURANCE_SHORT_SCORE:
+      type: string
+      description: 短持久力（スコア）
+      example: 10
+    JUMP_EVA:
+      type: integer
+      description: ジャンプ力（評価）
+      example: 3
+    JUMP_NAME:
+      type: string
+      description: ジャンプ力
+      example: ジャンプ力
+    JUMP_SCORE:
+      type: string
+      description: ジャンプ力（スコア）
+      example: 32.5
+    STEP_POWER_EVA:
+      type: integer
+      description: ステップ力（評価）
+      example: 2
+    STEP_POWER_NAME:
+      type: string
+      description: ステップ力
+    STEP_POWER_SCORE:
+      type: string
+      description: ステップ力（スコア）
+      example: 80
+    STEP_VISUAL_RESPONSE_EVA:
+      type: integer
+      description: 視覚反応力（評価）
+      example: 3
+    STEP_VISUAL_RESPONSE_NAME:
+      type: string
+      description: 視覚反応力
+    STEP_VISUAL_RESPONSE_SCORE:
+      type: string
+      description: 視覚反応力（スコア）
+      example: 0.48
+    SWING_SPEED_EVA:
+      type: integer
+      description: スイングスピード（評価）
+      example: 3
+    SWING_SPEED_NAME:
+      type: string
+      description: スイングスピード
+    SWING_SPEED_SCORE:
+      type: string
+      description: スイングスピード（スコア）
+      example: 73.48
+    BODY_JUDGING1_NAME:
+      type: string
+      description: 活かせる能力No.1
+      example: 長持久力
+    BODY_JUDGING1_EVA:
+      type: string
+      description: 活かせる能力No.1
+      example: "野球（ピッチャー・キャッチャー・内野手）、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・砲丸投げ）、柔道、卓球、体操、新体操、ラグビー（バックス）、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ホッケー、テコンドー、ノルディック複合、ボート、カヌー、セーリング、馬術、射撃"
+    BODY_JUDGING2_NAME:
+      type: string
+      description: 活かせる能力No.2
+      example: 短持久力
+    BODY_JUDGING2_EVA:
+      type: string
+      description: 活かせる能力No.2
+      example: "野球、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・やり投げ）、柔道、卓球、テニス、バレーボール、体操、新体操、バトミントン、ラグビー、剣道、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、ゴルフ、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ビーチバレー、ホッケー、テコンドー、ボート"
+    BODY_JUDGING3_NAME:
+      type: string
+      description: 活かせる能力No.3
+      example: 10mスプリント
+    BODY_JUDGING3_EVA:
+      type: string
+      description: 活かせる能力No.2
+      example: "野球、サッカー、水泳（短距離）、バスケットボール、陸上（短距離・ハードル・走り幅跳び・走り高跳び・やり投げ）、柔道、卓球、テニス、バレーボール、体操、新体操、バトミントン、ラグビー、剣道、スケート、レスリング、ハンドボール、自転車（バンク）、ボクシング、ゴルフ、アメリカンフットボール、フェンシング、スキー（アルペン・ジャンプ・フリースタイル）、スノーボード、ウエイトリフティング、トランポリン、シンクロ、飛込み、アイスホッケー、ビーチバレー、ホッケー、テコンドー、ボート"
+    SPORTS_SCORE_TOP1:
+      type: string
+      description: 向いているスポーツNo.1
+      example: サッカー（フィールド）
+    SPORTS_SCORE_TOP2:
+      type: string
+      description: 向いているスポーツNo.2
+      example: バスケットボール
+    SPORTS_SCORE_TOP3:
+      type: string
+      description: 向いているスポーツNo.3
+      example: テニス
+    SPORTS_SCORE_TOP4:
+      type: string
+      description: 向いているスポーツNo.4
+      example: ラグビー（バックス）
+    SPORTS_SCORE_TOP5:
+      type: string
+      description: 向いているスポーツNo.5
+      example: ホッケー
+    SPORTS_SCORE_TOP6:
+      type: string
+      description: 向いているスポーツNo.6
+      example: ボクシング
+    SPORTS_SCORE_TOP7:
+      type: string
+      description: 向いているスポーツNo.7
+      example: アメリカンフットボール
+    SPORTS_SCORE_TOP8:
+      type: string
+      description: 向いているスポーツNo.8
+      example: 野球（内野手）
+    SPORTS_SCORE_TOP9:
+      type: string
+      description: 向いているスポーツNo.9
+      example: 剣道
+    SPORTS_SCORE_TOP10:
+      type: string
+      description: 向いているスポーツNo.10
+      example: スケート（ショートトラック）
+    AGILITYRANK:
+      type: string
+      description: ランキング（敏しょう性）
+      example: 869
+    BALANCE_LR_DIFFERENCERANK:
+      type: string
+      description: ランキング（バランス力）
+      example: 6424
+    DASH_10RANK:
+      type: string
+      description: ランキング（10mスプリント）
+      example: 28
+    JUMPRANK:
+      type: string
+      description: ランキング（ジャンプ力）
+      example: 933
+    STEP_POWERRANK:
+      type: string
+      description: ランキング（ステップ力）
+      example: 4470
+    STEP_VISUAL_RESPONSERANK:
+      type: string
+      description: ランキング（視覚反応力）
+      example: 4110
+    SWING_SPEEDRANK:
+      type: string
+      description: ランキング（スイングスピード）
+      example: 661
+    RANGE:
+      type: string
+      description: "ランキング範囲"
+      example: "6歳から8歳"
+    ADVICE_TEXT:
+      type: string
+      example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
+      description: アドバイス
+  required:
+    - AGILITYRANK
+    - AGILITY_EVA
+    - AGILITY_NAME
+    - AGILITY_SCORE
+    - BALANCE_LR_DIFFERENCERANK
+    - BALANCE_LR_DIFFERENCE_EVA
+    - BALANCE_LR_DIFFERENCE_NAME
+    - BALANCE_LR_DIFFERENCE_SCORE
+    - BALANCE_L_EVA
+    - BALANCE_L_NAME
+    - BALANCE_L_SCORE
+    - BALANCE_R_EVA
+    - BALANCE_R_NAME
+    - BALANCE_R_SCORE
+    - BIRTHDAY
+    - BODY_JUDGING1_EVA
+    - BODY_JUDGING1_NAME
+    - BODY_JUDGING2_EVA
+    - BODY_JUDGING2_NAME
+    - BODY_JUDGING3_EVA
+    - BODY_JUDGING3_NAME
+    - DASH_10RANK
+    - DASH_10_EVA
+    - DASH_10_NAME
+    - DASH_10_SCORE
+    - ENDURANCE_LONG_EVA
+    - ENDURANCE_LONG_NAME
+    - ENDURANCE_LONG_SCORE
+    - ENDURANCE_SHORT_EVA
+    - ENDURANCE_SHORT_NAME
+    - ENDURANCE_SHORT_SCORE
+    - HEIGHT
+    - JUMPRANK
+    - JUMP_EVA
+    - JUMP_NAME
+    - JUMP_SCORE
+    - MEASUREMENT_ID
+    - MEET_ID
+    - NAME
+    - PARTICIPANT_AGE
+    - PARTICIPANT_GAKUNEN
+    - PARTICIPATE_TIME
+    - RANGE
+    - SEX
+    - SPORTS_SCORE_TOP1
+    - SPORTS_SCORE_TOP10
+    - SPORTS_SCORE_TOP2
+    - SPORTS_SCORE_TOP3
+    - SPORTS_SCORE_TOP4
+    - SPORTS_SCORE_TOP5
+    - SPORTS_SCORE_TOP6
+    - SPORTS_SCORE_TOP7
+    - SPORTS_SCORE_TOP8
+    - SPORTS_SCORE_TOP9
+    - SPORTS_TYPE
+    - STEP_POWERRANK
+    - STEP_POWER_EVA
+    - STEP_POWER_NAME
+    - STEP_POWER_SCORE
+    - STEP_VISUAL_RESPONSERANK
+    - STEP_VISUAL_RESPONSE_EVA
+    - STEP_VISUAL_RESPONSE_NAME
+    - STEP_VISUAL_RESPONSE_SCORE
+    - SWING_SPEEDRANK
+    - SWING_SPEED_EVA
+    - SWING_SPEED_NAME
+    - SWING_SPEED_SCORE
+    - TEAM_NAME
+    - WEIGHT
+    - ADVICE_TEXT
+  description: 測定結果

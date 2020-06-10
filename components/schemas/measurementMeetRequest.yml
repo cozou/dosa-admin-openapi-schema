@@ -1,0 +1,63 @@
+Schema:
+  type: object
+  properties:
+    REQUEST_ID:
+      type: integer
+      description: リクエストID
+      example: "33559"
+    MEET_ID:
+      type: string
+      example: "564567"
+      description: 測定会ID
+    PARTICIPANT_ID:
+      type: string
+      example: "33506"
+      description: 測定者ID
+    STARTDATE:
+      type: string
+      format: date
+      example: "2020-01-01"
+      description: 開始日
+    FIRST_HOPE_TIME:
+      type: string
+      example: "10:00"
+      description: 第1希望時間
+    SECOND_HOPE_TIME:
+      type: string
+      example: "11:00"
+      description: 第2希望時間
+    THIRD_HOPE_TIME:
+      type: string
+      example: "12:00"
+      description: 第3希望時間
+    IS_WIN:
+      type: integer
+      enum:
+        - 1
+        - 2
+      description: "当落選結果（1: 当選, 2: 落選）"
+    STARTTIME:
+      type: string
+      example: "10:00"
+      description: 開始時間
+    STATUS:
+      type: string
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      example: "1"
+      description: "ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）"
+  required:
+    - REQUEST_ID
+    - MEET_ID
+    - PARTICIPANT_ID
+    - STARTDATE
+    - FIRST_HOPE_TIME
+    - SECOND_HOPE_TIME
+    - THIRD_HOPE_TIME
+    - IS_WIN
+    - STARTTIME
+    - STATUS
+  description: 申込受付中測定会

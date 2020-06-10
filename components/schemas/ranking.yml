@@ -1,0 +1,100 @@
+Schema:
+  description: ランキングデータ
+  type: array
+  items:
+    type: object
+    properties:
+      PARTICIPANT_ID:
+        type: string
+        description: 測定者ID
+        example: "33320"
+      NAME:
+        type: string
+        description: 測定者名
+        example: 測定 太郎
+      SEX:
+        type: string
+        description: 性別
+        example: 男性
+        enum:
+          - 男性
+          - 女性
+      MEET_NAME:
+        type: string
+        description: 測定会名
+        example: "JAL presents スポーツ能力測定会 in 熊本"
+      BIRTHDAY:
+        type: string
+        description: 誕生日
+        example: "2008-07-19"
+      MEET_ID:
+        type: string
+        description: 測定会ID
+        example: "477557"
+      MEASUREMENT_ID:
+        type: string
+        description: 測定結果ID
+        example: "186"
+      DASH_10:
+        type: string
+        description: 10mスプリント
+        example: "2.05"
+      JUMP:
+        type: string
+        description: ジャンプ力
+        example: "32.5"
+      AGILITY:
+        type: string
+        description: 敏しょう性
+        example: "3.68"
+      STEP_VISUAL_RESPONSE:
+        type: string
+        description: 資格反応力
+        example: "0.48"
+      STEP_POWER:
+        type: string
+        description: ステップ力
+        example: "80"
+      SWING_SPEED:
+        type: string
+        description: スイングスピード
+        example: "73.48"
+      BALANCE_L:
+        type: string
+        description: バランス力（左）
+        example: "32.88"
+      BALANCE_R:
+        type: string
+        description: バランス力（右）
+        example: "44.59"
+      BALANCE_LR_DIFFERENCE:
+        type: string
+        description: バランス力（左右差）
+        example: "11.71"
+      ENDURANCE_LONG:
+        type: string
+        description: 長持久力
+        example: "4"
+      ENDURANCE_SHORT:
+        type: string
+        description: 短持久力
+        example: "10"
+    required:
+      - PARTICIPANT_ID
+      - NAME
+      - SEX
+      - DASH_10
+      - JUMP
+      - AGILITY
+      - STEP_VISUAL_RESPONSE
+      - STEP_POWER
+      - SWING_SPEED
+      - BALANCE_L
+      - BALANCE_R
+      - BALANCE_LR_DIFFERENCE
+      - ENDURANCE_LONG
+      - ENDURANCE_SHORT
+      - MEET_NAME
+      - BIRTHDAY
+      - MEET_ID
+      - MEASUREMENT_ID

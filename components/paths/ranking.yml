@@ -1,0 +1,87 @@
+Ranking:
+  post:
+    tags:
+      - DosaAdmin
+    summary: ランキング取得
+    operationId: getRanking
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              type:
+                description: ランキング対象
+                type: string
+                example: DASH_10
+                enum:
+                  - DASH_10
+                  - JUMP
+                  - AGILITY
+                  - STEP_VISUAL_RESPONSE
+                  - STEP_POWER
+                  - SWING_SPEED
+                  - BALANCE_L
+                  - BALANCE_R
+                  - BALANCE_LR_DIFFERENCE
+                  - ENDURANCE_LONG
+                  - ENDURANCE_SHORT
+              age_start:
+                description: 何歳から
+                type: string
+                example: 6
+              age_end:
+                description: 何歳まで
+                type: string
+                example: 8
+              sex:
+                description: 性別(1:男性, 2:女性)
+                type: string
+                example: 1
+                enum:
+                  - 1
+                  - 2
+              order:
+                description: 並び替え(asc:早い順, dsec:遅い順)
+                type: string
+                example: asc
+                enum:
+                  - asc
+                  - desc
+              topnum:
+                description: 欲しい件数
+                type: string
+                example: 25
+            required:
+              - type
+              - age_start
+              - age_end
+              - sex
+              - order
+              - topnum
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: ステータスコード
+                  example: "200"
+                  enum:
+                    - 200
+                    - 404
+                message:
+                  type: string
+                  description: メッセージ
+                  example: successful operation
+                data:
+                  $ref: "../schemas/ranking.yml#/Schema"
+              required:
+                - status
+                - message
+                - data

@@ -1,0 +1,106 @@
+Schema:
+  type: object
+  properties:
+    MEET_ID:
+      type: string
+      example: "599665"
+      description: 測定会ID
+    MEET_NAME:
+      type: string
+      example: "東京テスト測定会"
+      description: 測定会名
+    STARTDATE:
+      type: string
+      format: date
+      example: "2020-01-01"
+      description: 測定会実施日
+    STARTTIME01:
+      type: string
+      example: "10:00"
+      description: 開始時間1
+    STARTTIME02:
+      type: string
+      example: "11:00"
+      description: 開始時間2
+    STARTTIME03:
+      type: string
+      example: "12:00"
+      description: 開始時間3
+    STARTTIME04:
+      type: string
+      example: "13:00"
+      description: 開始時間4
+    STARTTIME05:
+      type: string
+      example: "14:00"
+      description: 開始時間5
+    STARTTIME06:
+      type: string
+      example: "15:00"
+      description: 開始時間6
+    STARTTIME07:
+      type: string
+      example: "16:00"
+      description: 開始時間7
+    STARTTIME08:
+      type: string
+      example: "17:00"
+      description: 開始時間8
+    STARTTIME09:
+      type: string
+      example: "18:00"
+      description: 開始時間9
+    STARTTIME10:
+      type: string
+      example: "19:00"
+      description: 開始時間10
+    STARTTIME11:
+      type: string
+      example: ""
+      description: 開始時間11
+    STARTTIME12:
+      type: string
+      example: ""
+      description: 開始時間12
+    STARTTIME13:
+      type: string
+      example: ""
+      description: 開始時間13
+    STARTTIME14:
+      type: string
+      example: ""
+      description: 開始時間14
+    STARTTIME15:
+      type: string
+      example: ""
+      description: 開始時間15
+    STATUS:
+      type: string
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      example: "1"
+      description: "測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。"
+  required:
+    - MEET_ID
+    - MEET_NAME
+    - STARTDATE
+    - STARTTIME01
+    - STARTTIME02
+    - STARTTIME03
+    - STARTTIME04
+    - STARTTIME05
+    - STARTTIME06
+    - STARTTIME07
+    - STARTTIME08
+    - STARTTIME09
+    - STARTTIME10
+    - STARTTIME11
+    - STARTTIME12
+    - STARTTIME13
+    - STARTTIME14
+    - STARTTIME15
+    - STATUS
+  description: 申込受付中測定会

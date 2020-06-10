@@ -1,0 +1,41 @@
+SendTestMail:
+  post:
+    tags:
+      - DosaAdmin
+    summary: テストメール送信
+    operationId: postSendTestMail
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              mail_address:
+                type: string
+                format: email
+                example: user1@example.com
+            required:
+              - mail_address
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: ステータスコード
+                  example: "200"
+                  enum:
+                    - 200
+                    - 402
+                message:
+                  type: string
+                  description: メッセージ
+                  example: "ok"
+              required:
+                - status
+                - message

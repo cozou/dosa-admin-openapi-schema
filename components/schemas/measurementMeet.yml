@@ -1,0 +1,10 @@
+Schema:
+  type: object
+  description: 会員登録（測定会申し込み）
+  properties:
+    PARTICIPANT_ID:
+      type: string
+      description: 測定者ID
+      example: "1"
+  required:
+    - PARTICIPANT_ID

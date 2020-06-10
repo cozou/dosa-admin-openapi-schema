@@ -1,0 +1,54 @@
+Report:
+  post:
+    tags:
+      - DosaAdmin
+    summary: レポート情報取得
+    operationId: getReport
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              participant_id:
+                description: 測定者ID
+                type: string
+                example: 3554
+              meet_id:
+                description: 測定会ID
+                type: string
+                example: 477557
+              measurement_id:
+                description: 測定結果ID
+                type: string
+                example: 186
+            required:
+              - participant_id
+              - meet_id
+              - measurement_id
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: ステータスコード
+                  example: "200"
+                  enum:
+                    - 200
+                    - 404
+                message:
+                  type: string
+                  description: メッセージ
+                  example: successful operation
+                data:
+                  $ref: "../schemas/report.yml#/Schema"
+              required:
+                - status
+                - message
+                - data

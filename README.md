@@ -5,7 +5,7 @@ DOSA 連携 API 用のスキーマ定義ファイルを管理するリポジト�
 - 仕様書
   - [https://cozou.github.io/dosa-admin-openapi-schema/docs](https://cozou.github.io/dosa-admin-openapi-schema/docs)
 - OpenAPI 定義ファイル
-  - [https://cozou.github.io/dosa-admin-openapi-schema/openapi.yaml](https://cozou.github.io/dosa-admin-openapi-schema/openapi.yaml)
+  - [https://cozou.github.io/dosa-admin-openapi-schema/build/openapi.yaml](https://cozou.github.io/dosa-admin-openapi-schema/build/openapi.yaml)
 - Github Pages
   - [https://cozou.github.io/dosa-admin-openapi-schema](https://cozou.github.io/dosa-admin-openapi-schema)
 - リポジトリ
@@ -16,9 +16,44 @@ DOSA 連携 API 用のスキーマ定義ファイルを管理するリポジト�
 ```
 .
 ├── README.md
-├── openapi.yaml - API定義ファイル
-└── docs
-    └── index.html - API仕様書
+├── build
+│   └── openapi.yaml         API定義ファイル（ビルド）
+├── components
+│   ├── paths
+│   └── schemas
+├── docs
+│   └── index.html           API仕様書
+├── dosa-admin-client         クライアントライブラリ
+├── index.html
+└── openapi.yaml              API定義ファイル（元データ）
+```
+
+## Build
+
+```
+$ swagger-cli bundle -r openapi.yaml -t yaml -o build/openapi.yaml
+```
+
+## Mock Server
+
+Mock Server の起動方法
+
+```
+$ npm install -g @stoplight/prism-cli
+$ prism mock openapi.yaml
+```
+
+## Generate API Spec HTML
+
+```
+$ npm install -g redoc-cli
+$ redoc-cli bundle build/openapi.yaml --options.menuToggle --options.pathInMiddlePanel -o docs/index.html
+```
+
+## Generate Node.js Client
+
+```
+$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original -i /local/build/openapi.yaml -o /local/dosa-admin-client
 ```
 
 ## Editor
@@ -40,31 +75,4 @@ DOSA 連携 API 用のスキーマ定義ファイルを管理するリポジト�
 
    [http://localhost:8080](http://localhost:8080)
 
-3. `File > Import file` より `openapi.yaml` を読み込む
-
-## Mock Server
-
-Mock Server の起動方法
-
-1. apisprout をダウンロード
-
-   [https://github.com/danielgtaylor/apisprout/releases](https://github.com/danielgtaylor/apisprout/releases)
-
-2. 起動
-   ダウンロードしたファイルを解凍先で実行
-
-   ```
-   $ ./apisprout openapi.yaml
-   ```
-
-## Generate API Spec HTML
-
-```
-$ swagger-codegen generate -i openapi.yaml -l html2 -o docs/
-```
-
-## Generate Node.js Client
-
-```
-$ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -g typescript-axios -DnpmName=dosa-admin --additional-properties=modelPropertyNaming=original -i /local/openapi.yaml -o /local/dosa-admin-client
-```
+3. `File > Import file` より `build/openapi.yaml` を読み込む
