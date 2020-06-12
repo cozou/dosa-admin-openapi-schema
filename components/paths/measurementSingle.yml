@@ -14,7 +14,7 @@ MeasurementSingle:
               meet_id:
                 description: 測定会ID
                 type: string
-                example: 842321
+                example: "842321"
             required:
               - meet_id
     responses:
@@ -30,8 +30,8 @@ MeasurementSingle:
                   description: ステータスコード
                   example: "200"
                   enum:
-                    - 200
-                    - 404
+                    - "200"
+                    - "404"
                 message:
                   type: string
                   description: メッセージ

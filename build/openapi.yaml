@@ -19,7 +19,8 @@ components:
       properties:
         PARTICIPANT_ID:
           type: string
-          description: '774'
+          description: 測定者ID
+          example: '774'
         NAME:
           type: string
           example: 測定 太郎
@@ -36,6 +37,7 @@ components:
           description: '性別（1:男性, 2:女性）'
         BIRTHDAY:
           type: string
+          format: date
           example: '1994-03-03'
           description: 生年月日
         MAIL_ADDRESS:
@@ -60,7 +62,7 @@ components:
           description: 測定者ID
         MEET_ID:
           type: string
-          example: 755043
+          example: '755043'
           description: 測定会ID
         MEET_NAME:
           type: string
@@ -125,7 +127,7 @@ components:
         PARTICIPATE_TIME:
           type: string
           description: 参加回数
-          example: 1
+          example: '1'
         HEIGHT:
           type: string
           description: 身長（cm）
@@ -153,7 +155,7 @@ components:
         AGILITY_SCORE:
           type: string
           description: 敏しょう性（スコア）
-          example: 3.68
+          example: '3.68'
         BALANCE_LR_DIFFERENCE_EVA:
           type: integer
           description: バランス力（左右差）（評価）
@@ -165,7 +167,7 @@ components:
         BALANCE_LR_DIFFERENCE_SCORE:
           type: string
           description: バランス力（左右差）（スコア）
-          example: 11.71
+          example: '11.71'
         BALANCE_L_EVA:
           type: integer
           description: バランス力（左足）（評価）
@@ -177,7 +179,7 @@ components:
         BALANCE_L_SCORE:
           type: string
           description: バランス力（左足）（スコア）
-          example: 32.88
+          example: '32.88'
         BALANCE_R_EVA:
           type: integer
           description: バランス力（右足）（評価）
@@ -189,7 +191,7 @@ components:
         BALANCE_R_SCORE:
           type: string
           description: バランス力（右足）（スコア）
-          example: 44.59
+          example: '44.59'
         DASH_10_EVA:
           type: integer
           description: 10mスプリント（評価）
@@ -201,7 +203,7 @@ components:
         DASH_10_SCORE:
           type: string
           description: 10mスプリント（スコア）
-          example: 2.05
+          example: '2.05'
         ENDURANCE_LONG_EVA:
           type: integer
           description: 長持久力（評価）
@@ -213,7 +215,7 @@ components:
         ENDURANCE_LONG_SCORE:
           type: string
           description: 長持久力（スコア）
-          example: 4
+          example: '4'
         ENDURANCE_SHORT_EVA:
           type: integer
           description: 短持久力（評価）
@@ -225,7 +227,7 @@ components:
         ENDURANCE_SHORT_SCORE:
           type: string
           description: 短持久力（スコア）
-          example: 10
+          example: '10'
         JUMP_EVA:
           type: integer
           description: ジャンプ力（評価）
@@ -237,7 +239,7 @@ components:
         JUMP_SCORE:
           type: string
           description: ジャンプ力（スコア）
-          example: 32.5
+          example: '32.5'
         STEP_POWER_EVA:
           type: integer
           description: ステップ力（評価）
@@ -248,7 +250,7 @@ components:
         STEP_POWER_SCORE:
           type: string
           description: ステップ力（スコア）
-          example: 80
+          example: '80'
         STEP_VISUAL_RESPONSE_EVA:
           type: integer
           description: 視覚反応力（評価）
@@ -259,7 +261,7 @@ components:
         STEP_VISUAL_RESPONSE_SCORE:
           type: string
           description: 視覚反応力（スコア）
-          example: 0.48
+          example: '0.48'
         SWING_SPEED_EVA:
           type: integer
           description: スイングスピード（評価）
@@ -270,7 +272,7 @@ components:
         SWING_SPEED_SCORE:
           type: string
           description: スイングスピード（スコア）
-          example: 73.48
+          example: '73.48'
         BODY_JUDGING1_NAME:
           type: string
           description: 活かせる能力No.1
@@ -338,31 +340,31 @@ components:
         AGILITYRANK:
           type: string
           description: ランキング（敏しょう性）
-          example: 869
+          example: '869'
         BALANCE_LR_DIFFERENCERANK:
           type: string
           description: ランキング（バランス力）
-          example: 6424
+          example: '6424'
         DASH_10RANK:
           type: string
           description: ランキング（10mスプリント）
-          example: 28
+          example: '28'
         JUMPRANK:
           type: string
           description: ランキング（ジャンプ力）
-          example: 933
+          example: '933'
         STEP_POWERRANK:
           type: string
           description: ランキング（ステップ力）
-          example: 4470
+          example: '4470'
         STEP_VISUAL_RESPONSERANK:
           type: string
           description: ランキング（視覚反応力）
-          example: 4110
+          example: '4110'
         SWING_SPEEDRANK:
           type: string
           description: ランキング（スイングスピード）
-          example: 661
+          example: '661'
         RANGE:
           type: string
           description: ランキング範囲
@@ -522,10 +524,10 @@ components:
         STATUS:
           type: string
           enum:
-            - 0
-            - 1
-            - 2
-            - 3
+            - '0'
+            - '1'
+            - '2'
+            - '3'
           example: '1'
           description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
       required:
@@ -626,13 +628,13 @@ components:
           example: '10:00'
           description: 開始時間
         STATUS:
-          type: integer
+          type: string
           enum:
-            - 0
-            - 1
-            - 2
-            - 3
-          example: 1
+            - '0'
+            - '1'
+            - '2'
+            - '3'
+          example: '1'
           description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
       required:
         - MEET_ID
@@ -659,7 +661,7 @@ components:
       type: object
       properties:
         REQUEST_ID:
-          type: integer
+          type: string
           description: リクエストID
           example: '33559'
         MEET_ID:
@@ -688,11 +690,12 @@ components:
           example: '12:00'
           description: 第3希望時間
         IS_WIN:
-          type: integer
+          type: string
           enum:
-            - 1
-            - 2
+            - '1'
+            - '2'
           description: '当落選結果（1: 当選, 2: 落選）'
+          example: '1'
         STARTTIME:
           type: string
           example: '10:00'
@@ -700,10 +703,10 @@ components:
         STATUS:
           type: string
           enum:
-            - 1
-            - 2
-            - 3
-            - 4
+            - '1'
+            - '2'
+            - '3'
+            - '4'
           example: '1'
           description: 'ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）'
       required:
@@ -755,6 +758,7 @@ components:
             example: JAL presents スポーツ能力測定会 in 熊本
           BIRTHDAY:
             type: string
+            format: date
             description: 誕生日
             example: '2008-07-19'
           MEET_ID:
@@ -834,7 +838,7 @@ paths:
       tags:
         - DosaAdmin
       summary: テストメール送信
-      operationId: postSendTestMail
+      operationId: sendTestMail
       requestBody:
         required: true
         content:
@@ -861,8 +865,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 402
+                      - '200'
+                      - '402'
                   message:
                     type: string
                     description: メッセージ
@@ -903,8 +907,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -917,7 +921,8 @@ paths:
                       properties:
                         PARTICIPANT_ID:
                           type: string
-                          description: '774'
+                          description: 測定者ID
+                          example: '774'
                         NAME:
                           type: string
                           example: 測定 太郎
@@ -934,6 +939,7 @@ paths:
                           description: '性別（1:男性, 2:女性）'
                         BIRTHDAY:
                           type: string
+                          format: date
                           example: '1994-03-03'
                           description: 生年月日
                         MAIL_ADDRESS:
@@ -969,7 +975,7 @@ paths:
                 participant_id:
                   description: 測定者ID
                   type: string
-                  example: 33320
+                  example: '33320'
               required:
                 - participant_id
       responses:
@@ -985,8 +991,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -1003,7 +1009,7 @@ paths:
                           description: 測定者ID
                         MEET_ID:
                           type: string
-                          example: 755043
+                          example: '755043'
                           description: 測定会ID
                         MEET_NAME:
                           type: string
@@ -1050,15 +1056,15 @@ paths:
                 participant_id:
                   description: 測定者ID
                   type: string
-                  example: 3554
+                  example: '3554'
                 meet_id:
                   description: 測定会ID
                   type: string
-                  example: 477557
+                  example: '477557'
                 measurement_id:
                   description: 測定結果ID
                   type: string
-                  example: 186
+                  example: '186'
               required:
                 - participant_id
                 - meet_id
@@ -1076,8 +1082,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -1120,7 +1126,7 @@ paths:
                       PARTICIPATE_TIME:
                         type: string
                         description: 参加回数
-                        example: 1
+                        example: '1'
                       HEIGHT:
                         type: string
                         description: 身長（cm）
@@ -1148,7 +1154,7 @@ paths:
                       AGILITY_SCORE:
                         type: string
                         description: 敏しょう性（スコア）
-                        example: 3.68
+                        example: '3.68'
                       BALANCE_LR_DIFFERENCE_EVA:
                         type: integer
                         description: バランス力（左右差）（評価）
@@ -1160,7 +1166,7 @@ paths:
                       BALANCE_LR_DIFFERENCE_SCORE:
                         type: string
                         description: バランス力（左右差）（スコア）
-                        example: 11.71
+                        example: '11.71'
                       BALANCE_L_EVA:
                         type: integer
                         description: バランス力（左足）（評価）
@@ -1172,7 +1178,7 @@ paths:
                       BALANCE_L_SCORE:
                         type: string
                         description: バランス力（左足）（スコア）
-                        example: 32.88
+                        example: '32.88'
                       BALANCE_R_EVA:
                         type: integer
                         description: バランス力（右足）（評価）
@@ -1184,7 +1190,7 @@ paths:
                       BALANCE_R_SCORE:
                         type: string
                         description: バランス力（右足）（スコア）
-                        example: 44.59
+                        example: '44.59'
                       DASH_10_EVA:
                         type: integer
                         description: 10mスプリント（評価）
@@ -1196,7 +1202,7 @@ paths:
                       DASH_10_SCORE:
                         type: string
                         description: 10mスプリント（スコア）
-                        example: 2.05
+                        example: '2.05'
                       ENDURANCE_LONG_EVA:
                         type: integer
                         description: 長持久力（評価）
@@ -1208,7 +1214,7 @@ paths:
                       ENDURANCE_LONG_SCORE:
                         type: string
                         description: 長持久力（スコア）
-                        example: 4
+                        example: '4'
                       ENDURANCE_SHORT_EVA:
                         type: integer
                         description: 短持久力（評価）
@@ -1220,7 +1226,7 @@ paths:
                       ENDURANCE_SHORT_SCORE:
                         type: string
                         description: 短持久力（スコア）
-                        example: 10
+                        example: '10'
                       JUMP_EVA:
                         type: integer
                         description: ジャンプ力（評価）
@@ -1232,7 +1238,7 @@ paths:
                       JUMP_SCORE:
                         type: string
                         description: ジャンプ力（スコア）
-                        example: 32.5
+                        example: '32.5'
                       STEP_POWER_EVA:
                         type: integer
                         description: ステップ力（評価）
@@ -1243,7 +1249,7 @@ paths:
                       STEP_POWER_SCORE:
                         type: string
                         description: ステップ力（スコア）
-                        example: 80
+                        example: '80'
                       STEP_VISUAL_RESPONSE_EVA:
                         type: integer
                         description: 視覚反応力（評価）
@@ -1254,7 +1260,7 @@ paths:
                       STEP_VISUAL_RESPONSE_SCORE:
                         type: string
                         description: 視覚反応力（スコア）
-                        example: 0.48
+                        example: '0.48'
                       SWING_SPEED_EVA:
                         type: integer
                         description: スイングスピード（評価）
@@ -1265,7 +1271,7 @@ paths:
                       SWING_SPEED_SCORE:
                         type: string
                         description: スイングスピード（スコア）
-                        example: 73.48
+                        example: '73.48'
                       BODY_JUDGING1_NAME:
                         type: string
                         description: 活かせる能力No.1
@@ -1333,31 +1339,31 @@ paths:
                       AGILITYRANK:
                         type: string
                         description: ランキング（敏しょう性）
-                        example: 869
+                        example: '869'
                       BALANCE_LR_DIFFERENCERANK:
                         type: string
                         description: ランキング（バランス力）
-                        example: 6424
+                        example: '6424'
                       DASH_10RANK:
                         type: string
                         description: ランキング（10mスプリント）
-                        example: 28
+                        example: '28'
                       JUMPRANK:
                         type: string
                         description: ランキング（ジャンプ力）
-                        example: 933
+                        example: '933'
                       STEP_POWERRANK:
                         type: string
                         description: ランキング（ステップ力）
-                        example: 4470
+                        example: '4470'
                       STEP_VISUAL_RESPONSERANK:
                         type: string
                         description: ランキング（視覚反応力）
-                        example: 4110
+                        example: '4110'
                       SWING_SPEEDRANK:
                         type: string
                         description: ランキング（スイングスピード）
-                        example: 661
+                        example: '661'
                       RANGE:
                         type: string
                         description: ランキング範囲
@@ -1459,11 +1465,11 @@ paths:
                   description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
                   type: string
                   enum:
-                    - 0
-                    - 1
-                    - 2
-                    - 3
-                  example: 1
+                    - '0'
+                    - '1'
+                    - '2'
+                    - '3'
+                  example: '1'
               required:
                 - status
       responses:
@@ -1479,8 +1485,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -1566,10 +1572,10 @@ paths:
                         STATUS:
                           type: string
                           enum:
-                            - 0
-                            - 1
-                            - 2
-                            - 3
+                            - '0'
+                            - '1'
+                            - '2'
+                            - '3'
                           example: '1'
                           description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
                       required:
@@ -1613,7 +1619,7 @@ paths:
                 meet_id:
                   description: 測定会ID
                   type: string
-                  example: 842321
+                  example: '842321'
               required:
                 - meet_id
       responses:
@@ -1629,8 +1635,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -1712,13 +1718,13 @@ paths:
                         example: '10:00'
                         description: 開始時間
                       STATUS:
-                        type: integer
+                        type: string
                         enum:
-                          - 0
-                          - 1
-                          - 2
-                          - 3
-                        example: 1
+                          - '0'
+                          - '1'
+                          - '2'
+                          - '3'
+                        example: '1'
                         description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
                     required:
                       - MEET_ID
@@ -1761,11 +1767,11 @@ paths:
                 participant_id:
                   description: 測定者ID
                   type: string
-                  example: 33506
+                  example: '33506'
                 meet_id:
                   description: 測定会ID
                   type: string
-                  example: 564567
+                  example: '564567'
               required:
                 - participant_id
       responses:
@@ -1781,8 +1787,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -1793,7 +1799,7 @@ paths:
                       type: object
                       properties:
                         REQUEST_ID:
-                          type: integer
+                          type: string
                           description: リクエストID
                           example: '33559'
                         MEET_ID:
@@ -1822,11 +1828,12 @@ paths:
                           example: '12:00'
                           description: 第3希望時間
                         IS_WIN:
-                          type: integer
+                          type: string
                           enum:
-                            - 1
-                            - 2
+                            - '1'
+                            - '2'
                           description: '当落選結果（1: 当選, 2: 落選）'
+                          example: '1'
                         STARTTIME:
                           type: string
                           example: '10:00'
@@ -1834,10 +1841,10 @@ paths:
                         STATUS:
                           type: string
                           enum:
-                            - 1
-                            - 2
-                            - 3
-                            - 4
+                            - '1'
+                            - '2'
+                            - '3'
+                            - '4'
                           example: '1'
                           description: 'ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）'
                       required:
@@ -1861,7 +1868,7 @@ paths:
       tags:
         - DosaAdmin
       summary: 会員登録（測定会申し込み）
-      operationId: postMeasurementMeet
+      operationId: registerMeasurementMeet
       requestBody:
         required: true
         content:
@@ -1872,7 +1879,7 @@ paths:
                 meet_id:
                   description: 測定会ID
                   type: string
-                  example: 898064
+                  example: '898064'
                 participant_name:
                   description: 名前
                   type: string
@@ -1892,15 +1899,16 @@ paths:
                 mail_address:
                   description: メールアドレス
                   type: string
+                  format: email
                   example: user1@example.com
                 zipcode1:
                   description: 郵便番号（3桁）
                   type: string
-                  example: 102
+                  example: '102'
                 zipcode2:
                   description: 郵便番号（4桁）
                   type: string
-                  example: 58
+                  example: '0072'
                 address:
                   description: 住所
                   type: string
@@ -1919,15 +1927,15 @@ paths:
                 birthday1:
                   description: 生年月日（年）
                   type: string
-                  example: 2020
+                  example: '2020'
                 birthday2:
                   description: 生年月日（月：頭のゼロは不要）
                   type: string
-                  example: 1
+                  example: '1'
                 birthday3:
                   description: 生年月日（日：頭のゼロは不要）
                   type: string
-                  example: 1
+                  example: '1'
                 first_hope_time:
                   description: 希望測定開始時間1
                   type: string
@@ -1963,17 +1971,17 @@ paths:
                 endurance_long_self:
                   description: '長距離走について（1: 非常に苦手, 2: 少し苦手, 3: 普通, 4: 少し得意, 5: 非常に得意）'
                   type: string
-                  example: 3
+                  example: '3'
                   enum:
-                    - 1
-                    - 2
-                    - 3
-                    - 4
-                    - 5
+                    - '1'
+                    - '2'
+                    - '3'
+                    - '4'
+                    - '5'
                 participate_time:
                   description: 参加回数
                   type: string
-                  example: 1
+                  example: '1'
               required:
                 - meet_id
                 - participant_name
@@ -2012,8 +2020,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -2064,18 +2072,18 @@ paths:
                 age_start:
                   description: 何歳から
                   type: string
-                  example: 6
+                  example: '6'
                 age_end:
                   description: 何歳まで
                   type: string
-                  example: 8
+                  example: '8'
                 sex:
                   description: '性別(1:男性, 2:女性)'
                   type: string
-                  example: 1
+                  example: '1'
                   enum:
-                    - 1
-                    - 2
+                    - '1'
+                    - '2'
                 order:
                   description: '並び替え(asc:早い順, dsec:遅い順)'
                   type: string
@@ -2086,7 +2094,7 @@ paths:
                 topnum:
                   description: 欲しい件数
                   type: string
-                  example: 25
+                  example: '25'
               required:
                 - type
                 - age_start
@@ -2107,8 +2115,8 @@ paths:
                     description: ステータスコード
                     example: '200'
                     enum:
-                      - 200
-                      - 404
+                      - '200'
+                      - '404'
                   message:
                     type: string
                     description: メッセージ
@@ -2140,6 +2148,7 @@ paths:
                           example: JAL presents スポーツ能力測定会 in 熊本
                         BIRTHDAY:
                           type: string
+                          format: date
                           description: 誕生日
                           example: '2008-07-19'
                         MEET_ID:

@@ -3,7 +3,7 @@ SendTestMail:
     tags:
       - DosaAdmin
     summary: テストメール送信
-    operationId: postSendTestMail
+    operationId: sendTestMail
     requestBody:
       required: true
       content:
@@ -30,8 +30,8 @@ SendTestMail:
                   description: ステータスコード
                   example: "200"
                   enum:
-                    - 200
-                    - 402
+                    - "200"
+                    - "402"
                 message:
                   type: string
                   description: メッセージ

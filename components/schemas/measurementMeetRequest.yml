@@ -2,7 +2,7 @@ Schema:
   type: object
   properties:
     REQUEST_ID:
-      type: integer
+      type: string
       description: リクエストID
       example: "33559"
     MEET_ID:
@@ -31,11 +31,12 @@ Schema:
       example: "12:00"
       description: 第3希望時間
     IS_WIN:
-      type: integer
+      type: string
       enum:
-        - 1
-        - 2
+        - "1"
+        - "2"
       description: "当落選結果（1: 当選, 2: 落選）"
+      example: "1"
     STARTTIME:
       type: string
       example: "10:00"
@@ -43,10 +44,10 @@ Schema:
     STATUS:
       type: string
       enum:
-        - 1
-        - 2
-        - 3
-        - 4
+        - "1"
+        - "2"
+        - "3"
+        - "4"
       example: "1"
       description: "ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）"
   required:

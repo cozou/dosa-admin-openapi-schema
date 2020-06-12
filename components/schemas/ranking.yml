@@ -25,6 +25,7 @@ Schema:
         example: "JAL presents スポーツ能力測定会 in 熊本"
       BIRTHDAY:
         type: string
+        format: date
         description: 誕生日
         example: "2008-07-19"
       MEET_ID:

@@ -3,7 +3,7 @@ MeasurementMeet:
     tags:
       - DosaAdmin
     summary: 会員登録（測定会申し込み）
-    operationId: postMeasurementMeet
+    operationId: registerMeasurementMeet
     requestBody:
       required: true
       content:
@@ -14,7 +14,7 @@ MeasurementMeet:
               meet_id:
                 description: 測定会ID
                 type: string
-                example: 898064
+                example: "898064"
               participant_name:
                 description: 名前
                 type: string
@@ -34,15 +34,16 @@ MeasurementMeet:
               mail_address:
                 description: メールアドレス
                 type: string
+                format: email
                 example: user1@example.com
               zipcode1:
                 description: 郵便番号（3桁）
                 type: string
-                example: 102
+                example: "102"
               zipcode2:
                 description: 郵便番号（4桁）
                 type: string
-                example: 0072
+                example: "0072"
               address:
                 description: 住所
                 type: string
@@ -61,15 +62,15 @@ MeasurementMeet:
               birthday1:
                 description: 生年月日（年）
                 type: string
-                example: 2020
+                example: "2020"
               birthday2:
                 description: 生年月日（月：頭のゼロは不要）
                 type: string
-                example: 1
+                example: "1"
               birthday3:
                 description: 生年月日（日：頭のゼロは不要）
                 type: string
-                example: 1
+                example: "1"
               first_hope_time:
                 description: 希望測定開始時間1
                 type: string
@@ -105,17 +106,17 @@ MeasurementMeet:
               endurance_long_self:
                 description: "長距離走について（1: 非常に苦手, 2: 少し苦手, 3: 普通, 4: 少し得意, 5: 非常に得意）"
                 type: string
-                example: 3
+                example: "3"
                 enum:
-                  - 1
-                  - 2
-                  - 3
-                  - 4
-                  - 5
+                  - "1"
+                  - "2"
+                  - "3"
+                  - "4"
+                  - "5"
               participate_time:
                 description: 参加回数
                 type: string
-                example: 1
+                example: "1"
             required:
               - meet_id
               - participant_name
@@ -154,8 +155,8 @@ MeasurementMeet:
                   description: ステータスコード
                   example: "200"
                   enum:
-                    - 200
-                    - 404
+                    - "200"
+                    - "404"
                 message:
                   type: string
                   description: メッセージ

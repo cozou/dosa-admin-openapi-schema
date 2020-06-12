@@ -36,7 +36,7 @@ Schema:
     PARTICIPATE_TIME:
       type: string
       description: 参加回数
-      example: 1
+      example: "1"
     HEIGHT:
       type: string
       description: 身長（cm）
@@ -64,7 +64,7 @@ Schema:
     AGILITY_SCORE:
       type: string
       description: 敏しょう性（スコア）
-      example: 3.68
+      example: "3.68"
     BALANCE_LR_DIFFERENCE_EVA:
       type: integer
       description: バランス力（左右差）（評価）
@@ -76,7 +76,7 @@ Schema:
     BALANCE_LR_DIFFERENCE_SCORE:
       type: string
       description: バランス力（左右差）（スコア）
-      example: 11.71
+      example: "11.71"
     BALANCE_L_EVA:
       type: integer
       description: バランス力（左足）（評価）
@@ -88,7 +88,7 @@ Schema:
     BALANCE_L_SCORE:
       type: string
       description: バランス力（左足）（スコア）
-      example: 32.88
+      example: "32.88"
     BALANCE_R_EVA:
       type: integer
       description: バランス力（右足）（評価）
@@ -100,7 +100,7 @@ Schema:
     BALANCE_R_SCORE:
       type: string
       description: バランス力（右足）（スコア）
-      example: 44.59
+      example: "44.59"
     DASH_10_EVA:
       type: integer
       description: 10mスプリント（評価）
@@ -112,7 +112,7 @@ Schema:
     DASH_10_SCORE:
       type: string
       description: 10mスプリント（スコア）
-      example: 2.05
+      example: "2.05"
     ENDURANCE_LONG_EVA:
       type: integer
       description: 長持久力（評価）
@@ -124,7 +124,7 @@ Schema:
     ENDURANCE_LONG_SCORE:
       type: string
       description: 長持久力（スコア）
-      example: 4
+      example: "4"
     ENDURANCE_SHORT_EVA:
       type: integer
       description: 短持久力（評価）
@@ -136,7 +136,7 @@ Schema:
     ENDURANCE_SHORT_SCORE:
       type: string
       description: 短持久力（スコア）
-      example: 10
+      example: "10"
     JUMP_EVA:
       type: integer
       description: ジャンプ力（評価）
@@ -148,7 +148,7 @@ Schema:
     JUMP_SCORE:
       type: string
       description: ジャンプ力（スコア）
-      example: 32.5
+      example: "32.5"
     STEP_POWER_EVA:
       type: integer
       description: ステップ力（評価）
@@ -159,7 +159,7 @@ Schema:
     STEP_POWER_SCORE:
       type: string
       description: ステップ力（スコア）
-      example: 80
+      example: "80"
     STEP_VISUAL_RESPONSE_EVA:
       type: integer
       description: 視覚反応力（評価）
@@ -170,7 +170,7 @@ Schema:
     STEP_VISUAL_RESPONSE_SCORE:
       type: string
       description: 視覚反応力（スコア）
-      example: 0.48
+      example: "0.48"
     SWING_SPEED_EVA:
       type: integer
       description: スイングスピード（評価）
@@ -181,7 +181,7 @@ Schema:
     SWING_SPEED_SCORE:
       type: string
       description: スイングスピード（スコア）
-      example: 73.48
+      example: "73.48"
     BODY_JUDGING1_NAME:
       type: string
       description: 活かせる能力No.1
@@ -249,31 +249,31 @@ Schema:
     AGILITYRANK:
       type: string
       description: ランキング（敏しょう性）
-      example: 869
+      example: "869"
     BALANCE_LR_DIFFERENCERANK:
       type: string
       description: ランキング（バランス力）
-      example: 6424
+      example: "6424"
     DASH_10RANK:
       type: string
       description: ランキング（10mスプリント）
-      example: 28
+      example: "28"
     JUMPRANK:
       type: string
       description: ランキング（ジャンプ力）
-      example: 933
+      example: "933"
     STEP_POWERRANK:
       type: string
       description: ランキング（ステップ力）
-      example: 4470
+      example: "4470"
     STEP_VISUAL_RESPONSERANK:
       type: string
       description: ランキング（視覚反応力）
-      example: 4110
+      example: "4110"
     SWING_SPEEDRANK:
       type: string
       description: ランキング（スイングスピード）
-      example: 661
+      example: "661"
     RANGE:
       type: string
       description: "ランキング範囲"

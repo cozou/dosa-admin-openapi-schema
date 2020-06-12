@@ -31,8 +31,8 @@ Participants:
                   description: ステータスコード
                   example: "200"
                   enum:
-                    - 200
-                    - 404
+                    - "200"
+                    - "404"
                 message:
                   type: string
                   description: メッセージ

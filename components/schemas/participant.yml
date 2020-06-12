@@ -3,7 +3,8 @@ Schema:
   properties:
     PARTICIPANT_ID:
       type: string
-      description: "774"
+      description: 測定者ID
+      example: "774"
     NAME:
       type: string
       example: 測定 太郎
@@ -20,6 +21,7 @@ Schema:
       description: "性別（1:男性, 2:女性）"
     BIRTHDAY:
       type: string
+      format: date
       example: "1994-03-03"
       description: 生年月日
     MAIL_ADDRESS:

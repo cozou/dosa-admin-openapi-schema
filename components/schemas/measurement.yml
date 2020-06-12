@@ -7,7 +7,7 @@ Schema:
       description: 測定者ID
     MEET_ID:
       type: string
-      example: 755043
+      example: "755043"
       description: 測定会ID
     MEET_NAME:
       type: string

@@ -77,10 +77,10 @@ Schema:
     STATUS:
       type: string
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
+        - "0"
+        - "1"
+        - "2"
+        - "3"
       example: "1"
       description: "測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。"
   required:
