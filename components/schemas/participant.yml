@@ -18,7 +18,7 @@ Schema:
       enum:
         - "男性"
         - "女性"
-      description: "性別（1:男性, 2:女性）"
+      description: "性別"
     BIRTHDAY:
       type: string
       format: date

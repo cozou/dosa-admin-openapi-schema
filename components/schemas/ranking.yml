@@ -80,6 +80,14 @@ Schema:
         type: string
         description: 短持久力
         example: "10"
+      AGE:
+        type: integer
+        description: 測定時の年齢
+        example: 8
+      GAKUNEN:
+        type: string
+        description: 測定時の学年
+        example: 小3
     required:
       - PARTICIPANT_ID
       - NAME

@@ -35,21 +35,22 @@ Schema:
       enum:
         - "1"
         - "2"
-      description: "当落選結果（1: 当選, 2: 落選）"
+        - ""
+      description: "当落選結果（0: 落選, 1: 当選, NULL/空欄: 未定）"
       example: "1"
+      nullable: true
     STARTTIME:
       type: string
       example: "10:00"
       description: 開始時間
     STATUS:
       type: string
+      description: "ステータス（0: 削除, 1: 受付中, 2: 受付終了）"
       enum:
+        - "0"
         - "1"
         - "2"
-        - "3"
-        - "4"
       example: "1"
-      description: "ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）"
   required:
     - REQUEST_ID
     - MEET_ID

@@ -26,6 +26,36 @@ Schema:
       type: string
       example: "10:00"
       description: 開始時間
+    IS_WIN:
+      type: string
+      enum:
+        - "1"
+        - "2"
+      description: "当落状況（1:当選, 2:落選）"
+    STATUS:
+      type: string
+      enum:
+        - "1"
+        - "2"
+      description: "ステータス（1:受付中, 2:受付終了）"
+    IS_LABEL_OUTPUT:
+      type: string
+      enum:
+        - "1"
+        - "2"
+      description: "ラベル出力（0:未ラベル出力, 1:ラベル出力済み）"
+    IS_SENDMAIL:
+      type: string
+      enum:
+        - "0"
+        - "1"
+      description: "メール配信ステータス（0:未配信, 1:配信済み）"
+    IS_MEASUREMENT:
+      type: string
+      enum:
+        - "0"
+        - "1"
+      description: "参加状況（0:不参加, 1:参加）"
   required:
     - PARTICIPANT_ID
     - MEET_ID
@@ -33,4 +63,9 @@ Schema:
     - MEASUREMENT_ID
     - STARTDATE
     - STARTTIME
+    - IS_WIN
+    - STATUS
+    - IS_LABEL_OUTPUT
+    - IS_SENDMAIL
+    - IS_MEASUREMENT
   description: 測定会情報取得

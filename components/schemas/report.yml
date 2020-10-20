@@ -13,6 +13,12 @@ Schema:
       type: string
       example: "1"
       description: 測定結果ID
+    IS_PRINT_REPORT:
+      type: string
+      enum:
+        - "0"
+        - "1"
+      description: "0:測定未終了, 1:測定全項目終了して印刷済み"
     SEX:
       type: string
       description: 性別
@@ -283,6 +289,12 @@ Schema:
       example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
       description: アドバイス
   required:
+    - MEET_ID
+    - NAME
+    - MEASUREMENT_ID
+    - IS_PRINT_REPORT
+    - SEX
+    - BIRTHDAY
     - AGILITYRANK
     - AGILITY_EVA
     - AGILITY_NAME
@@ -297,7 +309,6 @@ Schema:
     - BALANCE_R_EVA
     - BALANCE_R_NAME
     - BALANCE_R_SCORE
-    - BIRTHDAY
     - BODY_JUDGING1_EVA
     - BODY_JUDGING1_NAME
     - BODY_JUDGING2_EVA
@@ -319,14 +330,10 @@ Schema:
     - JUMP_EVA
     - JUMP_NAME
     - JUMP_SCORE
-    - MEASUREMENT_ID
-    - MEET_ID
-    - NAME
     - PARTICIPANT_AGE
     - PARTICIPANT_GAKUNEN
     - PARTICIPATE_TIME
     - RANGE
-    - SEX
     - SPORTS_SCORE_TOP1
     - SPORTS_SCORE_TOP10
     - SPORTS_SCORE_TOP2

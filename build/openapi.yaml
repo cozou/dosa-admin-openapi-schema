@@ -34,7 +34,7 @@ components:
           enum:
             - 男性
             - 女性
-          description: '性別（1:男性, 2:女性）'
+          description: 性別
         BIRTHDAY:
           type: string
           format: date
@@ -81,6 +81,36 @@ components:
           type: string
           example: '10:00'
           description: 開始時間
+        IS_WIN:
+          type: string
+          enum:
+            - '1'
+            - '2'
+          description: '当落状況（1:当選, 2:落選）'
+        STATUS:
+          type: string
+          enum:
+            - '1'
+            - '2'
+          description: 'ステータス（1:受付中, 2:受付終了）'
+        IS_LABEL_OUTPUT:
+          type: string
+          enum:
+            - '1'
+            - '2'
+          description: 'ラベル出力（0:未ラベル出力, 1:ラベル出力済み）'
+        IS_SENDMAIL:
+          type: string
+          enum:
+            - '0'
+            - '1'
+          description: 'メール配信ステータス（0:未配信, 1:配信済み）'
+        IS_MEASUREMENT:
+          type: string
+          enum:
+            - '0'
+            - '1'
+          description: '参加状況（0:不参加, 1:参加）'
       required:
         - PARTICIPANT_ID
         - MEET_ID
@@ -88,6 +118,11 @@ components:
         - MEASUREMENT_ID
         - STARTDATE
         - STARTTIME
+        - IS_WIN
+        - STATUS
+        - IS_LABEL_OUTPUT
+        - IS_SENDMAIL
+        - IS_MEASUREMENT
       description: 測定会情報取得
     Report:
       type: object
@@ -104,6 +139,12 @@ components:
           type: string
           example: '1'
           description: 測定結果ID
+        IS_PRINT_REPORT:
+          type: string
+          enum:
+            - '0'
+            - '1'
+          description: '0:測定未終了, 1:測定全項目終了して印刷済み'
         SEX:
           type: string
           description: 性別
@@ -374,6 +415,12 @@ components:
           example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
           description: アドバイス
       required:
+        - MEET_ID
+        - NAME
+        - MEASUREMENT_ID
+        - IS_PRINT_REPORT
+        - SEX
+        - BIRTHDAY
         - AGILITYRANK
         - AGILITY_EVA
         - AGILITY_NAME
@@ -388,7 +435,6 @@ components:
         - BALANCE_R_EVA
         - BALANCE_R_NAME
         - BALANCE_R_SCORE
-        - BIRTHDAY
         - BODY_JUDGING1_EVA
         - BODY_JUDGING1_NAME
         - BODY_JUDGING2_EVA
@@ -410,14 +456,10 @@ components:
         - JUMP_EVA
         - JUMP_NAME
         - JUMP_SCORE
-        - MEASUREMENT_ID
-        - MEET_ID
-        - NAME
         - PARTICIPANT_AGE
         - PARTICIPANT_GAKUNEN
         - PARTICIPATE_TIME
         - RANGE
-        - SEX
         - SPORTS_SCORE_TOP1
         - SPORTS_SCORE_TOP10
         - SPORTS_SCORE_TOP2
@@ -529,7 +571,21 @@ components:
             - '2'
             - '3'
           example: '1'
-          description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+          description: 測定会ステータス（1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし）
+        IS_SENDMAIL:
+          type: string
+          description: メール配信ステータス（1=メール配信済み 0=メール配信前）
+          enum:
+            - '0'
+            - '1'
+          example: '1'
+        IS_LABEL_OUTPUT:
+          type: string
+          enum:
+            - '0'
+            - '1'
+          example: '1'
+          description: ラベル印刷ステータス（0=未ラベル出力 1=ラベル出力済み）
       required:
         - MEET_ID
         - MEET_NAME
@@ -550,6 +606,8 @@ components:
         - STARTTIME14
         - STARTTIME15
         - STATUS
+        - IS_SENDMAIL
+        - IS_LABEL_OUTPUT
       description: 申込受付中測定会
     MeasurementSingle:
       type: object
@@ -635,7 +693,25 @@ components:
             - '2'
             - '3'
           example: '1'
-          description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+          description: 測定会ステータス（1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし）
+        IS_SENDMAIL:
+          type: string
+          description: メール配信ステータス（1=メール配信済み 0=メール配信前）
+          enum:
+            - '0'
+            - '1'
+          example: '1'
+        SENDMAIL_INFODATE:
+          type: string
+          example: '2020-06-16'
+          description: 当落通知メール予定日
+        IS_LABEL_OUTPUT:
+          type: string
+          description: ラベル印刷ステータス（1=ラベル印刷済み 0=ラベル印刷前）
+          enum:
+            - '0'
+            - '1'
+          example: '1'
       required:
         - MEET_ID
         - MEET_NAME
@@ -656,7 +732,9 @@ components:
         - STARTTIME14
         - STARTTIME15
         - STATUS
-      description: 測定会単発情報取得
+        - IS_SENDMAIL
+        - SENDMAIL_INFODATE
+        - IS_LABEL_OUTPUT
     MeasurementMeetRequest:
       type: object
       properties:
@@ -694,21 +772,22 @@ components:
           enum:
             - '1'
             - '2'
-          description: '当落選結果（1: 当選, 2: 落選）'
+            - ''
+          description: '当落選結果（0: 落選, 1: 当選, NULL/空欄: 未定）'
           example: '1'
+          nullable: true
         STARTTIME:
           type: string
           example: '10:00'
           description: 開始時間
         STATUS:
           type: string
+          description: 'ステータス（0: 削除, 1: 受付中, 2: 受付終了）'
           enum:
+            - '0'
             - '1'
             - '2'
-            - '3'
-            - '4'
           example: '1'
-          description: 'ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）'
       required:
         - REQUEST_ID
         - MEET_ID
@@ -813,6 +892,14 @@ components:
             type: string
             description: 短持久力
             example: '10'
+          AGE:
+            type: integer
+            description: 測定時の年齢
+            example: 8
+          GAKUNEN:
+            type: string
+            description: 測定時の学年
+            example: 小3
         required:
           - PARTICIPANT_ID
           - NAME
@@ -936,7 +1023,7 @@ paths:
                           enum:
                             - 男性
                             - 女性
-                          description: '性別（1:男性, 2:女性）'
+                          description: 性別
                         BIRTHDAY:
                           type: string
                           format: date
@@ -1028,6 +1115,36 @@ paths:
                           type: string
                           example: '10:00'
                           description: 開始時間
+                        IS_WIN:
+                          type: string
+                          enum:
+                            - '1'
+                            - '2'
+                          description: '当落状況（1:当選, 2:落選）'
+                        STATUS:
+                          type: string
+                          enum:
+                            - '1'
+                            - '2'
+                          description: 'ステータス（1:受付中, 2:受付終了）'
+                        IS_LABEL_OUTPUT:
+                          type: string
+                          enum:
+                            - '1'
+                            - '2'
+                          description: 'ラベル出力（0:未ラベル出力, 1:ラベル出力済み）'
+                        IS_SENDMAIL:
+                          type: string
+                          enum:
+                            - '0'
+                            - '1'
+                          description: 'メール配信ステータス（0:未配信, 1:配信済み）'
+                        IS_MEASUREMENT:
+                          type: string
+                          enum:
+                            - '0'
+                            - '1'
+                          description: '参加状況（0:不参加, 1:参加）'
                       required:
                         - PARTICIPANT_ID
                         - MEET_ID
@@ -1035,6 +1152,11 @@ paths:
                         - MEASUREMENT_ID
                         - STARTDATE
                         - STARTTIME
+                        - IS_WIN
+                        - STATUS
+                        - IS_LABEL_OUTPUT
+                        - IS_SENDMAIL
+                        - IS_MEASUREMENT
                       description: 測定会情報取得
                 required:
                   - status
@@ -1103,6 +1225,12 @@ paths:
                         type: string
                         example: '1'
                         description: 測定結果ID
+                      IS_PRINT_REPORT:
+                        type: string
+                        enum:
+                          - '0'
+                          - '1'
+                        description: '0:測定未終了, 1:測定全項目終了して印刷済み'
                       SEX:
                         type: string
                         description: 性別
@@ -1373,6 +1501,12 @@ paths:
                         example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
                         description: アドバイス
                     required:
+                      - MEET_ID
+                      - NAME
+                      - MEASUREMENT_ID
+                      - IS_PRINT_REPORT
+                      - SEX
+                      - BIRTHDAY
                       - AGILITYRANK
                       - AGILITY_EVA
                       - AGILITY_NAME
@@ -1387,7 +1521,6 @@ paths:
                       - BALANCE_R_EVA
                       - BALANCE_R_NAME
                       - BALANCE_R_SCORE
-                      - BIRTHDAY
                       - BODY_JUDGING1_EVA
                       - BODY_JUDGING1_NAME
                       - BODY_JUDGING2_EVA
@@ -1409,14 +1542,10 @@ paths:
                       - JUMP_EVA
                       - JUMP_NAME
                       - JUMP_SCORE
-                      - MEASUREMENT_ID
-                      - MEET_ID
-                      - NAME
                       - PARTICIPANT_AGE
                       - PARTICIPANT_GAKUNEN
                       - PARTICIPATE_TIME
                       - RANGE
-                      - SEX
                       - SPORTS_SCORE_TOP1
                       - SPORTS_SCORE_TOP10
                       - SPORTS_SCORE_TOP2
@@ -1577,7 +1706,21 @@ paths:
                             - '2'
                             - '3'
                           example: '1'
-                          description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+                          description: 測定会ステータス（1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし）
+                        IS_SENDMAIL:
+                          type: string
+                          description: メール配信ステータス（1=メール配信済み 0=メール配信前）
+                          enum:
+                            - '0'
+                            - '1'
+                          example: '1'
+                        IS_LABEL_OUTPUT:
+                          type: string
+                          enum:
+                            - '0'
+                            - '1'
+                          example: '1'
+                          description: ラベル印刷ステータス（0=未ラベル出力 1=ラベル出力済み）
                       required:
                         - MEET_ID
                         - MEET_NAME
@@ -1598,6 +1741,8 @@ paths:
                         - STARTTIME14
                         - STARTTIME15
                         - STATUS
+                        - IS_SENDMAIL
+                        - IS_LABEL_OUTPUT
                       description: 申込受付中測定会
                 required:
                   - status
@@ -1725,7 +1870,25 @@ paths:
                           - '2'
                           - '3'
                         example: '1'
-                        description: 測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。
+                        description: 測定会ステータス（1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし）
+                      IS_SENDMAIL:
+                        type: string
+                        description: メール配信ステータス（1=メール配信済み 0=メール配信前）
+                        enum:
+                          - '0'
+                          - '1'
+                        example: '1'
+                      SENDMAIL_INFODATE:
+                        type: string
+                        example: '2020-06-16'
+                        description: 当落通知メール予定日
+                      IS_LABEL_OUTPUT:
+                        type: string
+                        description: ラベル印刷ステータス（1=ラベル印刷済み 0=ラベル印刷前）
+                        enum:
+                          - '0'
+                          - '1'
+                        example: '1'
                     required:
                       - MEET_ID
                       - MEET_NAME
@@ -1746,7 +1909,9 @@ paths:
                       - STARTTIME14
                       - STARTTIME15
                       - STATUS
-                    description: 測定会単発情報取得
+                      - IS_SENDMAIL
+                      - SENDMAIL_INFODATE
+                      - IS_LABEL_OUTPUT
                 required:
                   - status
                   - message
@@ -1832,21 +1997,22 @@ paths:
                           enum:
                             - '1'
                             - '2'
-                          description: '当落選結果（1: 当選, 2: 落選）'
+                            - ''
+                          description: '当落選結果（0: 落選, 1: 当選, NULL/空欄: 未定）'
                           example: '1'
+                          nullable: true
                         STARTTIME:
                           type: string
                           example: '10:00'
                           description: 開始時間
                         STATUS:
                           type: string
+                          description: 'ステータス（0: 削除, 1: 受付中, 2: 受付終了）'
                           enum:
+                            - '0'
                             - '1'
                             - '2'
-                            - '3'
-                            - '4'
                           example: '1'
-                          description: 'ステータス（1: 受付中, 2: 受付終了, 3: ラベル印刷前, 4: メール配信済み）'
                       required:
                         - REQUEST_ID
                         - MEET_ID
@@ -2203,6 +2369,14 @@ paths:
                           type: string
                           description: 短持久力
                           example: '10'
+                        AGE:
+                          type: integer
+                          description: 測定時の年齢
+                          example: 8
+                        GAKUNEN:
+                          type: string
+                          description: 測定時の学年
+                          example: 小3
                       required:
                         - PARTICIPANT_ID
                         - NAME

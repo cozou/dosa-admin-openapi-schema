@@ -82,7 +82,25 @@ Schema:
         - "2"
         - "3"
       example: "1"
-      description: "測定会ステータス 1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし。"
+      description: "測定会ステータス（1=受付中 2=受付終了 0=だと両方 3=だと受付中＋ラベル印刷前+開始日が未来←残念ながら該当測定なし）"
+    IS_SENDMAIL:
+      type: string
+      description: "メール配信ステータス（1=メール配信済み 0=メール配信前）"
+      enum:
+        - "0"
+        - "1"
+      example: "1"
+    SENDMAIL_INFODATE:
+      type: string
+      example: "2020-06-16"
+      description: "当落通知メール予定日"
+    IS_LABEL_OUTPUT:
+      type: string
+      description: "ラベル印刷ステータス（1=ラベル印刷済み 0=ラベル印刷前）"
+      enum:
+        - "0"
+        - "1"
+      example: "1"
   required:
     - MEET_ID
     - MEET_NAME
@@ -103,4 +121,6 @@ Schema:
     - STARTTIME14
     - STARTTIME15
     - STATUS
-  description: 測定会単発情報取得
+    - IS_SENDMAIL
+    - SENDMAIL_INFODATE
+    - IS_LABEL_OUTPUT
