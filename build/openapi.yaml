@@ -127,6 +127,10 @@ components:
     Report:
       type: object
       properties:
+        MEET_NAME:
+          type: string
+          description: 測定会名
+          example: テスト測定会
         MEET_ID:
           type: string
           description: 測定会ID
@@ -412,9 +416,14 @@ components:
           example: 6歳から8歳
         ADVICE_TEXT:
           type: string
-          example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
           description: アドバイス
+          example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
+        VERSION:
+          type: string
+          description: バージョン
+          example: '1.00'
       required:
+        - MEET_NAME
         - MEET_ID
         - NAME
         - MEASUREMENT_ID
@@ -486,6 +495,7 @@ components:
         - TEAM_NAME
         - WEIGHT
         - ADVICE_TEXT
+        - VERSION
       description: 測定結果
     MeasurementList:
       type: object
@@ -808,8 +818,13 @@ components:
           type: string
           description: 測定者ID
           example: '1'
+        SENDMAIL_INFODATE:
+          type: string
+          description: 当落メール送信日
+          example: '2020-10-31'
       required:
         - PARTICIPANT_ID
+        - SENDMAIL_INFODATE
     Ranking:
       description: ランキングデータ
       type: array
@@ -1213,6 +1228,10 @@ paths:
                   data:
                     type: object
                     properties:
+                      MEET_NAME:
+                        type: string
+                        description: 測定会名
+                        example: テスト測定会
                       MEET_ID:
                         type: string
                         description: 測定会ID
@@ -1498,9 +1517,14 @@ paths:
                         example: 6歳から8歳
                       ADVICE_TEXT:
                         type: string
-                        example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
                         description: アドバイス
+                        example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
+                      VERSION:
+                        type: string
+                        description: バージョン
+                        example: '1.00'
                     required:
+                      - MEET_NAME
                       - MEET_ID
                       - NAME
                       - MEASUREMENT_ID
@@ -1572,6 +1596,7 @@ paths:
                       - TEAM_NAME
                       - WEIGHT
                       - ADVICE_TEXT
+                      - VERSION
                     description: 測定結果
                 required:
                   - status
@@ -2200,8 +2225,13 @@ paths:
                         type: string
                         description: 測定者ID
                         example: '1'
+                      SENDMAIL_INFODATE:
+                        type: string
+                        description: 当落メール送信日
+                        example: '2020-10-31'
                     required:
                       - PARTICIPANT_ID
+                      - SENDMAIL_INFODATE
                 required:
                   - status
                   - message

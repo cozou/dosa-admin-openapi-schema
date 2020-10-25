@@ -6,5 +6,10 @@ Schema:
       type: string
       description: 測定者ID
       example: "1"
+    SENDMAIL_INFODATE:
+      type: string
+      description: 当落メール送信日
+      example: "2020-10-31"
   required:
     - PARTICIPANT_ID
+    - SENDMAIL_INFODATE

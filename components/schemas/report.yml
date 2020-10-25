@@ -1,6 +1,10 @@
 Schema:
   type: object
   properties:
+    MEET_NAME:
+      type: string
+      description: 測定会名
+      example: 'テスト測定会'
     MEET_ID:
       type: string
       description: 測定会ID
@@ -286,9 +290,14 @@ Schema:
       example: "6歳から8歳"
     ADVICE_TEXT:
       type: string
-      example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
       description: アドバイス
+      example: 「スイングスピード」「長持久力」があなたの運動能力の武器となります。この能力を活かせるスポーツ種目、プレースタイルを考えてあなたを最大限に発揮してください。また、「バランス力（左右差）」「バランス力（左足）」はあなたの苦手な動きです。トレーナーに苦手を克服するトレーニング方法を確認してできるだけ苦手をなくしてください。苦手をなくすと今まで以上のパフォーマンスを発揮できるでしょう。
+    VERSION:
+      type: string
+      description: バージョン
+      example: "1.00"
   required:
+    - MEET_NAME
     - MEET_ID
     - NAME
     - MEASUREMENT_ID
@@ -360,4 +369,5 @@ Schema:
     - TEAM_NAME
     - WEIGHT
     - ADVICE_TEXT
+    - VERSION
   description: 測定結果
