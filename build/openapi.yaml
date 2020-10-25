@@ -135,6 +135,10 @@ components:
           type: string
           description: 測定会ID
           example: '755043'
+        STARTDATE:
+          type: string
+          description: 測定日
+          example: '2020-01-01'
         NAME:
           type: string
           example: 測定 太郎
@@ -425,6 +429,7 @@ components:
       required:
         - MEET_NAME
         - MEET_ID
+        - STARTDATE
         - NAME
         - MEASUREMENT_ID
         - IS_PRINT_REPORT
@@ -1236,6 +1241,10 @@ paths:
                         type: string
                         description: 測定会ID
                         example: '755043'
+                      STARTDATE:
+                        type: string
+                        description: 測定日
+                        example: '2020-01-01'
                       NAME:
                         type: string
                         example: 測定 太郎
@@ -1526,6 +1535,7 @@ paths:
                     required:
                       - MEET_NAME
                       - MEET_ID
+                      - STARTDATE
                       - NAME
                       - MEASUREMENT_ID
                       - IS_PRINT_REPORT
