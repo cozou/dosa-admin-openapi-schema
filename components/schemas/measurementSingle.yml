@@ -101,6 +101,10 @@ Schema:
         - "0"
         - "1"
       example: "1"
+    MEET_PDF_URL:
+      type: string
+      example: https://api.dosa.or.jp/event_pdf/2020/20200216.pdf
+      description: 測定会詳細PDF
   required:
     - MEET_ID
     - MEET_NAME
@@ -124,3 +128,4 @@ Schema:
     - IS_SENDMAIL
     - SENDMAIL_INFODATE
     - IS_LABEL_OUTPUT
+    - MEET_PDF_URL

@@ -56,6 +56,10 @@ Schema:
         - "0"
         - "1"
       description: "参加状況（0:不参加, 1:参加）"
+    MEET_PDF_URL:
+      type: string
+      example: https://api.dosa.or.jp/event_pdf/2020/20200216.pdf
+      description: 測定会詳細PDF
   required:
     - PARTICIPANT_ID
     - MEET_ID
@@ -68,4 +72,5 @@ Schema:
     - IS_LABEL_OUTPUT
     - IS_SENDMAIL
     - IS_MEASUREMENT
+    - MEET_PDF_URL
   description: 測定会情報取得

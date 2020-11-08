@@ -97,6 +97,10 @@ Schema:
         - "1"
       example: "1"
       description: "ラベル印刷ステータス（0=未ラベル出力 1=ラベル出力済み）"
+    MEET_PDF_URL:
+      type: string
+      example: https://api.dosa.or.jp/event_pdf/2020/20200216.pdf
+      description: 測定会詳細PDF
   required:
     - MEET_ID
     - MEET_NAME
@@ -119,4 +123,5 @@ Schema:
     - STATUS
     - IS_SENDMAIL
     - IS_LABEL_OUTPUT
+    - MEET_PDF_URL
   description: 申込受付中測定会

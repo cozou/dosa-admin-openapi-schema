@@ -111,6 +111,10 @@ components:
             - '0'
             - '1'
           description: '参加状況（0:不参加, 1:参加）'
+        MEET_PDF_URL:
+          type: string
+          example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
+          description: 測定会詳細PDF
       required:
         - PARTICIPANT_ID
         - MEET_ID
@@ -123,6 +127,7 @@ components:
         - IS_LABEL_OUTPUT
         - IS_SENDMAIL
         - IS_MEASUREMENT
+        - MEET_PDF_URL
       description: 測定会情報取得
     Report:
       type: object
@@ -601,6 +606,10 @@ components:
             - '1'
           example: '1'
           description: ラベル印刷ステータス（0=未ラベル出力 1=ラベル出力済み）
+        MEET_PDF_URL:
+          type: string
+          example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
+          description: 測定会詳細PDF
       required:
         - MEET_ID
         - MEET_NAME
@@ -623,6 +632,7 @@ components:
         - STATUS
         - IS_SENDMAIL
         - IS_LABEL_OUTPUT
+        - MEET_PDF_URL
       description: 申込受付中測定会
     MeasurementSingle:
       type: object
@@ -727,6 +737,10 @@ components:
             - '0'
             - '1'
           example: '1'
+        MEET_PDF_URL:
+          type: string
+          example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
+          description: 測定会詳細PDF
       required:
         - MEET_ID
         - MEET_NAME
@@ -750,6 +764,7 @@ components:
         - IS_SENDMAIL
         - SENDMAIL_INFODATE
         - IS_LABEL_OUTPUT
+        - MEET_PDF_URL
     MeasurementMeetRequest:
       type: object
       properties:
@@ -1165,6 +1180,10 @@ paths:
                             - '0'
                             - '1'
                           description: '参加状況（0:不参加, 1:参加）'
+                        MEET_PDF_URL:
+                          type: string
+                          example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
+                          description: 測定会詳細PDF
                       required:
                         - PARTICIPANT_ID
                         - MEET_ID
@@ -1177,6 +1196,7 @@ paths:
                         - IS_LABEL_OUTPUT
                         - IS_SENDMAIL
                         - IS_MEASUREMENT
+                        - MEET_PDF_URL
                       description: 測定会情報取得
                 required:
                   - status
@@ -1756,6 +1776,10 @@ paths:
                             - '1'
                           example: '1'
                           description: ラベル印刷ステータス（0=未ラベル出力 1=ラベル出力済み）
+                        MEET_PDF_URL:
+                          type: string
+                          example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
+                          description: 測定会詳細PDF
                       required:
                         - MEET_ID
                         - MEET_NAME
@@ -1778,6 +1802,7 @@ paths:
                         - STATUS
                         - IS_SENDMAIL
                         - IS_LABEL_OUTPUT
+                        - MEET_PDF_URL
                       description: 申込受付中測定会
                 required:
                   - status
@@ -1924,6 +1949,10 @@ paths:
                           - '0'
                           - '1'
                         example: '1'
+                      MEET_PDF_URL:
+                        type: string
+                        example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
+                        description: 測定会詳細PDF
                     required:
                       - MEET_ID
                       - MEET_NAME
@@ -1947,6 +1976,7 @@ paths:
                       - IS_SENDMAIL
                       - SENDMAIL_INFODATE
                       - IS_LABEL_OUTPUT
+                      - MEET_PDF_URL
                 required:
                   - status
                   - message
