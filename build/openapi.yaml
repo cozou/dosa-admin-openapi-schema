@@ -610,6 +610,15 @@ components:
           type: string
           example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
           description: 測定会詳細PDF
+        OPEN_DATE:
+          type: string
+          format: date
+          example: '2023-01-01'
+          description: 測定会公開日
+        REGISTRATION:
+          type: string
+          example: 四日市市内在住または在学の小学1～6年生
+          description: 参加対象
       required:
         - MEET_ID
         - MEET_NAME
@@ -633,6 +642,8 @@ components:
         - IS_SENDMAIL
         - IS_LABEL_OUTPUT
         - MEET_PDF_URL
+        - OPEN_DATE
+        - REGISTRATION
       description: 申込受付中測定会
     MeasurementSingle:
       type: object
@@ -1780,6 +1791,15 @@ paths:
                           type: string
                           example: 'https://api.dosa.or.jp/event_pdf/2020/20200216.pdf'
                           description: 測定会詳細PDF
+                        OPEN_DATE:
+                          type: string
+                          format: date
+                          example: '2023-01-01'
+                          description: 測定会公開日
+                        REGISTRATION:
+                          type: string
+                          example: 四日市市内在住または在学の小学1～6年生
+                          description: 参加対象
                       required:
                         - MEET_ID
                         - MEET_NAME
@@ -1803,6 +1823,8 @@ paths:
                         - IS_SENDMAIL
                         - IS_LABEL_OUTPUT
                         - MEET_PDF_URL
+                        - OPEN_DATE
+                        - REGISTRATION
                       description: 申込受付中測定会
                 required:
                   - status
@@ -2119,6 +2141,17 @@ paths:
                   description: 名前（カナ）
                   type: string
                   example: ソクテイ タロウ
+                nick_name:
+                  description: ニックネーム
+                  type: string
+                  example: nickname
+                is_showname_ranking:
+                  description: 'ランキングへの名前表示（1:表示, 0:非表示）'
+                  type: string
+                  example: '1'
+                  enum:
+                    - '0'
+                    - '1'
                 parent_name1:
                   description: 保護者氏名（保護者のメールアドレスの場合）
                   type: string
