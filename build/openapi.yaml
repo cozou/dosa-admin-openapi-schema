@@ -2271,6 +2271,8 @@ paths:
                 - weight
                 - endurance_long_self
                 - participate_time
+                - nick_name
+                - is_showname_ranking
       responses:
         '200':
           description: successful operation
